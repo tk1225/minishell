@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+         #
+#    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/01/24 19:48:10 by takumasaoka      ###   ########.fr        #
+#    Updated: 2023/01/24 20:46:24 by atito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc $(FLAGS) -o $@ -c $< $(INC)
 
 clean:
-	@make -C $(LIB_DIR) clean  --silent
+	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "##### Removed object files #####"
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean  --silent
+	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### Removed binary files #####"
 
