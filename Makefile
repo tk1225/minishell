@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+         #
+#    By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/01/15 20:43:46 by takuokam         ###   ########.fr        #
+#    Updated: 2023/01/24 19:48:10 by takumasaoka      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Wextra -Werror
-INC = -Iincludes/ -I$(LIB_DIR)
+INC = -Iinc/ -I$(LIB_DIR)
 RDLFLAGS = -lreadline
 
 SRC_NAME = minishell.c
@@ -21,7 +21,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
 
 LIB_DIR = libft/
-SRC_DIR = srcs/
+SRC_DIR = src/
 OBJ_DIR = objs/
 
 all: $(NAME)
