@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:58:05 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 17:17:01 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:04:11 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,38 +66,3 @@ int	ft_atoi(const char *str)
 	}
 	return (ft_atoi_helper(str, res, i, minus));
 }
-
-// #include <stdio.h>
-// #include <string.h>
-// #include <stdlib.h>
-
-// int	main(void)
-// {
-// 	char sample[15][30]={
-// 		"-42",
-// 		"9223372036854775808",//LONGMAX + 1
-// 		"9223372036854775809",//LONGMAX + 2
-// 		"9223372036854775908",//LONGMAX + 101
-// 		"9223372036854775807",//LONGMAX
-// 		"-9223372036854775809",//LONGMIN - 1
-// 		"18446744073709551615",//ULONGMAX
-// 		"18446744073709551616",//ULONGMAX + 1
-// 		"18446744073709551614",//ULONGMAX - 1
-// 		// "G5",
-// 		// "1 2 3",
-// 		// "   1   ",
-// 		// "1,2,3",
-// 		// "--42",
-// 		// "++42",
-// 		// "-+42",
-// 		// "+-42",
-// 	};
-// 	int i = 0;
-// 	while (i < 6)
-// 	{
-// 		//if (ft_atoi(sample[i]) != atoi(sample[i]))
-// 		printf("error%d:ans:%d\n",ft_atoi(sample[i]),atoi(sample[i]));
-// 		i ++;
-// 	}
-// 	return (0);
-// }

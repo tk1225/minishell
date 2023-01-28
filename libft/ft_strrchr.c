@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:39 by takuokam          #+#    #+#             */
-/*   Updated: 2022/10/31 18:45:55 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:29:28 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,3 @@ char	*ft_strrchr(const char *s, int c)
 		res = (char *)s;
 	return (res);
 }
-
-// # include <stdio.h>
-// #include <string.h>
-// #include <stdlib.h>
-// # include <ctype.h>
-// int main (void)
-// {
-//     char test[12] = "abcdefch";
-//     if (ft_strrchr(test,'\0') != strrchr(test, '\0'))
-//         printf("null:%s",ft_strrchr(test,'\0'));
-//     if (ft_strrchr(test,'c') != strrchr(test, 'c'))
-//         printf("c:%s",ft_strrchr(test,'\0'));
-//     if (ft_strrchr(test,'g') != strrchr(test, 'g'))
-//         printf("g:%s",ft_strrchr(test,'\0'));
-//     return (0);
-// }

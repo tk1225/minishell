@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:58:47 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 17:51:59 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:18:49 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,3 @@ void	*ft_memmove(void *dest_input, const void *src_input, size_t num)
 	}
 	return (dest_input);
 }
-
-// # include <stdio.h>
-// #include <string.h>
-// #include <stdlib.h>
-// int main (void)
-// {
-//     char s[] = {65, 66, 67, 68, 69, 70, 45};
-// 	char s0[] = {0,  0,  0,  0,  0,  0, 0};
-//     printf("%d",ft_memmove(s0, s, 7) == s0);
-//     char str[] = "abcdefghijklmnopqrstu"; 
-//     //重複時にコピーを行うことができる
-//     printf("移動前：%s\n",str);    
-//     memmove(str+5, str, 10);        /* 重複エリアのコピー */
-//     printf("移動後：%s\n",str);
-
-//     char str_test[] = "abcdefghijklmnopqrstu"; 
-//     //重複時にコピーを行うことができる
-//     printf("移動前：%s\n",str_test);    
-//     ft_memmove(str_test+5, str_test, 10);       /* 重複エリアのコピー */
-//     printf("移動後：%s\n",str_test);
-
-//     char test1[] = "ABCDEFGHIJK";
-//     char test2[] = "**********1";
-//     char test3[] = "ABCDEFGHIJK";
-//     char test4[] = "**********1";
-//     ft_memmove(test1, test2, 11);
-//     printf("memcmp_jisaku%d\n",memcmp(test1, test2, 11));
-//     memmove(test3, test4, 12);
-//     printf("memcmp_honke%d\n",memcmp(test3, test4, 5));
-//     printf("%s:",test1);
-//     printf("%s\n",test3);
-//     return (0);
-// }

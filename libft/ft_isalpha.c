@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:58:19 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/02 17:21:14 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:10:03 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,3 @@ int	ft_isalpha(int target)
 		return (1);
 	return (0);
 }
-
-// # include <ctype.h>
-// # include <stdio.h>
-// int main (void)
-// {
-//     printf("%s","自作");
-//     printf("%d",ft_isalpha('a'));
-//     printf("%d",ft_isalpha(97));
-
-//     printf("%s","ほんけ");
-//     printf("%d",isalpha('a'));
-//     printf("%d",isalpha(97));
-//     return (0);
-// }

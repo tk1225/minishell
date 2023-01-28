@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:57:20 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 21:40:51 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:13:33 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,3 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	*lst = NULL;
 	return ;
 }
-
-// #include "stdio.h"
-
-// int main(void)
-// {
-// 	t_list * l =  ft_lstnew(malloc(1));
-// 	for (int i = 0; i < 10; ++i)
-// 		ft_lstadd_front(&l, ft_lstnew(malloc(1)));
-// 	ft_lstclear(&l, free);
-// 	return (0);
-// }

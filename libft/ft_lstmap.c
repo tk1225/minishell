@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:57:20 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/04 15:52:15 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:16:39 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,3 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	return (head);
 }
-
-// #include "stdio.h"
-// #include "string.h"
-// #include "ctype.h"
-
-// static void *str_toupper(void *p)
-// {
-//     char *str = ft_strdup((char *)p);
-//     char *tmp = str;
-//     while (*tmp)
-//     {
-//         *tmp = toupper(*tmp);
-//         tmp++;
-//     }
-//     return (str);
-// }
-
-// int main(void)
-// {
-// 		t_list  *lst = ft_lstnew(ft_strdup("Hello"));
-// 		ft_lstadd_back(&lst, ft_lstnew(strdup(" World")));
-// 		ft_lstadd_back(&lst, ft_lstnew(strdup(" 42")));
-// 		ft_lstadd_back(&lst, ft_lstnew(strdup(" Tokyo!")));
-// 		ft_lstadd_back(&lst, ft_lstnew(strdup("")));
-
-// 		t_list *newlst = ft_lstmap(lst, str_toupper, free);
-
-// 		printf("%s\n", newlst->content);
-// 		printf("%s\n", newlst->next->content);
-// 		printf("%s\n", newlst->next->next->content);
-// 		printf("%s\n", newlst->next->next->next->content);
-// 		printf("%p\n", newlst->next);
-// 		printf("%p\n", newlst->next->next);
-// 	return (0);
-// }

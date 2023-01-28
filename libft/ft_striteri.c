@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:14 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 17:20:21 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:26:20 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 	}
 	return ;
 }
-
-// void sample_func(unsigned int i, char* c)
-// {
-//     *c += i;
-//     return;
-// }
-
-// # include <ctype.h>
-// # include <stdio.h>
-// #include <string.h>
-// int main (void)
-// {
-//     // 関数ポインタ
-//     char test[12]= "1234";
-//     //sample_func(1, &test[0]);
-//     //printf("%s",test);
-
-//     printf("%s",ft_striteri (test, sample_func));
-
-//     return (0);
-// }
