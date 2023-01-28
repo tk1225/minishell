@@ -13,6 +13,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+char **parser(char *line);
+int executer(int argc, char *argv[], char **envp);
+
 # include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>

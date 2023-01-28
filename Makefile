@@ -6,7 +6,7 @@
 #    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/01/28 11:43:19 by atito            ###   ########.fr        #
+#    Updated: 2023/01/28 16:45:20 by takumasaoka      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS		=	-Wall -Wextra -Werror
 INC			=	-Iinc/ -I$(LIB_DIR)
 RDLFLAGS	=	-lreadline
 
-SRC_NAME	=	minishell.c
+SRC_NAME = minishell.c parser.c executer.c
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ			=	$(addprefix $(OBJ_DIR),$(OBJ_NAME))
