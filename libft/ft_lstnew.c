@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:57:20 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 17:18:43 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:17:04 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,3 @@ t_list	*ft_lstnew(void *content)
 	res->next = NULL;
 	return (res);
 }
-
-// #include "stdio.h"
-
-// int main(void)
-// {
-// 	t_list * l =  ft_lstnew((void*)42);
-// 	printf("%p",(l->content));
-// 	t_list * ls =  ft_lstnew("test");
-// 	printf("%s",(char*)(ls->content));
-// 	return (0);
-// }

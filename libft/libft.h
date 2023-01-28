@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 21:17:40 by takumasaoka       #+#    #+#             */
-/*   Updated: 2022/11/02 13:11:58 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:23:53 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
-
-typedef struct s_index_list
-{
-	size_t	w_len;
-	size_t	s_loc;
-	size_t	tab_loc;
-}	t_index_list;
 
 void	ft_bzero(void *str, size_t num);
 int		ft_isalnum(int target);

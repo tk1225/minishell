@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:21 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 17:20:33 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:27:03 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,3 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	*dest = '\0';
 	return (res);
 }
-
-// # include <stdio.h>
-// #include <string.h>
-// #include <stdlib.h>
-// int main (void)
-// {
-//     char test1[40] = "ABCDEFGHIJK";
-//     char test2[] = "***********";
-//     char test3[40] = "ABCDEFGHIJK";
-//     char test4[] = "***********";
-//     ft_strlcat(test1, test2, 20);
-//     strlcat(test3, test4, 20);
-//     printf("jisaku:%s\n",test1);
-//     printf("honke:%s\n",test3);
-//     return (0);
-// }

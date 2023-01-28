@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:33 by takuokam          #+#    #+#             */
-/*   Updated: 2022/10/31 18:45:29 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:28:47 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (un_s1[i] - un_s2[i]);
 	return (0);
 }
-
-// #include <stdio.h>
-// #include <string.h>
-// int  main(void)
-// {  
-// 	char teststr1[16];
-// 	teststr1[0]='\0';
-// 	printf( "%d\n", strncmp("abcde", "abc",3) );
-// 	//0
-//     printf( "%d\n", strncmp("abc", "ab",3) );
-// 	//1
-//     printf( "%d\n", strncmp("abcde", "abc123",3) );
-// 	//0
-
-// 	printf( "%d\n", ft_strncmp("abcde", "abc", 3) );
-// 	//0
-//     printf( "%d\n", ft_strncmp("abc", "ab", 3) );
-// 	//1
-//     printf( "%d\n", ft_strncmp("abcde", "abc123", 3) );
-// 	//0
-// 	return (0);
-// }

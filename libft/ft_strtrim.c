@@ -3,105 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:41 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/01 21:59:24 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:29:52 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_check_char(char s1, char const *set)
+static int	set_check(char c, char const *set)
 {
-	while (*set != '\0')
+	size_t	cnt;
+
+	cnt = 0;
+	while (set[cnt])
 	{
-		if (*set == s1)
+		if (set[cnt] == c)
 			return (1);
-		set ++;
+		cnt += 1;
 	}
 	return (0);
-}
-
-static size_t	ft_check_sp(const char *target, char const *set)
-{
-	size_t		sp;
-
-	sp = 0;
-	while (target[sp] != '\0')
-	{
-		if (ft_check_char(target[sp], set) == 0)
-			return (sp);
-		sp ++;
-	}
-	return (0);
-}
-
-static size_t	ft_check_ep(const char *target, char const *set)
-{
-	size_t		ep;
-
-	ep = ft_strlen(target) - 1;
-	while (ep != 0)
-	{
-		if (ft_check_char(target[ep], set) == 0)
-			return (ep);
-		ep --;
-	}
-	return (0);
-}
-
-static void	ft_make_strtrim(char const *s1, char *resstr, size_t sp, size_t ep)
-{
-	if (!(sp == 0 && ep == 0))
-	{
-		while (sp <= ep)
-		{
-			*resstr = s1[sp];
-			sp ++;
-			resstr ++;
-		}
-	}
-	*resstr = '\0';
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*resstr;
+	size_t	start;
+	size_t	end;
+	size_t	cnt;
 	char	*tmp;
-	size_t	sp;
-	size_t	ep;
 
-	if (s1 == NULL || set == NULL)
+	if (!s1 || !set)
 		return (NULL);
-	if (ft_strlen(s1) == 0)
-	{
-		resstr = (char *)malloc(1);
-		if (NULL == resstr)
-			return (NULL);
-		resstr[0] = '\0';
-		return (resstr);
-	}
-	sp = ft_check_sp(s1, set);
-	ep = ft_check_ep(s1, set);
-	resstr = (char *)malloc(ep - sp + 2);
-	if (NULL == resstr)
+	start = 0;
+	while (set_check(s1[start], set) && s1[start])
+		start += 1;
+	end = ft_strlen(s1);
+	while (set_check(s1[end - 1], set) && start < end)
+		end -= 1;
+	tmp = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (!tmp)
 		return (NULL);
-	tmp = resstr;
-	ft_make_strtrim(s1, resstr, sp, ep);
+	cnt = 0;
+	while (start < end)
+		tmp[cnt++] = s1[start++];
+	tmp[cnt] = '\0';
 	return (tmp);
 }
-
-// # include <stdio.h>
-// #include <string.h>
-// int main (void)
-// {
-//     char *test1;
-//     char *test2;
-// 	test1 = "";
-// 	test2 =  "";
-//     //printf("s= %zu\n", ft_check_sp(test1, test2));
-//     //printf("e= %zu\n", ft_check_ep(test1, test2));
-//     printf(" world= %s\n", ft_strtrim(test1, test2));
-//     return (0);
-// }
