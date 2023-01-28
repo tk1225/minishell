@@ -6,12 +6,15 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 20:40:20 by takuokam          #+#    #+#             */
-/*   Updated: 2023/01/28 23:18:02 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 23:51:42 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define IN_QUOTE 1
+# define OUT_QUOTE -1
 
 char **parser(char *line);
 int executer(int argc, char *argv[], char **envp);
