@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 20:40:38 by takuokam          #+#    #+#             */
+/*   Created: 2023/01/28 16:30:46 by takumasaoka       #+#    #+#             */
 /*   Updated: 2023/01/28 17:53:54 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int executer(int argc, char **parsed_line, char **envp)
 {
-    (void)argc;
-    (void)argv;
-    (void)envp;
-    char *line = NULL;
-    char **parsed_line = NULL;
+  char    *command_path = "/bin/echo";
 
-    while (1)
+  (void)argc;
+  // (void)argv;
+  // (void)envp;
+  // if (argc == 2) {
+    /* 実行時引数（パス名）をexecveの引数にする */
+    // exargv[2] = argv[1];
+    if (execve(command_path, parsed_line, envp) == -1)
     {
-        line = readline("> ");
-        if (line == NULL || ft_strlen(line) == 0)
-        {
-            free(line);
-            break;
-        }
-        printf("line is '%s'\n", line);
-        add_history(line);
-        parsed_line = parser(line);
-        executer(argc, parsed_line, envp);
-        free(line);
+      // printf("%sコマンドが実行できませんでした\n", command_path);
+      // perror(' ');
+      // return_code = 1;
     }
-    printf("exit\n");
-    return 0;
+  // }
+  // else
+  // {
+  //   printf('実行時引数の数が不当です\n');
+  //   return_code = 2;
+  // }
+  return 0;
+  // return return_code;
 }
