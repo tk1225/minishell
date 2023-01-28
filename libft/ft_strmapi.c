@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:29 by takuokam          #+#    #+#             */
-/*   Updated: 2022/11/02 17:38:29 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:28:22 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	res[i] = '\0';
 	return (res);
 }
-
-// char sample_func(unsigned int i, char c)
-// {
-//     c += i;
-//     return (c);
-// }
-
-// # include <ctype.h>
-// # include <stdio.h>
-// #include <string.h>
-// int main (void)
-// {
-//     // 関数ポインタ
-//     char (*insert_func)(unsigned int, char) = NULL;
-//     insert_func = sample_func;
-//     printf("%s",ft_strmapi ("1234", sample_func));
-
-//     return (0);
-// }

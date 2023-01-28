@@ -3,32 +3,32 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+         #
+#    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/01/24 19:48:10 by takumasaoka      ###   ########.fr        #
+#    Updated: 2023/01/28 11:43:19 by atito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
-FLAGS = -Wall -Wextra -Werror
-INC = -Iinc/ -I$(LIB_DIR)
-RDLFLAGS = -lreadline
+NAME		=	minishell
+FLAGS		=	-Wall -Wextra -Werror
+INC			=	-Iinc/ -I$(LIB_DIR)
+RDLFLAGS	=	-lreadline
 
-SRC_NAME = minishell.c
+SRC_NAME	=	minishell.c
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
-OBJ = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
+OBJ_NAME	=	$(SRC_NAME:.c=.o)
+OBJ			=	$(addprefix $(OBJ_DIR),$(OBJ_NAME))
 
-LIB_DIR = libft/
-SRC_DIR = src/
-OBJ_DIR = objs/
+LIB_DIR		=	libft/
+SRC_DIR		=	src/
+OBJ_DIR		=	objs/
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) --silent
-	@gcc -o $(NAME) $(OBJ) -L $(LIB_DIR) -lft $(RDLFLAGS)
+	@gcc -o $@ $^ -L $(LIB_DIR) -lft $(RDLFLAGS)
 	@echo "##### minishell compiling finished! #####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -37,13 +37,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc $(FLAGS) -o $@ -c $< $(INC)
 
 clean:
-	@make -C $(LIB_DIR) clean  --silent
-	@rm -f $(OBJ)
+	@make -C $(LIB_DIR) clean --silent
+	@rm -rf $(OBJ)
 	@echo "##### Removed object files #####"
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean  --silent
-	@rm -f $(NAME)
+	@make -C $(LIB_DIR) fclean --silent
+	@rm -rf $(NAME)
 	@echo "##### Removed binary files #####"
 
 re: fclean all

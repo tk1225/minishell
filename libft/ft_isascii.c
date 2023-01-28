@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:58:23 by takuokam          #+#    #+#             */
-/*   Updated: 2022/10/28 20:26:39 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:10:08 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,3 @@ int	ft_isascii(int target)
 		return (1);
 	return (0);
 }
-
-// # include <ctype.h>
-// # include <stdio.h>
-// int main (void)
-// {
-//     int i = 0;
-//     while (i < 200)
-//     {
-//         printf("%d:",ft_isascii(i));
-//         printf("%d\n",isascii(i));
-//         i ++;
-//     }
-//     return (0);
-// }

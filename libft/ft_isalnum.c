@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:58:16 by takuokam          #+#    #+#             */
-/*   Updated: 2022/10/28 20:25:44 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 11:09:55 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,3 @@ int	ft_isalnum(int target)
 		return (1);
 	return (0);
 }
-
-// # include <ctype.h>
-// # include <stdio.h>
-// int main (void)
-// {
-//     printf("%s","自作");
-//     printf("%d",ft_isalnum('a'));
-//     printf("%d",ft_isalnum('9'));
-//     printf("%d",ft_isalnum('+'));
-
-//     printf("%s","ほんけ");
-//     printf("%d",isalnum('a'));
-//     printf("%d",isalnum('9'));
-//     printf("%d",isalnum('+'));
-//     return (0);
-// }

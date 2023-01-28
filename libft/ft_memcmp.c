@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:58:41 by takuokam          #+#    #+#             */
-/*   Updated: 2022/10/31 18:42:37 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:18:08 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,3 @@ int	ft_memcmp(const void *buf1, const void *buf2, size_t n)
 	}
 	return (0);
 }
-
-// #include <stdio.h>
-// #include <string.h>
-// int  main(void)
-// {
-//     if(ft_memcmp("abcdea", "abcefg", 6) != memcmp("abcdea", "abcefg", 6))
-// 	    printf( "3error:%d",memcmp("abcdea", "abcefg", 6));
-//     if(ft_memcmp("abcdefg", "abcea", 6) != memcmp("abcdefg", "abcea", 6))
-// 	    printf( "4error:%d",memcmp("abcdefg", "abcea", 6));
-// 	return (0);
-// }
