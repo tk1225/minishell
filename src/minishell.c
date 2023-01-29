@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 20:40:38 by takuokam          #+#    #+#             */
-/*   Updated: 2023/01/28 23:19:40 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/29 14:21:15 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int main(int argc, char **argv, char **envp)
             free(line);
             break;
         }
-        // printf("line is '%s'\n", line);
+        printf("line is '%s'\n", line);
         add_history(line);
         parsed_line = parser(line);
-        (void)parsed_line;
-        // executer(argc, parsed_line, envp);
+        executer(argc, parsed_line, envp);
         free(line);
     }
     printf("exit\n");
