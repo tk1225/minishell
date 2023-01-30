@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:30:46 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/01/28 17:53:54 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/28 22:19:53 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@ int executer(int argc, char **parsed_line, char **envp)
   char    *command_path = "/bin/echo";
 
   (void)argc;
-  // (void)argv;
-  // (void)envp;
-  // if (argc == 2) {
-    /* 実行時引数（パス名）をexecveの引数にする */
-    // exargv[2] = argv[1];
-    if (execve(command_path, parsed_line, envp) == -1)
-    {
+  if (execve(command_path, parsed_line, envp) == -1)
+  {
       // printf("%sコマンドが実行できませんでした\n", command_path);
       // perror(' ');
       // return_code = 1;
-    }
+  }
   // }
   // else
   // {

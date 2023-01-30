@@ -3,18 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 20:40:20 by takuokam          #+#    #+#             */
-/*   Updated: 2023/01/28 12:06:34 by atito            ###   ########.fr       */
+/*   Updated: 2023/01/28 23:51:42 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define IN_QUOTE 1
+# define OUT_QUOTE -1
+
 char **parser(char *line);
 int executer(int argc, char *argv[], char **envp);
+char	**lexer(char const *s, char *c);
 
 # include "libft.h"
 # include <stdio.h>
