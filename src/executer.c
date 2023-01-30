@@ -6,11 +6,12 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:30:46 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/01/30 18:57:22 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/30 20:17:30 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "exec.h"
 
 int executer(int argc, char **parsed_line, char **envp)
 {
