@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 20:40:20 by takuokam          #+#    #+#             */
-/*   Updated: 2023/01/28 23:51:42 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/30 20:13:48 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 char **parser(char *line);
 int executer(int argc, char *argv[], char **envp);
 char	**lexer(char const *s, char *c);
+int			exec_pwd(void);
 
 # include "libft.h"
 # include <stdio.h>
@@ -26,5 +27,7 @@ char	**lexer(char const *s, char *c);
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <unistd.h>
+#include <err.h>
 
 #endif
