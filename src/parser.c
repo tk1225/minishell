@@ -5,7 +5,12 @@ char **parser(char *line)
 	char	**res;
 
 	res = lexer(line);
-	for (int i = 0; i < 8; i++)
-		printf("%s\n", res[i]);
+	int i = 0;
+	while (1)
+	{
+		if (!res[i])
+			break ;
+		printf("%s\n", res[i++]);
+	}
 	return (res);
 }
