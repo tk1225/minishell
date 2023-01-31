@@ -15,6 +15,7 @@
 
 //lexer
 char	**lexer(char const *s);
+void	free_lst(char **lst);
 
 //parser
 char	**parser(char *line);
