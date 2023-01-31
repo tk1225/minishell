@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	free_lst(char **lst)
+void	free_lst(char **lst)
 {
 	while (*lst)
 		free (*lst++);
