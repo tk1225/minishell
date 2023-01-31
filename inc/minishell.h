@@ -1,25 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 20:40:20 by takuokam          #+#    #+#             */
-/*   Updated: 2023/01/30 20:13:48 by takumasaoka      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
 # define IN_QUOTE 1
 # define OUT_QUOTE -1
-
-char **parser(char *line);
-int executer(int argc, char *argv[], char **envp);
-char	**lexer(char const *s, char *c);
-int			exec_pwd(void);
 
 # include "libft.h"
 # include <stdio.h>
@@ -27,7 +10,17 @@ int			exec_pwd(void);
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <unistd.h>
-#include <err.h>
+# include <unistd.h>
+# include <err.h>
+
+//lexer
+char	**lexer(char const *s);
+
+//parser
+char	**parser(char *line);
+
+//fork
+int		executer(int argc, char *argv[], char **envp);
+int		exec_pwd(void);
 
 #endif

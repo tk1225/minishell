@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:59:09 by takuokam          #+#    #+#             */
-/*   Updated: 2023/01/28 23:21:05 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/01/31 16:24:11 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s);
 		s ++;
 	}
-	if (un_ch == *s)
-		return ((char *)s);
+	// if (un_ch == *s)
+	// 	return ((char *)s);
 	return (0);
 }
