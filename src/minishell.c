@@ -13,14 +13,14 @@ int main(int argc, char **argv, char **envp)
 		line = readline("> ");
 		if (line == NULL || ft_strlen(line) == 0)
 			free(line);
-        else
-        {
-            add_history(line);
-		    parsed_line = parser(line);
-		    executer(argc, parsed_line, envp);
-		    free(line);
-            // free_lst(parsed_line);
-        }
+		else
+		{
+			add_history(line);
+			parsed_line = parser(line);
+			// executer(argc, parsed_line, envp);
+			free(line);
+			// free_lst(parsed_line);
+		}
 	}
 	printf("exit\n");
 	return 0;

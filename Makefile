@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+         #
+#    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/01/30 20:15:21 by takumasaoka      ###   ########.fr        #
+#    Updated: 2023/02/02 20:18:14 by atito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS		=	-Wall -Wextra -Werror
 INC			=	-Iinc/ -I$(LIB_DIR)
 RDLFLAGS	=	-lreadline
 
-SRC_NAME = minishell.c parser.c executer.c lexer.c exec_pwd.c
+SRC_NAME	=	minishell.c parser.c executer.c lexer.c exec_pwd.c utils.c
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ			=	$(addprefix $(OBJ_DIR),$(OBJ_NAME))

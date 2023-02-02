@@ -83,9 +83,7 @@ char	**lexer(char const *s)
 	if (!s)
 		return (NULL);
 	len = count_word(s, c, o);
-	lst = (char **)malloc(sizeof(char *) * (len + 1));
-	if (!lst)
-		return (NULL);
+	lst = (char **)alloc_exit(sizeof(char *),  (len + 1));
 	insert_word(lst, s, c, o);
 	return (lst);
 }
