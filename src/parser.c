@@ -42,7 +42,7 @@ void	split_by_semi(t_tree *tree, char **res, int len)
 	count = len;
 	while (count--)
 	{
-		if (!ft_strncmp(res[count], ";", 1))
+		if (ft_strncmp(res[count], ";", 1) == 0)
 		{
 			tree->com = &res[count];
 			tree->len = 1;
@@ -58,6 +58,33 @@ void	split_by_semi(t_tree *tree, char **res, int len)
 	}
 }
 
+void	split_by_pipe(t_tree *tree)
+{
+	int count;
+
+	count = tree->len;
+	printf("node_len%d\n", count);
+	while (count--)
+	{
+		if (ft_strncmp(tree->com[count], "|", 1) == 0)
+		{
+			tree->left = new_node();
+			tree->left->len = count;
+			tree->left->com = &tree->com[0];
+			tree->right = new_node();
+			tree->right->len = tree->len - count - 1;
+			tree->right->com = &tree->com[count + 1];
+			tree->com = &tree->com[count];
+			tree->len = 1;
+			break ;
+		}
+	}
+	if (tree->left)
+		split_by_pipe(tree->left);
+	if (tree->right)
+		split_by_pipe(tree->right);
+}
+
 char **parser(char *line)
 {
 	char	**res;
@@ -70,15 +97,11 @@ char **parser(char *line)
 		if (!res[i])
 			break ;
 		i += 1;
-		// printf("%s\n", res[i++]);
 	}
 	tree = (t_tree **)alloc_exit(sizeof(t_tree *), 1);
 	*tree = new_node();
-	// printf("%p\n%p\n", tree, *tree);
 	split_by_semi(*tree, res, i);
 	split_by_pipe(*tree);
 	print_tree(*tree);
 	return (res);
 }
-
-//a a ; b b ; c c
