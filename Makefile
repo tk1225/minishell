@@ -1,28 +1,19 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/01/30 20:15:21 by takumasaoka      ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		=	minishell
 FLAGS		=	-Wall -Wextra -Werror
 INC			=	-Iinc/ -I$(LIB_DIR)
 RDLFLAGS	=	-lreadline
 
-SRC_NAME = minishell.c parser.c executer.c lexer.c exec_pwd.c
+SRC_NAME	=	minishell.c parser.c executer.c lexer.c utils.c
+BUILT_NAME	=	exec_cat.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
-OBJ			=	$(addprefix $(OBJ_DIR),$(OBJ_NAME))
+OBJ_NAME	+=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))
+OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_NAME))
 
 LIB_DIR		=	libft/
 SRC_DIR		=	src/
 OBJ_DIR		=	objs/
+BUILT_DIR	=	builtin/
 
 all: $(NAME)
 
@@ -33,12 +24,13 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)$(BUILT_DIR)
 	@echo "##### Creating" [ $@ ] " #####"
-	@gcc $(FLAGS) -o $@ -c $< $(INC)
+	@gcc $(FLAGS) -o $@ -c $^ $(INC)
 
 clean:
 	@make -C $(LIB_DIR) clean --silent
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@echo "##### Removed object files #####"
 
 fclean: clean

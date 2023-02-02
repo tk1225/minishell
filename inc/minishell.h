@@ -4,6 +4,8 @@
 # define IN_QUOTE 1
 # define OUT_QUOTE -1
 
+# define FAILURE 1
+
 # include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -12,6 +14,14 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <err.h>
+
+typedef struct s_tree
+{
+	struct s_tree	*left;
+	struct s_tree	*right;
+	char			**com;
+	int				len;
+}	t_tree;
 
 //lexer
 char	**lexer(char const *s);
@@ -23,5 +33,9 @@ char	**parser(char *line);
 //fork
 int		executer(int argc, char *argv[], char **envp);
 int		exec_pwd(void);
+
+//utils
+void	*alloc_exit(size_t cnt, size_t size);
+void	put_exit(char *str);
 
 #endif
