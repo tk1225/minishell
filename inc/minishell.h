@@ -19,7 +19,6 @@ typedef struct s_tree
 {
 	struct s_tree	*left;
 	struct s_tree	*right;
-	// struct s_tree	*parent;
 	char			**com;
 	int				len;
 }	t_tree;
