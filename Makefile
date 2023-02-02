@@ -6,7 +6,7 @@
 #    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2023/02/02 21:45:41 by atito            ###   ########.fr        #
+#    Updated: 2023/02/02 21:49:17 by atito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 clean:
 	@make -C $(LIB_DIR) clean --silent
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@echo "##### Removed object files #####"
 
 fclean: clean
