@@ -3,8 +3,8 @@ FLAGS		=	-Wall -Wextra -Werror
 INC			=	-Iinc/ -I$(LIB_DIR)
 RDLFLAGS	=	-lreadline
 
-SRC_NAME	=	minishell.c parser.c executer.c lexer.c utils.c
-BUILT_NAME	=	exec_cat.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
+SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c
+BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ_NAME	+=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))

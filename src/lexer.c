@@ -2,9 +2,15 @@
 
 void	free_lst(char **lst)
 {
-	while (*lst)
-		free (*lst++);
-	free (lst);
+	int i = 0;
+	while (1)
+	{
+		if (!lst[i])
+			break ;
+		free(lst[i]);
+		i += 1;
+	}
+	free(lst);
 }
 
 static void	insert_word(char **lst, char const *s, char *c, char *o)

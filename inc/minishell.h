@@ -20,18 +20,29 @@ typedef struct s_tree
 	struct s_tree	*left;
 	struct s_tree	*right;
 	char			**com;
-	int				len;
+	size_t			len;
+	int				stat;
 }	t_tree;
+
+typedef enum e_stat
+{
+	COM,
+	PIPE,
+	SEMICOL
+}	t_stat;
 
 //lexer
 char	**lexer(char const *s);
 void	free_lst(char **lst);
 
 //parser
-char	**parser(char *line);
+t_tree	**parser(char *line);
 
 //fork
-int		executer(int argc, char *argv[], char **envp);
+int		executer(int argc, char **tree, char **envp);
+void	exec_tree(t_tree *tree, char **envp);
+
+//builtin
 int		exec_pwd(void);
 
 //utils

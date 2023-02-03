@@ -6,7 +6,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)envp;
 	char *line = NULL;
-	char **parsed_line = NULL;
+	t_tree **tree;
 
 	while (1)
 	{
@@ -16,8 +16,9 @@ int main(int argc, char **argv, char **envp)
 		else
 		{
 			add_history(line);
-			parsed_line = parser(line);
-			// executer(argc, parsed_line, envp);
+			tree = parser(line);
+			// exec_tree(*tree, envp);
+			// executer(argc, tree, envp);
 			free(line);
 			// free_lst(parsed_line);
 		}

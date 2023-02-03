@@ -27,3 +27,34 @@ else
 }
 return (0);
 }
+
+void	exec_tree(t_tree *tree, char **envp)
+{
+	size_t k;
+
+	k = 0;
+	if (tree == NULL)
+		return;
+	exec_tree(tree->left, envp);
+	printf("this node\n");
+	while (k < tree->len)
+		printf("%s\n", tree->com[k++]);
+	executer(tree->len, tree->com, envp);
+	exec_tree(tree->right, envp);
+	// char **left_com = tree->left->com;
+	// char **right_com = tree->right->com;
+	// size_t left_len = tree->left->len;
+	// size_t right_len = tree->right->len;
+	// size_t i = 0;
+	// size_t j = 0;
+
+	// printf("leftlen%zu\n", left_len);
+	// printf("rightlen%zu\n-------\n", right_len);
+	// printf("leftnode\n");
+	// while (i < left_len)
+	// 	printf("%s\n", left_com[i++]);
+	// printf("rightnode\n");
+	// while (j < right_len)
+	// 	printf("%s\n", right_com[j++]);
+	printf("\n");
+}
