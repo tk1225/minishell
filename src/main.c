@@ -17,8 +17,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			tree = parser(line);
-			// exec_tree(*tree, envp);
-			// executer(argc, tree, envp);
+			exec_tree(*tree, envp);
 			free(line);
 			// free_lst(parsed_line);
 		}
