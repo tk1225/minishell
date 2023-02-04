@@ -114,6 +114,6 @@ t_tree	**parser(char *line)
 		(*tree)->len = cnt;
 	}
 	split_by_pipe(*tree);
-	// print_tree(*tree);
+	print_tree(*tree);
 	return (tree);
 }

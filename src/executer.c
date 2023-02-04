@@ -53,7 +53,7 @@ void	exec_recursion(t_tree *tree)
 	// {
 
 	// }
-	if (tree->stat = PIPE)
+	if (tree->stat == PIPE)
 	{
 	//pipe見つけたら左コマンド用にforkして子プロセスで
 	//execveして標準出力をpipeで親プロセスの標準入力で受け取る。
@@ -97,7 +97,7 @@ void	exec_recursion(t_tree *tree)
 		}
 
 	}
-	if (tree->stat = SEMICOL)
+	if (tree->stat == SEMICOL)
 	{
 	}
 
