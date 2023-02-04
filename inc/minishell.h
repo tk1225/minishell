@@ -19,6 +19,9 @@
 #  define BUFFER_SIZE 10
 # endif
 
+# define WRITE 1
+# define READ 0
+
 typedef struct s_tree
 {
 	struct s_tree	*left;
@@ -43,7 +46,7 @@ void	free_lst(char **lst);
 t_tree	**parser(char *line);
 
 //fork
-int		executer(int argc, char **tree, char **envp);
+int	executer(char **parsed_line, char **envp);
 void	exec_tree(t_tree *tree, char **envp);
 
 //builtin
@@ -52,5 +55,11 @@ int		exec_pwd(void);
 //utils
 void	*alloc_exit(size_t cnt, size_t size);
 void	put_exit(char *str);
+
+//exec
+int	exec_recursion(t_tree *tree, char **envp);
+
+//delete
+void	print_tree(t_tree *tree);
 
 #endif
