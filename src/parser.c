@@ -1,32 +1,32 @@
 #include "minishell.h"
 
-// static void	print_tree(t_tree *tree)
-// {
-// 	size_t k = 0;
-// 	printf("this node\n");
-// 	printf("this node%zu\n", tree->len);
-// 	while (k < tree->len)
-// 		printf("%s\n", tree->com[k++]);
-// 	if (tree->left == NULL || tree->right == NULL)
-// 		return;
-// 	char **left_com = tree->left->com;
-// 	char **right_com = tree->right->com;
-// 	size_t left_len = tree->left->len;
-// 	size_t right_len = tree->right->len;
-// 	size_t i = 0;
-// 	size_t j = 0;
-// 	printf("leftlen %zu\n", left_len);
-// 	printf("rightlen %zu\n-------\n", right_len);
-// 	printf("leftnode\n");
-// 	while (i < left_len)
-// 		printf("%s\n", left_com[i++]);
-// 	printf("rightnode\n");
-// 	while (j < right_len)
-// 		printf("%s\n", right_com[j++]);
-// 	printf("\n");
-// 	print_tree(tree->left);
-// 	print_tree(tree->right);
-// }
+static void	print_tree(t_tree *tree)
+{
+	size_t k = 0;
+	printf("this node\n");
+	printf("this node%zu\n", tree->len);
+	while (k < tree->len)
+		printf("%s\n", tree->com[k++]);
+	if (tree->left == NULL || tree->right == NULL)
+		return;
+	// char **left_com = tree->left->com;
+	// char **right_com = tree->right->com;
+	// size_t left_len = tree->left->len;
+	// size_t right_len = tree->right->len;
+	// size_t i = 0;
+	// size_t j = 0;
+	// printf("leftlen %zu\n", left_len);
+	// printf("rightlen %zu\n-------\n", right_len);
+	// printf("leftnode\n");
+	// while (i < left_len)
+	// 	printf("%s\n", left_com[i++]);
+	// printf("rightnode\n");
+	// while (j < right_len)
+	// 	printf("%s\n", right_com[j++]);
+	// printf("\n");
+	print_tree(tree->left);
+	print_tree(tree->right);
+}
 
 t_tree	*new_node()
 {
@@ -108,12 +108,12 @@ t_tree	**parser(char *line)
 	tree = (t_tree **)alloc_exit(sizeof(t_tree *), 1);
 	*tree = new_node();
 	split_by_semi(*tree, res, cnt);
-	split_by_pipe(*tree);
 	if ((*tree)->stat == COM)
 	{
 		(*tree)->com = res;
 		(*tree)->len = cnt;
 	}
+	split_by_pipe(*tree);
 	// print_tree(*tree);
 	return (tree);
 }
