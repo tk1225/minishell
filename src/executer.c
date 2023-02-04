@@ -69,7 +69,7 @@ void	exec_recursion(t_tree *tree)
 			exit(EXIT_FAILURE);
 		}
 		//プロセス分岐
-    	pid = fork();
+		pid = fork();
 		if (-1 == pid)
         err (EXIT_FAILURE, "can not fork");
 		else if (0 == pid)
