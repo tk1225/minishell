@@ -53,6 +53,55 @@ int	executer(char **parsed_line, char **envp)
 	return (0);
 }
 
+// int handle_pipe(t_tree *tree, char **envp)
+// {
+// 	int pipefd[2];
+// 	if (pipe(pipefd) == -1)
+// 		return (1);
+// 	int pid1 = fork();
+// 	if (pid1 < 0)
+// 		return (2);
+// 	if (pid1 == 0)
+// 	{
+// 		dup2(pipefd[1], STDOUT_FILENO);
+// 		close(pipefd[0]);
+// 		close(pipefd[1]);
+// 		executer(tree->left->com, envp);
+// 	}
+// 	int pid2 = fork();
+// 	if (pid2 < 0)
+// 		return (3);
+// 	if (pid2 == 0)
+// 	{
+// 		dup2(pipefd[0], STDIN_FILENO);
+// 		close(pipefd[0]);
+// 		close(pipefd[1]);
+// 		executer(tree->right->com, envp);
+// 	}
+// 	close(pipefd[0]);
+// 	close(pipefd[1]);
+// 	waitpid(pid1, NULL, 0);
+// 	waitpid(pid2, NULL, 0);
+// 	return (0);
+// }
+
+// int handle_semicolon(t_tree *tree, char **envp)
+// {
+// 	int pid1 = fork();
+// 	if (pid1 < 0)
+// 		return (2);
+// 	if (pid1 == 0)
+// 		executer(tree->left->com, envp);
+// 	int pid2 = fork();
+// 	if (pid2 < 0)
+// 		return (3);
+// 	if (pid2 == 0)
+// 		executer(tree->right->com, envp);
+// 	waitpid(pid1, NULL, 0);
+// 	waitpid(pid2, NULL, 0);
+// 	return(0);
+// }
+
 int handle_pipe(t_tree *tree, char **envp)
 {
 	int pipefd[2];
@@ -66,47 +115,27 @@ int handle_pipe(t_tree *tree, char **envp)
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		executer(tree->left->com, envp);
+		if (tree->left->stat == COM)
+			executer(tree->left->com, envp);
+		else if (tree->left->stat == PIPE)
+			handle_pipe(tree->left, envp);
 	}
-	int pid2 = fork();
-	if (pid2 < 0)
-		return (3);
-	if (pid2 == 0)
-	{
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		executer(tree->right->com, envp);
-	}
+	dup2(pipefd[0], STDIN_FILENO);
 	close(pipefd[0]);
 	close(pipefd[1]);
+	executer(tree->right->com, envp);
 	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
 	return (0);
-}
-
-int handle_semicolon(t_tree *tree, char **envp)
-{
-	int pid1 = fork();
-	if (pid1 < 0)
-		return (2);
-	if (pid1 == 0)
-		executer(tree->left->com, envp);
-	int pid2 = fork();
-	if (pid2 < 0)
-		return (3);
-	if (pid2 == 0)
-		executer(tree->right->com, envp);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-	return(0);
 }
 
 int	exec_recursion(t_tree *tree, char **envp)
 {
-	handle_semicolon(tree, envp);
-	// handle_pipe(tree, envp);
+	int pid = fork();
+	if (pid == 0)
+		handle_pipe(tree, envp);
+	waitpid(pid, NULL, 0);
 	return(0);
 }
 
 //echo test | wc -l
+//ls | head | wc -l
