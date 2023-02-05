@@ -130,9 +130,15 @@ int handle_pipe(t_tree *tree, char **envp)
 
 int	exec_recursion(t_tree *tree, char **envp)
 {
-	int pid = fork();
+	int pid;
+
+	pid = fork();
 	if (pid == 0)
+	{
+		if (tree->stat == COM)
+			executer(tree->com, envp);
 		handle_pipe(tree, envp);
+	}
 	waitpid(pid, NULL, 0);
 	return(0);
 }
