@@ -14,6 +14,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <err.h>
+#include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10

@@ -1,35 +1,32 @@
 #include "minishell.h"
 #include "exec.h"
 
-// void	exec_tree(t_tree *tree, char **envp)
-// {
-// 	size_t k;
-// 	k = 0;
-// 	if (tree == NULL)
-// 		return;
-// 	exec_tree(tree->left, envp);
-// 	printf("-----\n");
-// 	if (tree->com)
-// 		printf("this node\n");
-// 	while (k < tree->len)
-// 		printf("%s\n", tree->com[k++]);
-// 	printf("-----\n");
-// 	if (tree->com)
-// 		executer(tree->len, tree->com, envp);
-// 	exec_tree(tree->right, envp);
-// }
+int handle_redirect(char *target_filename, int stdfd)
+{
+	int fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
+	if (fd == -1)
+	{
+    	perror("open");
+    	return (1);
+  	}
+	int new_fd = dup(fd);
+  	if (new_fd == -1)
+	{
+    	perror("dup");
+    	return (1);
+  	}
+	close(stdfd);
+	if (dup2(new_fd, stdfd) == -1)
+	{
+    	perror("dup2");
+    	return (1);
+  	}
+	close(new_fd);
+  	close(fd);
+	return (new_fd);
+}
 
-// int	executer(char **parsed_line, char **envp)
-// {
-// 	char	*command_path;
-
-// 	command_path = ft_strjoin("/bin/", parsed_line[0]);
-// 	if (execve(command_path, parsed_line, envp) == -1)
-// 		exit(EXIT_SUCCESS);
-// 	return (0);
-// }
-
-int	executer(char **parsed_line, char **envp)
+int	exe_com(char **parsed_line, char **envp)
 {
 	char *path = getenv("PATH");
 	if (path == NULL) {
@@ -49,58 +46,18 @@ int	executer(char **parsed_line, char **envp)
 		dir = strtok(NULL, ":");
 	}
 	perror("execve failed");
-	return 1;
 	return (0);
 }
 
-// int handle_pipe(t_tree *tree, char **envp)
-// {
-// 	int pipefd[2];
-// 	if (pipe(pipefd) == -1)
-// 		return (1);
-// 	int pid1 = fork();
-// 	if (pid1 < 0)
-// 		return (2);
-// 	if (pid1 == 0)
-// 	{
-// 		dup2(pipefd[1], STDOUT_FILENO);
-// 		close(pipefd[0]);
-// 		close(pipefd[1]);
-// 		executer(tree->left->com, envp);
-// 	}
-// 	int pid2 = fork();
-// 	if (pid2 < 0)
-// 		return (3);
-// 	if (pid2 == 0)
-// 	{
-// 		dup2(pipefd[0], STDIN_FILENO);
-// 		close(pipefd[0]);
-// 		close(pipefd[1]);
-// 		executer(tree->right->com, envp);
-// 	}
-// 	close(pipefd[0]);
-// 	close(pipefd[1]);
-// 	waitpid(pid1, NULL, 0);
-// 	waitpid(pid2, NULL, 0);
-// 	return (0);
-// }
-
-// int handle_semicolon(t_tree *tree, char **envp)
-// {
-// 	int pid1 = fork();
-// 	if (pid1 < 0)
-// 		return (2);
-// 	if (pid1 == 0)
-// 		executer(tree->left->com, envp);
-// 	int pid2 = fork();
-// 	if (pid2 < 0)
-// 		return (3);
-// 	if (pid2 == 0)
-// 		executer(tree->right->com, envp);
-// 	waitpid(pid1, NULL, 0);
-// 	waitpid(pid2, NULL, 0);
-// 	return(0);
-// }
+int	executer(char **parsed_line, char **envp)
+{
+	//parsed_lineの中で< > を見つけたらそのあとをファイル名として扱う
+	handle_redirect("sample.txt", WRITE);
+	// handle_redirect("sample.txt", READ);
+	exe_com(parsed_line, envp);
+	
+	return (0);
+}
 
 int handle_pipe(t_tree *tree, char **envp)
 {
@@ -112,7 +69,7 @@ int handle_pipe(t_tree *tree, char **envp)
 		return (2);
 	if (pid1 == 0)
 	{
-		dup2(pipefd[1], STDOUT_FILENO);
+		dup2(pipefd[WRITE], STDOUT_FILENO);
 		close(pipefd[0]);
 		close(pipefd[1]);
 		if (tree->left->stat == COM)
@@ -120,7 +77,7 @@ int handle_pipe(t_tree *tree, char **envp)
 		else if (tree->left->stat == PIPE)
 			handle_pipe(tree->left, envp);
 	}
-	dup2(pipefd[0], STDIN_FILENO);
+	dup2(pipefd[READ], STDIN_FILENO);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	executer(tree->right->com, envp);
