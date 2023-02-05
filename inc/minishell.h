@@ -7,6 +7,7 @@
 # define FAILURE 1
 
 # include "libft.h"
+# include "get_next_line.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -14,6 +15,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <err.h>
+#include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -21,6 +23,9 @@
 
 # define WRITE 1
 # define READ 0
+
+# define NEW 0
+# define APPEND 1
 
 typedef struct s_tree
 {
