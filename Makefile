@@ -14,12 +14,15 @@ LIB_DIR		=	libft/
 SRC_DIR		=	src/
 OBJ_DIR		=	objs/
 BUILT_DIR	=	builtin/
+GNL_DIR	:=	./gnl
+GNL		:=	$(GNL_DIR)/gnl.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) --silent
-	@gcc -o $@ $^ -L $(LIB_DIR) -lft $(RDLFLAGS)
+	@make -C $(GNL_DIR) --silent
+	@gcc -o $@ $^ -L $(LIB_DIR) $(GNL) -lft $(RDLFLAGS)
 	@echo "##### minishell compiling finished! #####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
