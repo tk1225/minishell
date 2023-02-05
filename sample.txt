@@ -1,8 +1,1 @@
-Makefile
-a.out
-inc
-libft
-minishell
-objs
-sample.txt
-src
+test test1

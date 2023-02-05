@@ -3,7 +3,8 @@
 
 int handle_redirect(char *target_filename, int stdfd)
 {
-	int fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
+	int fd = open(target_filename, O_RDWR | O_CREAT);
+	//  | O_TRUNC
 	if (fd == -1)
 	{
     	perror("open");
@@ -15,12 +16,18 @@ int handle_redirect(char *target_filename, int stdfd)
     	perror("dup");
     	return (1);
   	}
+	// (void)stdfd;
 	close(stdfd);
 	if (dup2(new_fd, stdfd) == -1)
 	{
     	perror("dup2");
     	return (1);
   	}
+	// if (dup2(new_fd, stdfd) == -1)
+	// {
+    // 	perror("dup2");
+    // 	return (1);
+  	// }
 	close(new_fd);
   	close(fd);
 	return (new_fd);
@@ -52,7 +59,12 @@ int	exe_com(char **parsed_line, char **envp)
 int	executer(char **parsed_line, char **envp)
 {
 	//parsed_lineの中で< > を見つけたらそのあとをファイル名として扱う
-	handle_redirect("sample.txt", WRITE);
+	// < と　その一つ後ろについては無視してコマンドを実行する 
+	while (*parsed_line)
+	{
+		// if e
+	}
+	handle_redirect("sample.txt", READ);
 	// handle_redirect("sample.txt", READ);
 	exe_com(parsed_line, envp);
 	
