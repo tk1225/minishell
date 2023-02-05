@@ -1,16 +1,20 @@
 #include "minishell.h"
 #include "exec.h"
 
-int handle_redirect(char *target_filename, int stdfd)
+int handle_redirect(char *target_filename, int stdfd, int append_flag)
 {
 	int fd;
 
 	if (stdfd == WRITE)
-		fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
-	else if (stdfd == READ)
-		fd = open(target_filename, O_RDWR | O_CREAT);
+	{
+		if (append_flag == 1)
+			fd = open(target_filename, O_RDWR | O_CREAT | O_APPEND);
+		else
+			fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
+	}
 	else
-		fd = 0;
+		fd = open(target_filename, O_RDWR | O_CREAT);
+
 	if (fd == -1)
 	{
     	perror("open");
@@ -60,12 +64,7 @@ int	executer(char **parsed_line, char **envp)
 {
 	//parsed_lineの中で< > を見つけたらそのあとをファイル名として扱う
 	// < と　その一つ後ろについては無視してコマンドを実行する 
-	// while (*parsed_line)
-	// {
-	// 	// if e
-	// }
-	// get_next_line()
-	handle_redirect("sample.txt", WRITE);
+	handle_redirect("sample.txt", WRITE, APPEND);
 	// handle_redirect("sample.txt", READ);
 	exe_com(parsed_line, envp);
 	

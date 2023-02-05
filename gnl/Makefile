@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+         #
+#    By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 18:31:13 by takuokam          #+#    #+#              #
-#    Updated: 2022/12/07 12:47:27 by takumasaoka      ###   ########.fr        #
+#    Updated: 2023/02/05 17:55:54 by takuokam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ SRCS	:= get_next_line.c get_next_line_utils.c
 OBJS	:= get_next_line.o get_next_line_utils.o
 
 all: $(NAME)
-
-# $(NAME): $(CLIENT) 
 
 $(NAME):$(OBJS)
 	ar rcs $(NAME) $(OBJS)

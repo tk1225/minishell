@@ -24,6 +24,9 @@
 # define WRITE 1
 # define READ 0
 
+# define NEW 0
+# define APPEND 1
+
 typedef struct s_tree
 {
 	struct s_tree	*left;

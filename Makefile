@@ -1,6 +1,6 @@
 NAME		=	minishell
 FLAGS		=	-Wall -Wextra -Werror
-INC			=	-Iinc/ -I$(LIB_DIR)
+INC			=	-Iinc/ -I$(LIB_DIR)/ -I$(GNL_DIR)
 RDLFLAGS	=	-lreadline
 
 SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c
@@ -11,10 +11,11 @@ OBJ_NAME	+=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))
 OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_NAME))
 
 LIB_DIR		=	libft/
+GNL_DIR		=	gnl/
 SRC_DIR		=	src/
 OBJ_DIR		=	objs/
 BUILT_DIR	=	builtin/
-GNL_DIR	:=	./gnl
+
 GNL		:=	$(GNL_DIR)/gnl.a
 
 all: $(NAME)
@@ -33,11 +34,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 clean:
 	@make -C $(LIB_DIR) clean --silent
+	@make -C $(GNL_DIR) clean --silent
 	@rm -rf $(OBJ_DIR)
 	@echo "##### Removed object files #####"
 
 fclean: clean
 	@make -C $(LIB_DIR) fclean --silent
+	@make -C $(GNL_DIR) fclean --silent
 	@rm -rf $(NAME)
 	@echo "##### Removed binary files #####"
 
