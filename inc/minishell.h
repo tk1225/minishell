@@ -7,6 +7,8 @@
 # define FAILURE 1
 
 # include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
