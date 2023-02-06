@@ -4,19 +4,20 @@ RM			=	rm -rf
 AR			=	ar rcs
 NAME		=	minishell
 
-INC			=	-I inc/ -I $(UTILS_DIR)$(PRINTF_DIR)$(LIBFT_DIR)inc/ -I $(UTILS_DIR)$(PRINTF_DIR)inc/ -I $(UTILS_DIR)$(GNL_DIR)inc/
+INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I $(GNL_DIR)inc/
 RDLFLAGS	=	-lreadline
 
 SRC_DIR		=	src/
 BUILT_DIR	=	builtin/
 OBJ_DIR		=	objs/
 UTILS_DIR	=	utils/
-LIBFT_DIR	=	libft/
-PRINTF_DIR	=	ft_printf/
-GNL_DIR		=	get_next_line/
+LIBFT_DIR	=	$(PRINTF_DIR)libft/
+PRINTF_DIR	=	$(UTILS_DIR)ft_printf/
+GNL_DIR		=	$(UTILS_DIR)get_next_line/
 
 SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c
-BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
+BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c\
+				exec_export.c exec_pwd.c exec_unset.c exec_set.c
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ_NAME	+=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))

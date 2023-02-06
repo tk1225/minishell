@@ -4,7 +4,18 @@
 # define IN_QUOTE 1
 # define OUT_QUOTE -1
 
-# define FAILURE 1
+# define FAILURE 0
+# define SUCCESS 1
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+# define WRITE 1
+# define READ 0
+
+# define NEW 0
+# define APPEND 1
 
 # include "libft.h"
 # include "ft_printf.h"
@@ -19,16 +30,6 @@
 # include <err.h>
 # include <fcntl.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
-
-# define WRITE 1
-# define READ 0
-
-# define NEW 0
-# define APPEND 1
-
 typedef struct s_tree
 {
 	struct s_tree	*left;
@@ -41,8 +42,7 @@ typedef struct s_tree
 typedef enum e_stat
 {
 	COM,
-	PIPE,
-	SEMICOL
+	PIPE
 }	t_stat;
 
 //lexer
