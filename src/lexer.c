@@ -79,17 +79,17 @@ static size_t	count_word(char const *s, char *c, char *o)
 	return (len);
 }
 
-char	**lexer(char const *s)
+char	**lexer(char const *str)
 {
 	char	**lst;
 	size_t	len;
 	char	c[] = " \t\n\v\f\r";
 	char	o[] = ";()<>|&";
 
-	if (!s)
+	if (!str)
 		return (NULL);
-	len = count_word(s, c, o);
+	len = count_word(str, c, o);
 	lst = (char **)alloc_exit(sizeof(char *),  (len + 1));
-	insert_word(lst, s, c, o);
+	insert_word(lst, str, c, o);
 	return (lst);
 }

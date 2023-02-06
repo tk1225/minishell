@@ -20,5 +20,5 @@ int	exec_echo(char **com)
 	}
 	if (nlflag)
 		ft_putchar_fd('\n', 0);
-	return (1);
+	return (SUCCESS);
 }

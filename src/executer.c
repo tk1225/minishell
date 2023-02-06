@@ -37,7 +37,7 @@ int handle_redirect(char *target_filename, int stdfd, int append_flag)
 	return (new_fd);
 }
 
-int	exe_com(char **parsed_line, char **envp)
+int	exe_com(char **com, char **envp)
 {
 	char *path = getenv("PATH");
 	if (path == NULL) {
@@ -50,9 +50,9 @@ int	exe_com(char **parsed_line, char **envp)
 	char *dir = strtok(path_copy, ":");
 	while (dir != NULL) {
 		char exec_path[1024];
-		snprintf(exec_path, sizeof(exec_path), "%s/%s", dir, parsed_line[0]);
+		snprintf(exec_path, sizeof(exec_path), "%s/%s", dir, com[0]);
 		if (access(exec_path, X_OK) == 0) {
-			execve(exec_path, parsed_line, envp);
+			execve(exec_path, com, envp);
 		}
 		dir = strtok(NULL, ":");
 	}
@@ -60,23 +60,23 @@ int	exe_com(char **parsed_line, char **envp)
 	return (0);
 }
 
-int	executer(char **parsed_line, char **envp)
+int	executer(char **com, char **envp)
 {
 	(void)envp;
-	(void)parsed_line;
-	// exec_echo(parsed_line);
-	exec_pwd();
-	//parsed_lineの中で< > を見つけたらそのあとをファイル名として扱う
+	// (void)com;
+	//comの中で< > を見つけたらそのあとをファイル名として扱う
 	// < と　その一つ後ろについては無視してコマンドを実行する
 	// handle_redirect("sample.txt", WRITE, APPEND);
 	// handle_redirect("sample.txt", READ);
-	// exe_com(parsed_line, envp);
+	if (exec_set(com) == FAILURE)
+		exe_com(com, envp);
 	return (0);
 }
 
 int handle_pipe(t_tree *tree, char **envp)
 {
-	int pipefd[2];
+	int	pipefd[2];
+
 	if (pipe(pipefd) == -1)
 		return (1);
 	int pid1 = fork();
