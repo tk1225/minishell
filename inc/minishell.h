@@ -9,6 +9,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
+# include "exec.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -16,7 +17,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <err.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
