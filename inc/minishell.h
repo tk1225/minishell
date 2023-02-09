@@ -66,8 +66,13 @@ void	put_exit(char *str);
 
 //exec
 int		exec_recursion(t_tree *tree, char **envp);
+int handle_pipe(t_tree *tree, char **envp);
+int handle_redirect(char *target_filename, int stdfd, int append_flag);
 
 //delete
 void	print_tree(t_tree *tree);
+
+//syntax
+int	syntax_check(t_tree *tree);
 
 #endif

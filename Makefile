@@ -15,7 +15,8 @@ LIBFT_DIR	=	$(PRINTF_DIR)libft/
 PRINTF_DIR	=	$(UTILS_DIR)ft_printf/
 GNL_DIR		=	$(UTILS_DIR)get_next_line/
 
-SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c expansion.c
+SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c expansion.c\
+				syntax.c redirection.c pipe.c
 BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c\
 				exec_export.c exec_pwd.c exec_unset.c exec_set.c
 

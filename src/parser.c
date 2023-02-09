@@ -65,5 +65,7 @@ t_tree	**parser(char *line)
 	(*tree)->com = res;
 	(*tree)->len = cnt;
 	split_by_pipe(*tree);
+	// if (syntax_check(*tree) == 1)
+	// 	perror("error");
 	return (tree);
 }

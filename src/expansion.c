@@ -45,6 +45,8 @@ void	ft_expansion_env(char **com)
 		if ((*com)[0] == '$')
 		{
 			str = getenv(&(*com)[1]);
+			if (!str)
+				str = ft_calloc(1, 1);
 			free(*com);
 			*com = str;
 		}

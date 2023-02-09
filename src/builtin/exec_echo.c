@@ -27,6 +27,6 @@ int	exec_echo(char **com)
 			ft_putchar_fd(' ', 1);
 	}
 	if (nl_flag)
-		ft_putchar_fd('\n', 0);
+		ft_putchar_fd('\n', 1);
 	return (SUCCESS);
 }

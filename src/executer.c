@@ -1,40 +1,5 @@
 #include "minishell.h"
 
-int handle_redirect(char *target_filename, int stdfd, int append_flag)
-{
-	int fd;
-
-	if (stdfd == WRITE)
-	{
-		if (append_flag == 1)
-			fd = open(target_filename, O_RDWR | O_CREAT | O_APPEND);
-		else
-			fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
-	}
-	else
-		fd = open(target_filename, O_RDWR | O_CREAT);
-	if (fd == -1)
-	{
-		perror("open");
-		return (1);
-	}
-	int new_fd = dup(fd);
-	if (new_fd == -1)
-	{
-		perror("dup");
-		return (1);
-	}
-	close(stdfd);
-	if (dup2(new_fd, stdfd) == -1)
-	{
-		perror("dup2");
-		return (1);
-	}
-	close(new_fd);
-	close(fd);
-	return (new_fd);
-}
-
 int	exe_com(char **com, char **envp)
 {
 	char *path;
@@ -62,11 +27,8 @@ int	exe_com(char **com, char **envp)
 
 int	executer(char **com, char **envp)
 {
-	(void)envp;
-	// (void)com;
-
 	//comの中で< > を見つけたらそのあとをファイル名として扱う
-	// < と　その一つ後ろについては無視してコマンドを実行する
+	// < とその一つ後ろについては無視してコマンドを実行する
 	// handle_redirect("sample.txt", WRITE, APPEND);
 	// handle_redirect("sample.txt", READ);
 	//comの変数展開
@@ -74,33 +36,8 @@ int	executer(char **com, char **envp)
 	ft_expansion_env(com);
 	if (exec_set(com) == FAILURE)
 		exe_com(com, envp);
-	return (0);
-}
-
-int handle_pipe(t_tree *tree, char **envp)
-{
-	int	pipefd[2];
-
-	if (pipe(pipefd) == -1)
-		return (1);
-	int pid1 = fork();
-	if (pid1 < 0)
-		return (2);
-	if (pid1 == 0)
-	{
-		dup2(pipefd[WRITE], STDOUT_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		if (tree->left->stat == COM)
-			executer(tree->left->com, envp);
-		else if (tree->left->stat == PIPE)
-			handle_pipe(tree->left, envp);
-	}
-	dup2(pipefd[READ], STDIN_FILENO);
-	close(pipefd[0]);
-	close(pipefd[1]);
-	executer(tree->right->com, envp);
-	waitpid(pid1, NULL, 0);
+	else
+		exit(0);
 	return (0);
 }
 
@@ -120,4 +57,4 @@ int	exec_recursion(t_tree *tree, char **envp)
 }
 
 //echo test | wc -l
-//ls | head | wc -l
+//echo test | wc -l
