@@ -11,15 +11,22 @@ int	exe_com(char **com, char **envp)
 	}
 	size_t path_len = ft_strlen(path);
 	char *path_copy = malloc(path_len + 1);
-	strcpy(path_copy, path);
-	char *dir = strtok(path_copy, ":");
-	while (dir != NULL)
+	ft_strlcpy(path_copy, path, ft_strlen(path));
+	char **dir = ft_split(path_copy, ':');
+	int i = 0;
+	while (dir[i] != NULL)
 	{
-		char exec_path[1024];
-		snprintf(exec_path, sizeof(exec_path), "%s/%s", dir, com[0]);
+		char *exec_path;
+		char *tmp;
+
+		exec_path = ft_strjoin(dir[i], "/");
+		tmp = exec_path;
+		exec_path = ft_strjoin(exec_path, com[0]);
+		free(tmp);
 		if (access(exec_path, X_OK) == 0)
 			execve(exec_path, com, envp);
-		dir = strtok(NULL, ":");
+		i ++;
+		free(exec_path);
 	}
 	perror("execve failed");
 	return (0);
