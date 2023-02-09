@@ -33,9 +33,9 @@ static void shift_com(char **com, int i)
 		com[i] = com[i + 2];
 		i++;
 	}
-	free(com[i]);
+	// free(com[i]);
 	com[i] = NULL;
-	free(com[i + 1]);
+	// free(com[i + 1]);
 	com[i + 1] = NULL;
 }
 
