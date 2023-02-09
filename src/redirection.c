@@ -12,7 +12,7 @@ int handle_redirect(char *target_filename, int stdfd, int append_flag)
 			fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
 	}
 	else
-		fd = open(target_filename, O_RDWR | O_CREAT);
+		fd = open(target_filename, O_RDWR);
 	if (fd == -1)
 	{
 		perror("open");
