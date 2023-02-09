@@ -3,14 +3,22 @@
 int	exec_echo(char **com)
 {
 	size_t	cnt;
-	int		nlflag;
+	size_t	cnt2;
+	int		nl_flag;
 
 	cnt = 1;
-	nlflag = 1;
-	if (ft_strncmp(com[cnt], "-n", ft_strlen(com[cnt])) == 0)
+	nl_flag = 1;
+	if (!com[cnt])
+		ft_putchar_fd('\n', 1);
+	while (com[cnt][0] == '-')
 	{
+		cnt2 = 1;
+		while (com[cnt][cnt2] == 'n')
+			cnt2 += 1;
+		if (com[cnt][cnt2])
+			break ;
 		cnt += 1;
-		nlflag = 0;
+		nl_flag = 0;
 	}
 	while (com[cnt])
 	{
@@ -18,7 +26,7 @@ int	exec_echo(char **com)
 		if (com[cnt])
 			ft_putchar_fd(' ', 1);
 	}
-	if (nlflag)
+	if (nl_flag)
 		ft_putchar_fd('\n', 0);
 	return (SUCCESS);
 }
