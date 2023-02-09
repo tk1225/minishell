@@ -24,5 +24,6 @@ int handle_pipe(t_tree *tree, char **envp)
 	close(pipefd[1]);
 	executer(tree->right->com, envp);
 	waitpid(pid1, NULL, 0);
+	// read
 	return (0);
 }

@@ -1,16 +1,17 @@
 #include "minishell.h"
 
 //delete
-void	print_tree(t_tree *tree)
-{
-	printf("this node%zu\n", tree->len);
-	for (size_t i = 0; i < tree->len; i++)
-		printf("%s\n", tree->com[i++]);
-	if (tree->left == NULL || tree->right == NULL)
-		return;
-	print_tree(tree->left);
-	print_tree(tree->right);
-}
+// void	print_tree(t_tree *tree)
+// {
+// 	// printf("this node%zu\n", tree->len);
+// 	for (size_t i = 0; i < tree->len; i++)
+// 		printf("command%s\n", tree->com[i++]);
+// 	if (tree->right != NULL)
+// 		print_tree(tree->right);
+// 	if (tree->left != NULL)
+// 		print_tree(tree->left);
+// 	return ;
+// }
 
 static t_tree	*new_node()
 {
@@ -59,7 +60,10 @@ t_tree	**parser(char *line)
 	res = lexer(line);
 	cnt = 0;
 	while (res[cnt])
+	{
+		// printf("***%s\n", res[cnt]);
 		cnt += 1;
+	}
 	tree = (t_tree **)alloc_exit(sizeof(t_tree *), 1);
 	*tree = new_node();
 	(*tree)->com = res;
