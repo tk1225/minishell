@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "exec.h"
 
 int handle_redirect(char *target_filename, int stdfd, int append_flag)
 {
@@ -14,7 +13,6 @@ int handle_redirect(char *target_filename, int stdfd, int append_flag)
 	}
 	else
 		fd = open(target_filename, O_RDWR | O_CREAT);
-
 	if (fd == -1)
 	{
 		perror("open");
@@ -39,21 +37,23 @@ int handle_redirect(char *target_filename, int stdfd, int append_flag)
 
 int	exe_com(char **com, char **envp)
 {
-	char *path = getenv("PATH");
+	char *path;
+
+	path = getenv("PATH");
 	if (path == NULL) {
 		perror("PATH environment variable not set");
-		return 1;
+		return (1);
 	}
 	size_t path_len = ft_strlen(path);
 	char *path_copy = malloc(path_len + 1);
 	strcpy(path_copy, path);
 	char *dir = strtok(path_copy, ":");
-	while (dir != NULL) {
+	while (dir != NULL)
+	{
 		char exec_path[1024];
 		snprintf(exec_path, sizeof(exec_path), "%s/%s", dir, com[0]);
-		if (access(exec_path, X_OK) == 0) {
+		if (access(exec_path, X_OK) == 0)
 			execve(exec_path, com, envp);
-		}
 		dir = strtok(NULL, ":");
 	}
 	perror("execve failed");
@@ -64,10 +64,14 @@ int	executer(char **com, char **envp)
 {
 	(void)envp;
 	// (void)com;
+
 	//comの中で< > を見つけたらそのあとをファイル名として扱う
 	// < と　その一つ後ろについては無視してコマンドを実行する
 	// handle_redirect("sample.txt", WRITE, APPEND);
 	// handle_redirect("sample.txt", READ);
+	//comの変数展開
+	ft_expansion_quote(com);
+	ft_expansion_env(com);
 	if (exec_set(com) == FAILURE)
 		exe_com(com, envp);
 	return (0);

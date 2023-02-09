@@ -52,19 +52,20 @@ void	free_lst(char **lst);
 //parser
 t_tree	**parser(char *line);
 
-//fork
-int	executer(char **parsed_line, char **envp);
-void	exec_tree(t_tree *tree, char **envp);
+//expansion
+void	ft_expansion_quote(char **com);
+void	ft_expansion_env(char **com);
 
-//builtin
-int		exec_pwd(void);
+//fork
+int		executer(char **com, char **envp);
+void	exec_tree(t_tree *tree, char **envp);
 
 //utils
 void	*alloc_exit(size_t cnt, size_t size);
 void	put_exit(char *str);
 
 //exec
-int	exec_recursion(t_tree *tree, char **envp);
+int		exec_recursion(t_tree *tree, char **envp);
 
 //delete
 void	print_tree(t_tree *tree);
