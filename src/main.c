@@ -10,9 +10,16 @@ int main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
+		// test用
+		rl_outstream = stderr;
 		line = readline("> ");
+		// line = readline("> ");
 		if (line == NULL || ft_strlen(line) == 0)
+		{
 			free(line);
+			//test用にbreak
+			break;
+		}
 		else
 		{
 			add_history(line);
@@ -22,7 +29,7 @@ int main(int argc, char **argv, char **envp)
 			free(line);
 		}
 	}
-	printf("exit\n");
+	exit(0);
 	return (0);
 }
 
