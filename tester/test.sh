@@ -1,6 +1,8 @@
 #!/bin/bash
 
-TESTFILE="builtins"
+# 引数に[pipes, builtins, redirects, syntax]などのファイル名を追加して使用
+# KOはlog参照
+TESTFILE=$1
 
 assert() {
     #!/bin/bash
