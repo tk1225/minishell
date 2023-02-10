@@ -1,20 +1,22 @@
 
+
+ minishell
 ****************************TEST***************************
-"echo hello world"            :
+echo hello world              :
 ****************************TEST***************************
-"echo "hello world""          :
+echo "hello world"            :
 ****************************TEST***************************
-"echo 'hello world'"          :
+echo 'hello world'            :
 ****************************TEST***************************
-"echo hello'world'"           :
+echo hello'world'             :
 ****************************TEST***************************
-"echo hello""world"           :
+echo hello""world             :
 ****************************TEST***************************
-"echo ''"                     :
+echo ''                       :
 ****************************TEST***************************
-"echo "$PWD""                 :
+echo "$PWD"                   :
 ****************************TEST***************************
-"echo '$PWD'"                 :
+echo '$PWD'                   :
   diff KO
  本家
 $PWD
@@ -23,7 +25,7 @@ $PWD
  minishell/Users/takumasaokamoto/Desktop/42/minishell/tester
 
 ****************************TEST***************************
-"echo "aspas ->'""            :
+echo "aspas ->'"              :
   diff KO
  本家
 aspas ->'
@@ -32,7 +34,7 @@ aspas ->'
  minishell
 
 ****************************TEST***************************
-"echo "aspas -> ' ""          :
+echo "aspas -> ' "            :
   diff KO
  本家
 aspas -> ' 
@@ -41,7 +43,7 @@ aspas -> '
  minishell
 
 ****************************TEST***************************
-"echo 'aspas ->"'"            :
+echo 'aspas ->"'              :
   diff KO
  本家
 aspas ->"
@@ -50,7 +52,7 @@ aspas ->"
  minishell
 
 ****************************TEST***************************
-"echo 'aspas -> " '"          :
+echo 'aspas -> " '            :
   diff KO
  本家
 aspas -> " 
@@ -59,11 +61,11 @@ aspas -> "
  minishell
 
 ****************************TEST***************************
-"echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"":
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<":
 ****************************TEST***************************
-"echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'":
+echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<':
 ****************************TEST***************************
-"echo "exit_code ->$? user ->$USER home -> $HOME"":
+echo "exit_code ->$? user ->$USER home -> $HOME":
   diff KO
  本家
 exit_code ->0 user ->takumasaokamoto home -> /Users/takumasaokamoto
@@ -72,9 +74,9 @@ exit_code ->0 user ->takumasaokamoto home -> /Users/takumasaokamoto
  minishellexit_code ->$? user ->$USER home -> $HOME
 
 ****************************TEST***************************
-"echo 'exit_code ->$? user ->$USER home -> $HOME'":
+echo 'exit_code ->$? user ->$USER home -> $HOME':
 ****************************TEST***************************
-"echo "$""                    :
+echo "$"                      :
   diff KO
  本家
 $
@@ -83,7 +85,7 @@ $
  minishell
 
 ****************************TEST***************************
-"echo '$'"                    :
+echo '$'                      :
   diff KO
  本家
 $
@@ -92,7 +94,7 @@ $
  minishell
 
 ****************************TEST***************************
-"echo $"                      :
+echo $                        :
   diff KO
  本家
 $
@@ -101,7 +103,7 @@ $
  minishell
 
 ****************************TEST***************************
-"echo $?"                     :
+echo $?                       :
   diff KO
  本家
 0
@@ -110,7 +112,7 @@ $
  minishell
 
 ****************************TEST***************************
-"echo $?HELLO"                :
+echo $?HELLO                  :
   diff KO
  本家
 0HELLO
@@ -119,9 +121,9 @@ $
  minishell
 
 ****************************TEST***************************
-"pwd"                         :
+pwd                           :
 ****************************TEST***************************
-"pwd oi"                      :
+pwd oi                        :
   diff KO
  本家
 /Users/takumasaokamoto/Desktop/42/minishell/tester
@@ -129,118 +131,68 @@ $
 
  minishell
 ****************************TEST***************************
-"export hello"                :
+export hello                  :
 ****************************TEST***************************
-"export HELLO=123"            :
+export HELLO=123              :
 ****************************TEST***************************
-"export A-"                   :
+export A-                     :
 ****************************TEST***************************
-"export HELLO=123 A"          :
+export HELLO=123 A            :
 ****************************TEST***************************
-"export HELLO="123 A-""       :
+export HELLO="123 A-"         :
 ****************************TEST***************************
-"export hello world"          :
+export hello world            :
 ****************************TEST***************************
-"export HELLO-=123"           :
+export HELLO-=123             :
 ****************************TEST***************************
-"export ="                    :
+export =                      :
 ****************************TEST***************************
-"export 123"                  :
+export 123                    :
 ****************************TEST***************************
-"unset"                       :
+unset                         :
 ****************************TEST***************************
-"unset HELLO"                 :
+unset HELLO                   :
 ****************************TEST***************************
-"unset HELLO1 HELLO2"         :
+unset HELLO1 HELLO2           :
 ****************************TEST***************************
-"unset HOME"                  :
+unset HOME                    :
 ****************************TEST***************************
-"unset PATH"                  :
+unset PATH                    :
 ****************************TEST***************************
-"unset SHELL"                 :
+unset SHELL                   :
 ****************************TEST***************************
-"cd $PWD"                     :
+cd $PWD                       :
 ****************************TEST***************************
-"cd $PWD hi "                 :
+cd $PWD hi                    :
 ****************************TEST***************************
-"cd 123123"                   :
+cd 123123                     :
 ****************************TEST***************************
-"exit 123"                    :
+exit 123                      :
 ****************************TEST***************************
-"exit 298"                    :
+exit 298                      :
 ****************************TEST***************************
-"exit +100"                   :
+exit +100                     :
 ****************************TEST***************************
-"exit "+100""                 :
+exit "+100"                   :
 ****************************TEST***************************
-"exit +"100""                 :
+exit +"100"                   :
 ****************************TEST***************************
-"exit -100"                   :
+exit -100                     :
 ****************************TEST***************************
-"exit "-100""                 :
+exit "-100"                   :
 ****************************TEST***************************
-"exit -"100""                 :
+exit -"100"                   :
 ****************************TEST***************************
-"exit hello"                  :
+exit hello                    :
 ****************************TEST***************************
-"exit 42 world"               :
+exit 42 world                 :
 ****************************TEST***************************
-"exit 9223372036854775807"    :
+exit 9223372036854775807      :
 ****************************TEST***************************
-"exit 9223372036854775808"    :
+exit 9223372036854775808      :
 ****************************TEST***************************
-"exit -9223372036854775807"   :
+exit -9223372036854775807     :
 ****************************TEST***************************
-"exit -9223372036854775808"   :
+exit -9223372036854775808     :
 ****************************TEST***************************
-"exit -9223372036854775809"   :
-****************************TEST***************************
-"env | sort | grep -v SHLVL | grep -v ^_":
-****************************TEST***************************
-"export | sort | grep -v SHLVL | grep -v "declare -x _" | grep -v "PS.="":
-  diff KO
- 本家
-declare -x COLORTERM="truecolor"
-declare -x COMMAND_MODE="unix2003"
-declare -x DISPLAY="/private/tmp/com.apple.launchd.TaCATBBcj4/org.xquartz:0"
-declare -x GHOST="123"
-declare -x GIT_ASKPASS="/private/var/folders/8h/5rtqz0md35zb4q1517ws5nnc0000gn/T/AppTranslocation/3FAC8253-7E88-484C-BF77-34A6C3FA883B/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
-declare -x HOME="/Users/takumasaokamoto"
-declare -x HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-declare -x HOMEBREW_PREFIX="/opt/homebrew"
-declare -x HOMEBREW_REPOSITORY="/opt/homebrew"
-declare -x INFOPATH="/opt/homebrew/share/info:/opt/homebrew/share/info:/opt/homebrew/share/info:"
-declare -x LANG="ja_JP.UTF-8"
-declare -x LOGNAME="takumasaokamoto"
-declare -x MANPATH="/opt/homebrew/share/man:/opt/homebrew/share/man:/usr/share/man:/usr/local/share/man:/opt/X11/share/man:/opt/homebrew/share/man::"
-declare -x MallocNanoZone="0"
-declare -x OLDPWD
-declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
-declare -x PATH="/Users/takumasaokamoto/.rbenv/shims:/Users/takumasaokamoto/.rbenv/bin:/Users/takumasaokamoto/.pyenv/shims:/Users/takumasaokamoto/.pyenv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/takumasaokamoto/.rbenv/shims:/Users/takumasaokamoto/.rbenv/bin:/Users/takumasaokamoto/.pyenv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/Users/takumasaokamoto/.rbenv/shims:/Users/takumasaokamoto/.rbenv/bin:/Users/takumasaokamoto/.pyenv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/takumasaokamoto/flutter/bin:/Users/takumasaokamoto/flutter/bin"
-declare -x PWD="/Users/takumasaokamoto/Desktop/42/minishell/tester"
-declare -x PYENV_ROOT="/Users/takumasaokamoto/.pyenv"
-declare -x PYENV_SHELL="zsh"
-declare -x RBENV_ROOT="/Users/takumasaokamoto/.rbenv"
-declare -x RBENV_SHELL="zsh"
-declare -x SHELL="/bin/zsh"
-declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.f4AJHcLp8k/Listeners"
-declare -x TERM="xterm-256color"
-declare -x TERM_PROGRAM="vscode"
-declare -x TERM_PROGRAM_VERSION="1.71.0"
-declare -x TMPDIR="/var/folders/8h/5rtqz0md35zb4q1517ws5nnc0000gn/T/"
-declare -x USER="takumasaokamoto"
-declare -x VSCODE_GIT_ASKPASS_EXTRA_ARGS="--ms-enable-electron-run-as-node"
-declare -x VSCODE_GIT_ASKPASS_MAIN="/private/var/folders/8h/5rtqz0md35zb4q1517ws5nnc0000gn/T/AppTranslocation/3FAC8253-7E88-484C-BF77-34A6C3FA883B/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js"
-declare -x VSCODE_GIT_ASKPASS_NODE="/private/var/folders/8h/5rtqz0md35zb4q1517ws5nnc0000gn/T/AppTranslocation/3FAC8253-7E88-484C-BF77-34A6C3FA883B/d/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper"
-declare -x VSCODE_GIT_IPC_HANDLE="/var/folders/8h/5rtqz0md35zb4q1517ws5nnc0000gn/T/vscode-git-a85838600b.sock"
-declare -x VSCODE_INJECTION="1"
-declare -x XPC_FLAGS="0x0"
-declare -x XPC_SERVICE_NAME="0"
-declare -x ZDOTDIR="/Users/takumasaokamoto"
-
-
- minishell
-****************************TEST***************************
-"cat ./test_files/infile_big | grep oi":
-****************************TEST***************************
-"cat minishell.h | grep ");"$":
+exit -9223372036854775809     :
