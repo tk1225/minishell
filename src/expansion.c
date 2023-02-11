@@ -39,19 +39,40 @@ void	ft_expansion_quote(char **com)
 void	ft_expansion_env(char **com)
 {
 	char	*str;
+	char	*tmp1;
+	char	*tmp2;
+	size_t	cnt;
+	size_t	len;
 
 	while (*com)
 	{
-		if ((*com)[0] == '$')
+		cnt = 0;
+		while((*com)[cnt])
 		{
-			str = getenv(&(*com)[1]);
-			if (!str)
-				str = ft_calloc(1, 1);
-			free(*com);
-			*com = str;
+			if ((*com)[cnt++] == '$')
+			{
+				len = 0;
+				while ((*com)[cnt] != '$' && (*com)[cnt])
+				{
+					cnt += 1;
+					len += 1;
+				}
+				tmp1 = ft_substr(*com, cnt - len, len);
+				str = getenv(tmp1);
+				free(tmp1);
+				tmp1 = ft_substr(*com, 0, cnt - len - 1);
+				tmp2 = ft_substr(*com, cnt, ft_strlen(*com) - cnt);
+				free(*com);
+				*com = str_join_three(tmp1, str, tmp2);
+				free(tmp1);
+				free(tmp2);
+				cnt = 0;
+			}
 		}
 		com += 1;
 	}
 }
 
 //echo "aa"
+//echo $USER
+//echo $USER$USER
