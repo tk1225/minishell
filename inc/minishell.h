@@ -63,11 +63,12 @@ void	exec_tree(t_tree *tree, char **envp);
 //utils
 void	*alloc_exit(size_t cnt, size_t size);
 void	put_exit(char *str);
+char	*str_join_three(const char *s1, const char *s2, const char *s3);
 
 //exec
 int		exec_recursion(t_tree *tree, char **envp);
-int handle_pipe(t_tree *tree, char **envp);
-int handle_redirect(char *target_filename, int stdfd, int append_flag);
+int		handle_pipe(t_tree *tree, char **envp);
+int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 
 //delete
 void	print_tree(t_tree *tree);
