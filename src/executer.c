@@ -50,7 +50,7 @@ int	executer(char **com, char **envp)
 {
 	int i;
 	char *filename;
-	
+
 	i = 0;
 	while (com[i])
 	{
@@ -84,7 +84,8 @@ int	executer(char **com, char **envp)
 		i++;
 	}
 
-	ft_expansion_quote(com);
+	ft_expansion_dquote(com);
+	ft_expansion_squote(com);
 	ft_expansion_env(com);
 	// if (exec_set(com) == FAILURE)
 	exe_com(com, envp);

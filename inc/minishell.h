@@ -53,7 +53,8 @@ void	free_lst(char **lst);
 t_tree	**parser(char *line);
 
 //expansion
-void	ft_expansion_quote(char **com);
+void	ft_expansion_dquote(char **com);
+void	ft_expansion_squote(char **com);
 void	ft_expansion_env(char **com);
 
 //fork
@@ -74,6 +75,6 @@ int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 void	print_tree(t_tree *tree);
 
 //syntax
-int	syntax_check(t_tree *tree);
+int		syntax_check(t_tree *tree);
 
 #endif

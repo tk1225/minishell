@@ -7,5 +7,4 @@ int	syntax_check(t_tree *tree)
 	if (tree->left == NULL || tree->right == NULL)
 		return (0);
 	return (syntax_check(tree->left) + syntax_check(tree->right));
-	// syntax_check(tree->right);
 }
