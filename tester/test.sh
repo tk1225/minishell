@@ -3,8 +3,9 @@
 # 引数に[pipes, builtins, redirects, syntax]などのファイル名を追加して使用
 # KOはlog参照
 TESTFILE=$1
-TESTCASE=1
-PASSED=1
+TESTCASE=0
+PASSED=0
+STATUS_PASSED=0
 
 # myVar=$(($myVar + 1))
 # echo $myVar
@@ -56,11 +57,12 @@ assert() {
 	# bashとminishellのexit statusを比較
 	if [ "$actual" = "$expected" ]; then
 		printf '\033[34m%s\033[m\n' "  status OK"
+		STATUS_PASSED=$(($STATUS_PASSED + 1))
 	else
 		printf '\033[31m%s\033[m\n' "  status NG, expected $expected but got $actual"
 	fi
 	echo
-	printf '\n%d/%d\n' $PASSED $TESTCASE
+	printf '\ndiffPASS:%d/%d\nstatusPASS:%d/%d\n' $PASSED $TESTCASE $STATUS_PASSED $TESTCASE
     done < $TESTFILE
 }
 
