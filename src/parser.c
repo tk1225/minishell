@@ -68,6 +68,6 @@ t_tree	**parser(char *line)
 	(*tree)->len = cnt;
 	split_by_pipe(*tree);
 	if (syntax_check(*tree) > 0)
-		put_exit("error");
+		perror("syntax error");
 	return (tree);
 }

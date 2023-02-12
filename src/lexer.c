@@ -30,6 +30,10 @@ static void	insert_word(char **lst, char const *s, char *c, char *o)
 			d_quote *= -1;
 		if (s[cnt] == '\'')
 			s_quote *= -1;
+		// if (d_quote == 1 && s_quote == 1 && ft_strchr(o, s[cnt]))
+		// {
+
+		// }
 		if (!(ft_strchr(c, s[cnt]) && d_quote == 1 && s_quote == 1))
 			len += 1;
 		if (d_quote == 1 && s_quote == 1 && !ft_strchr("\'\"", s[cnt + 1]))
@@ -67,6 +71,8 @@ static size_t	count_word(char const *s, char *c, char *o)
 			d_quote *= -1;
 		if (s[cnt] == '\'')
 			s_quote *= -1;
+		// if (ft_strchr(o, s[cnt]))
+		// 	len += 1;
 		if (d_quote == 1 && s_quote == 1 && !ft_strchr("\'\"", s[cnt + 1]))
 		{
 			if (!ft_strchr(c, s[cnt]) && !ft_strchr(o, s[cnt]) && (!s[cnt + 1] || ft_strchr(c, s[cnt + 1]) || ft_strchr(o, s[cnt + 1])))

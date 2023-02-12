@@ -9,7 +9,7 @@ void	ft_expansion_dquote(char **com)
 
 	while (*com)
 	{
-		if ((*com)[0] == '\"')
+		if (ft_strchr(*com ,'\"'))
 		{
 			len = 0;
 			c_cnt = 0;
@@ -45,7 +45,7 @@ void	ft_expansion_squote(char **com)
 
 	while (*com)
 	{
-		if ((*com)[0] == '\'')
+		if (ft_strchr(*com ,'\''))
 		{
 			len = 0;
 			c_cnt = 0;
@@ -94,7 +94,19 @@ void	ft_expansion_env(char **com)
 					len += 1;
 				}
 				tmp1 = ft_substr(*com, cnt - len, len);
-				str = getenv(tmp1);
+				if (tmp1[0] == '\0')
+				{
+					str = alloc_exit(sizeof(char), 2);
+					str[0] = '$';
+					str[1] = '\0';
+				}
+				else if (tmp1[0] == '?')
+				{
+					str = ft_strdup(tmp1);
+					str[0] = '0';
+				}
+				else
+					str = getenv(tmp1);
 				free(tmp1);
 				tmp1 = ft_substr(*com, 0, cnt - len - 1);
 				tmp2 = ft_substr(*com, cnt, ft_strlen(*com) - cnt);
@@ -102,7 +114,7 @@ void	ft_expansion_env(char **com)
 				*com = str_join_three(tmp1, str, tmp2);
 				free(tmp1);
 				free(tmp2);
-				cnt = 0;
+				cnt += ft_strlen(str) - len - 1;
 			}
 		}
 		com += 1;

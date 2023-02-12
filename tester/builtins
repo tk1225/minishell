@@ -6,10 +6,6 @@ echo hello""world
 echo ''
 echo "$PWD"
 echo '$PWD'
-echo "aspas ->'"
-echo "aspas -> ' "
-echo 'aspas ->"'
-echo 'aspas -> " '
 echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
 echo "exit_code ->$? user ->$USER home -> $HOME"
@@ -37,7 +33,7 @@ unset HOME
 unset PATH
 unset SHELL
 cd $PWD
-cd $PWD hi 
+cd $PWD hi
 cd 123123
 exit 123
 exit 298
