@@ -38,10 +38,10 @@ int	executer(char **com, char **envp)
 	ft_expansion_dquote(com);
 	ft_expansion_env(com);
 	ft_expansion_squote(com);
-	// if (exec_set(com) == FAILURE)
-	exe_com(com, envp);
-	// else
-	exit(0);
+	if (exec_set(com) == FAILURE)
+		exe_com(com, envp);
+	else
+		exit(0);
 	return (0);
 }
 
