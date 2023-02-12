@@ -25,8 +25,17 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			tree = parser(line);
+			if (syntax_check(*tree) > 0)
+			{
+				perror("syntax error");
+				status = 2;
+				exit(2);
+			}
+			else
+			{
+				status = exec_recursion(*tree, envp);
+			}
 			// print_tree(*tree);
-			status = exec_recursion(*tree, envp);
 			// printf("子プロセスの終了ステータス: %d\n", WEXITSTATUS(status));
 			free(line);
 		}
