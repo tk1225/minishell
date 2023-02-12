@@ -69,6 +69,7 @@ char	*str_join_three(const char *s1, const char *s2, const char *s3);
 //exec
 int		exec_recursion(t_tree *tree, char **envp);
 int		handle_pipe(t_tree *tree, char **envp);
+int		recognize_redirect(char **com);
 int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 
 //delete
