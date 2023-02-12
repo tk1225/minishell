@@ -5,6 +5,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	int status;
 	char *line = NULL;
 	t_tree **tree;
 
@@ -25,11 +26,12 @@ int main(int argc, char **argv, char **envp)
 			add_history(line);
 			tree = parser(line);
 			// print_tree(*tree);
-			exec_recursion(*tree, envp);
+			status = exec_recursion(*tree, envp);
+			// printf("子プロセスの終了ステータス: %d\n", WEXITSTATUS(status));
 			free(line);
 		}
 	}
-	exit(0);
+	exit(WEXITSTATUS(status));
 	return (0);
 }
 

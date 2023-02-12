@@ -97,6 +97,7 @@ int	executer(char **com, char **envp)
 int	exec_recursion(t_tree *tree, char **envp)
 {
 	int pid;
+	int status;
 
 	pid = fork();
 	if (pid == 0)
@@ -105,8 +106,9 @@ int	exec_recursion(t_tree *tree, char **envp)
 			executer(tree->com, envp);
 		handle_pipe(tree, envp);
 	}
+	wait(&status);
 	waitpid(pid, NULL, 0);
-	return(0);
+	return(status);
 }
 
 //echo test | wc -l

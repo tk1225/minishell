@@ -23,8 +23,8 @@ assert() {
     # テストしようとしている内容をprint
 	printf '\033[34m%s\033[m\n' "****************************TEST***************************"
 	printf '\n%s\n' "****************************TEST***************************" >> log
-	printf '%-30s:' "$TEST"
-	printf '%-30s:' "$TEST" >>log
+	printf '%-30s' "$TEST"
+	printf '%-30s' "$TEST" >>log
 
 	# bashの出力をcmpに保存
 	# echo -n -e "$TEST" | bash >cmp 2>&-
