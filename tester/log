@@ -9,28 +9,27 @@ grep hi "<infile" <         ./test_files/infile
 echo hi < ./test_files/infile bye bye
 ****************************TEST***************************
 grep hi <./test_files/infile_big <./test_files/infile
-  diff KO
- 本家
-hi
-
- minishell**./test_files/infile:hi
-
- **minishell
+****************************TEST***************************
+grep hi <./test_files/infile2 <./test_files/infile
 ****************************TEST***************************
 echo <"./test_files/infile" "bonjour       42"
   diff KO
- 本家
-bonjour       42
+
+ 本家**bonjour       42
+
+ **本家
 
  minishell**
  **minishell
 ****************************TEST***************************
 cat <"./test_files/file name with spaces"
   diff KO
- 本家
-😈 😈 😈
+
+ 本家**😈 😈 😈
 This will break your minishell
 😈 😈 😈
+
+ **本家
 
  minishell**
  **minishell
@@ -45,22 +44,26 @@ echo <missing <"./test_files/infile" <missing
 ****************************TEST***************************
 cat <"./test_files/infile"    
   diff KO
- 本家
-hi
+
+ 本家**hi
 hello
 world
 42
+
+ **本家
 
  minishell**
  **minishell
 ****************************TEST***************************
 echo <"./test_files/infile_big" | cat <"./test_files/infile"
   diff KO
- 本家
-hi
+
+ 本家**hi
 hello
 world
 42
+
+ **本家
 
  minishell**
  **minishell
@@ -69,19 +72,23 @@ echo <"./test_files/infile_big" | cat "./test_files/infile"
 ****************************TEST***************************
 echo <"./test_files/infile_big" | echo <"./test_files/infile"
   diff KO
- 本家
 
+ 本家**
+
+ **本家
 
  minishell**
  **minishell
 ****************************TEST***************************
 echo hi | cat <"./test_files/infile"
   diff KO
- 本家
-hi
+
+ 本家**hi
 hello
 world
 42
+
+ **本家
 
  minishell**
  **minishell
@@ -92,8 +99,10 @@ cat <"./test_files/infile" | echo hi
 ****************************TEST***************************
 cat <"./test_files/infile" | grep hello
   diff KO
- 本家
-hello
+
+ 本家**hello
+
+ **本家
 
  minishell**
  **minishell
@@ -108,11 +117,13 @@ cat <missing | echo oi
 ****************************TEST***************************
 cat <missing | cat <"./test_files/infile"
   diff KO
- 本家
-hi
+
+ 本家**hi
 hello
 world
 42
+
+ **本家
 
  minishell**
  **minishell

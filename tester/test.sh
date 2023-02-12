@@ -35,19 +35,21 @@ assert() {
 	printf '%-30s' "$TEST" >>log
 
 	# bashの出力をcmpに保存
-	# echo -n -e "$TEST" | bash >cmp 2>&-
-	echo -n -e "$TEST" | ../minishell >out 2>&-
 	echo -n -e "$TEST" | bash >cmp 2>&-
 	# bashのexit statusをexpectedに代入
 	expected=$?
 	# minishellの出力をoutに保存
+	echo -n -e "$TEST" | ../minishell >out 2>&-
 	# minishellのexit statusをactualに代入
 	actual=$?
 
 	# bashとminishellの出力を比較
 	diff cmp out >>/dev/null && printf '\n\033[34m%s\033[m\n' "  diff OK" || printf '\n\033[31m%s\033[m\n' "  diff KO"
-	diff cmp out >>/dev/null || printf '\n%s\n%s\n' "  diff KO" " 本家" >> log
+	diff cmp out >>/dev/null || printf '\n%s\n' "  diff KO" >> log
+	diff cmp out >>/dev/null || printf '%s\n'" 本家**" >> log
 	diff cmp out >>/dev/null || cat cmp >> log
+	diff cmp out >>/dev/null || printf '\n'" **本家" >> log
+	diff cmp out >>/dev/null || printf '\n' >> log
 	diff cmp out >>/dev/null || printf '%s\n'" minishell**" >> log
 	diff cmp out >>/dev/null || cat out >> log
 	diff cmp out >>/dev/null || printf '\n'" **minishell" >> log

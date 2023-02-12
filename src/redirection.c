@@ -52,7 +52,10 @@ int recognize_redirect(char **com)
 				exit(1);
 			shift_com(com, i);
 		}
-		i++;
+		else
+		{
+			i++;
+		}
 	}
 	return (0);
 }

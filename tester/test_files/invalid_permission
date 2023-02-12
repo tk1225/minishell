@@ -22,6 +22,5 @@ test.sh
 test_files
 hi
 hi
-hi > ./outfiles/outfile01
 bye
 bye

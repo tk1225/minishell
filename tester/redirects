@@ -2,6 +2,7 @@ grep hi <./test_files/infile
 grep hi "<infile" <         ./test_files/infile
 echo hi < ./test_files/infile bye bye
 grep hi <./test_files/infile_big <./test_files/infile
+grep hi <./test_files/infile2 <./test_files/infile
 echo <"./test_files/infile" "bonjour       42"
 cat <"./test_files/file name with spaces"
 cat <./test_files/infile_big ./test_files/infile
