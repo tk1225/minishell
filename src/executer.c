@@ -61,6 +61,3 @@ int	exec_recursion(t_tree *tree, char **envp)
 	waitpid(pid, NULL, 0);
 	return(status);
 }
-
-//echo test | wc -l
-//echo test | wc -l

@@ -93,7 +93,6 @@ static size_t	count_word(char const *s, char *c, char *o)
 		}
 		cnt += 1;
 	}
-	printf("len:%zu\n", len);
 	if (d_quote == -1 || s_quote == -1)
 		perror("quote error");
 	return (len);
