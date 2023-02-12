@@ -18,16 +18,38 @@ int recognize_redirect(char **com)
 {
 	int i;
 	char *filename;
+	char *symbol;
 
 	i = 0;
 	while (com[i])
 	{
 		if (ft_strncmp(com[i], "<<", 2) == 0)
 		{
-			// <<   を見つけた場合　次の文字列を識別子とする。
-			//改行以降をDOCの内容とする。
-			//改行と改行の間に識別子を見つけたらDOCはそこまでの内容をtmpfileに保存
+			int fd;
 
+			fd = open("tmp", O_RDWR | O_CREAT | O_APPEND, 0777);
+			if (fd == -1)
+			{
+				perror("open");
+				return 1;
+			}
+			// << を見つけた場合　次の文字列を識別子とする。
+			symbol = com[i + 1];
+			printf("symbol%s\n", symbol);
+			//以降をDOCの内容とする。
+			int j = i + 2;
+			// write(fd, "start", 4);
+			while (ft_strncmp(com[j], symbol, ft_strlen(symbol)) != 0)
+			{
+				// com[j];
+				// write(fd, "test", 4);
+				write(fd, &com[j], ft_strlen(com[j]));
+				j++;
+			}
+			close(fd);
+			i++;
+			// 識別子を見つけたらDOCはそこまでの内容をtmpfileに保存
+			// <<以降から識別子の終わりまでは飛ばしてNULLとする。
 			//handle_redirect("tmpfile", READ, NEW);で実行
 			//ファイルとして保存し標準入力として渡す。
 		}

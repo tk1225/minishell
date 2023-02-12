@@ -61,7 +61,10 @@ t_tree	**parser(char *line)
 	res = lexer(line);
 	cnt = 0;
 	while (res[cnt])
+	{
+		// printf("%s\n", res[cnt]);
 		cnt += 1;
+	}
 	tree = (t_tree **)alloc_exit(sizeof(t_tree *), 1);
 	*tree = new_node();
 	(*tree)->com = res;
