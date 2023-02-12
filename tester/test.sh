@@ -3,6 +3,11 @@
 # 引数に[pipes, builtins, redirects, syntax]などのファイル名を追加して使用
 # KOはlog参照
 TESTFILE=$1
+TESTCASE=1
+PASSED=1
+
+# myVar=$(($myVar + 1))
+# echo $myVar
 printf '\n%s\n'" minishell" > log
 
 assert() {
@@ -19,6 +24,8 @@ assert() {
 	echo "                                                                                              ";
     while IFS= read -r line; do    
         TEST=$line
+	TESTCASE=$(($TESTCASE + 1))
+	
     # break
     # テストしようとしている内容をprint
 	printf '\033[34m%s\033[m\n' "****************************TEST***************************"
@@ -43,7 +50,8 @@ assert() {
 	diff cmp out >>/dev/null || printf '%s\n'" minishell**" >> log
 	diff cmp out >>/dev/null || cat out >> log
 	diff cmp out >>/dev/null || printf '\n'" **minishell" >> log
-
+	diff cmp out >>/dev/null && PASSED=$(($PASSED + 1))
+	
 
 	# bashとminishellのexit statusを比較
 	if [ "$actual" = "$expected" ]; then
@@ -52,8 +60,10 @@ assert() {
 		printf '\033[31m%s\033[m\n' "  status NG, expected $expected but got $actual"
 	fi
 	echo
-
+	printf '\n%d/%d\n' $PASSED $TESTCASE
     done < $TESTFILE
 }
+
+# printf '\n%d\n' $PASSED
 
 assert ''
