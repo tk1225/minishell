@@ -62,6 +62,7 @@ assert() {
 		STATUS_PASSED=$(($STATUS_PASSED + 1))
 	else
 		printf '\033[31m%s\033[m\n' "  status NG, expected $expected but got $actual"
+		printf '\033[31m%s\033[m\n' "  status NG, expected $expected but got $actual" >>log
 	fi
 	echo
 	printf '\ndiffPASS:%d/%d\nstatusPASS:%d/%d\n' $PASSED $TESTCASE $STATUS_PASSED $TESTCASE
