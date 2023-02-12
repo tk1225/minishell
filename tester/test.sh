@@ -40,8 +40,9 @@ assert() {
 	diff cmp out >>/dev/null && printf '\n\033[34m%s\033[m\n' "  diff OK" || printf '\n\033[31m%s\033[m\n' "  diff KO"
 	diff cmp out >>/dev/null || printf '\n%s\n%s\n' "  diff KO" " 本家" >> log
 	diff cmp out >>/dev/null || cat cmp >> log
-	diff cmp out >>/dev/null || printf '\n%s\n'" minishell" >> log
+	diff cmp out >>/dev/null || printf '%s\n'" minishell**" >> log
 	diff cmp out >>/dev/null || cat out >> log
+	diff cmp out >>/dev/null || printf '\n'" **minishell" >> log
 
 
 	# bashとminishellのexit statusを比較

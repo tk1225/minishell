@@ -32,5 +32,5 @@ int handle_redirect(char *target_filename, int stdfd, int append_flag)
 	}
 	close(new_fd);
 	close(fd);
-	return (new_fd);
+	return (0);
 }

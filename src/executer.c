@@ -66,19 +66,22 @@ int	executer(char **com, char **envp)
 		else if (ft_strncmp(com[i], ">>", 2) == 0)
 		{
 			filename = com[i + 1];
-			handle_redirect(filename, WRITE, APPEND);
+			if(handle_redirect(filename, WRITE, APPEND) == 1)
+				exit(1);	
 			shift_com(com, i);
 		}
 		else if (ft_strncmp(com[i], ">", 1) == 0)
 		{
 			filename = com[i + 1];
-			handle_redirect(filename, WRITE, NEW);
+			if(handle_redirect(filename, WRITE, NEW) == 1)
+				exit(1);
 			shift_com(com, i);
 		}
 		else if (ft_strncmp(com[i], "<", 1) == 0)
 		{
 			filename = com[i + 1];
-			handle_redirect(filename, READ, NEW);
+			if(handle_redirect(filename, READ, NEW) == 1)
+				exit(1);
 			shift_com(com, i);
 		}
 		i++;
