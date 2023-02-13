@@ -50,7 +50,7 @@ char	**lexer(char const *s);
 void	free_lst(char **lst);
 
 //parser
-t_tree	**parser(char *line);
+t_tree	**parser(char **res);
 
 //expansion
 void	ft_expansion_dquote(char **com);
