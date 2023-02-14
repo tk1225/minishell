@@ -29,6 +29,7 @@
 # include <unistd.h>
 # include <err.h>
 # include <fcntl.h>
+#include <sys/stat.h>
 
 typedef struct s_tree
 {

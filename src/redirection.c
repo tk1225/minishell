@@ -17,15 +17,23 @@ static void shift_com(char **com, int i)
 int handle_heredoc()
 {
 	int fd;
+	struct stat sb;
 
+	int ret;
+
+    ret = lstat(".tmp.txt", &sb);
+    if (ret == -1) {
+        // Error handling
+		return (1);
+		// perror("already open");
+    }
 	fd = open(".tmp.txt", O_RDWR);
 	if (fd == -1)
 	{
 		perror("open");
 		return (1);
 	}
-	unlink("tmp.txt");
-
+	unlink(".tmp.txt");
 	int new_fd = dup(fd);
 	if (new_fd == -1)
 	{

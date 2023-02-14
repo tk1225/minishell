@@ -81,14 +81,8 @@ int main(int argc, char **argv, char **envp)
 				// printf("%s\n", res[cnt]);
 				if (ft_strnstr(res[cnt], "<<", ft_strlen(line)))
 				{
-					// write(1,"ab\n",3);
 					delimiter = res[cnt + 1];
-					printf("deli is %s\n", delimiter);
-					// pipefd = read_heredoc(delimiter);
 					read_heredoc(delimiter);
-					// close(pipefd);
-					break;
-
 				}
 				cnt += 1;
 			}
