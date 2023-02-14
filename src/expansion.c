@@ -120,7 +120,3 @@ void	ft_expansion_env(char **com)
 		com += 1;
 	}
 }
-
-//echo "aa"
-//echo $USER
-//echo $USER$USER

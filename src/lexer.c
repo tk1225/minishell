@@ -30,14 +30,24 @@ static void	insert_word(char **lst, char const *s, char *c, char *o)
 			d_quote *= -1;
 		if (s[cnt] == '\'')
 			s_quote *= -1;
-		// if (d_quote == 1 && s_quote == 1 && ft_strchr(o, s[cnt]))
-		// {
-
-		// }
+		//自分がcか、quoteの中
 		if (!(ft_strchr(c, s[cnt]) && d_quote == 1 && s_quote == 1))
 			len += 1;
-		if (d_quote == 1 && s_quote == 1 && !ft_strchr("\'\"", s[cnt + 1]))
+		//自分がoで、隣がoじゃないかつ、quoteの中じゃない
+		if (ft_strchr(o, s[cnt]) && !ft_strchr(o, s[cnt + 1]) && d_quote == 1 && s_quote == 1)
 		{
+			*lst = ft_substr(s, cnt - len + 1, len);
+			if (!*lst++)
+			{
+				free_lst(lst);
+				return ;
+			}
+			len = 0;
+		}
+		//quoteの中じゃないかつ、隣がquoteじゃない
+		else if (d_quote == 1 && s_quote == 1 && !ft_strchr("\'\"", s[cnt + 1]))
+		{
+			//自分が区切り系じゃなく、隣が'\0' or o or c
 			if ((!ft_strchr(c, s[cnt]) && !ft_strchr(o, s[cnt]) && (!s[cnt + 1] || ft_strchr(c, s[cnt + 1]) || ft_strchr(o, s[cnt + 1]))) || (ft_strchr(o, s[cnt]) && !ft_strchr(o, s[cnt + 1])))
 			{
 				*lst = ft_substr(s, cnt - len + 1, len);
@@ -71,13 +81,14 @@ static size_t	count_word(char const *s, char *c, char *o)
 			d_quote *= -1;
 		if (s[cnt] == '\'')
 			s_quote *= -1;
-		// if (ft_strchr(o, s[cnt]))
-		// 	len += 1;
+		//自分がoで、隣がoじゃない
+		if (ft_strchr(o, s[cnt]) && !ft_strchr(o, s[cnt + 1]))
+			len += 1;
+		//隣がquoteじゃないかつ、quoteの中じゃなかったら
 		if (d_quote == 1 && s_quote == 1 && !ft_strchr("\'\"", s[cnt + 1]))
 		{
+			//自分が区切り系じゃなく、隣が'\0' or o or c
 			if (!ft_strchr(c, s[cnt]) && !ft_strchr(o, s[cnt]) && (!s[cnt + 1] || ft_strchr(c, s[cnt + 1]) || ft_strchr(o, s[cnt + 1])))
-				len += 1;
-			if (ft_strchr(o, s[cnt]) && !ft_strchr(o, s[cnt + 1]))
 				len += 1;
 		}
 		cnt += 1;

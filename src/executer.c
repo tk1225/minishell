@@ -28,7 +28,6 @@ int	exe_com(char **com, char **envp)
 		i ++;
 		free(exec_path);
 	}
-	perror("execve failed");
 	return (0);
 }
 
@@ -42,7 +41,10 @@ int	executer(char **com, char **envp)
 		exe_com(com, envp);
 	else
 		exit(0);
-	return (0);
+	perror("command not found");
+	exit(127);
+	return (1);
+
 }
 
 int	exec_recursion(t_tree *tree, char **envp)
@@ -61,6 +63,3 @@ int	exec_recursion(t_tree *tree, char **envp)
 	waitpid(pid, NULL, 0);
 	return(status);
 }
-
-//echo test | wc -l
-//echo test | wc -l
