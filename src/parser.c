@@ -52,17 +52,22 @@ static void	split_by_pipe(t_tree *tree)
 	}
 }
 
-t_tree	**parser(char *line)
+t_tree	**parser(char **res)
 {
-	char	**res;
+	// char	**res;
 	t_tree	**tree;
 	size_t	cnt;
 
-	res = lexer(line);
+	// res = lexer(line);
 	cnt = 0;
 	while (res[cnt])
+	{
+		// printf("%s\n", res[cnt]);
 		cnt += 1;
+
+	}
 		// printf("%s\n", res[cnt++]);
+
 	tree = (t_tree **)alloc_exit(sizeof(t_tree *), 1);
 	*tree = new_node();
 	(*tree)->com = res;

@@ -14,6 +14,42 @@ static void shift_com(char **com, int i)
 	com[i + 1] = NULL;
 }
 
+int handle_heredoc()
+{
+	int fd;
+	struct stat sb;
+
+	int ret;
+
+    ret = lstat(".tmp.txt", &sb);
+    if (ret == -1) {
+        // Error handling
+		return (1);
+		// perror("already open");
+    }
+	fd = open(".tmp.txt", O_RDWR);
+	if (fd == -1)
+	{
+		perror("open");
+		return (1);
+	}
+	unlink(".tmp.txt");
+	int new_fd = dup(fd);
+	if (new_fd == -1)
+	{
+		perror("dup");
+		return (1);
+	}
+	close(READ);
+	if (dup2(new_fd, READ) == -1)
+	{
+		perror("dup2");
+		return (1);
+	}
+	close(new_fd);
+	return (0);
+}
+
 int recognize_redirect(char **com)
 {
 	int i;
@@ -25,17 +61,8 @@ int recognize_redirect(char **com)
 		// printf("filename?%s\n", com[i + 1]);
 		if (ft_strncmp(com[i], "<<", 2) == 0)
 		{
-			// <<   を見つけた場合　次の文字列を識別子とする。
-			if (com[i + 1] == NULL)
-			{
-				perror("syntax error");
-				exit(2);
-			}
-			//改行以降をDOCの内容とする。
-			//改行と改行の間に識別子を見つけたらDOCはそこまでの内容をtmpfileに保存
-
-			//handle_redirect("tmpfile", READ, NEW);で実行
-			//ファイルとして保存し標準入力として渡す。
+			handle_heredoc();
+			shift_com(com, i);
 		}
 		else if (ft_strncmp(com[i], ">>", 2) == 0)
 		{
@@ -46,7 +73,7 @@ int recognize_redirect(char **com)
 				exit(2);
 			}
 			if(handle_redirect(filename, WRITE, APPEND) == 1)
-				exit(1);	
+				exit(1);
 			shift_com(com, i);
 		}
 		else if (ft_strncmp(com[i], ">", 1) == 0)

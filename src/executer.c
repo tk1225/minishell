@@ -44,6 +44,7 @@ int	executer(char **com, char **envp)
 	perror("command not found");
 	exit(127);
 	return (1);
+
 }
 
 int	exec_recursion(t_tree *tree, char **envp)
