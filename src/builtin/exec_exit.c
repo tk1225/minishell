@@ -2,11 +2,8 @@
 
 int	exec_exit(char **com)
 {
-    (void)com;
-    // pid_t	pid;
-
-	// pid = getpid();
-    // kill(pid, SIGUSR1);
-
+    //error check必要
+    exit(ft_atoi(com[1]));
+ 
 	return (SUCCESS);
 }

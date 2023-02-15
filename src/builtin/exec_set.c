@@ -12,7 +12,7 @@ int	exec_set(char **com)
 	if (ft_strncmp(com[0], "env", com_len) == 0)
 		return(exec_env());
 	if (ft_strncmp(com[0], "exit", com_len) == 0)
-		return(FAILURE);
+		return(exec_exit(com));
 	if (ft_strncmp(com[0], "export", com_len) == 0)
 		return(exec_export(com));
 	if (ft_strncmp(com[0], "pwd", com_len) == 0)

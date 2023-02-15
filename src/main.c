@@ -48,16 +48,11 @@ int	read_heredoc(const char *delimiter)
 
 static void	handle_signal(int signal)
 {
-	(void)signal;
-	if (signal == SIGINT)
+	if (signal == SIGINT || signal == SIGQUIT)
 	{
-		rl_on_new_line();
-		rl_replace_line("", 0); 
 		write(1, "\n", 1);
-		rl_redisplay();
+		rl_replace_line("\n", 0); 
 	}
-	else if (signal == SIGQUIT)
-		write(1, "signal_quit!", 12);
 }
 
 int	set_signal()
@@ -66,10 +61,7 @@ int	set_signal()
 	// ◦ ctrl-D exits the shell.
 	// ◦ ctrl-\ does nothing.
 	signal(SIGINT, &handle_signal);
-	// signal(SIGHUP, &handle_signal);
 	signal(SIGQUIT, &handle_signal);
-	// signal(SIGQUIT, &handle_signal);
-
 	return (1);
 }
 
@@ -86,14 +78,15 @@ int main(int argc, char **argv, char **envp)
 	{
 		// test用
 		rl_outstream = stderr;
-		rl_startup_hook = set_signal;
+		set_signal();
 		line = readline("> ");
-		if (line == NULL || ft_strlen(line) == 0)
+		if (line == NULL)
 		{
 			free(line);
-			//test用にbreak
 			break;
 		}
+		if (line == NULL || ft_strlen(line) == 0)
+			free(line);
 		else
 		{
 			char **res;
@@ -101,14 +94,14 @@ int main(int argc, char **argv, char **envp)
 			res = lexer(line);
 			size_t	cnt;
 			char *delimiter;
-			// int pipefd;
 			cnt = 0;
 			while (res[cnt])
 			{
-				// printf("%s\n", res[cnt]);
 				if (ft_strnstr(res[cnt], "<<", ft_strlen(line)))
 				{
 					delimiter = res[cnt + 1];
+					// if (delimiter == NULL)
+					// 	exit(2);
 					read_heredoc(delimiter);
 				}
 				cnt += 1;
