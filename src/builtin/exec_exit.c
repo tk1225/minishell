@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	ft_overflow_checker(const char *str, long res, int i, int minus)
+static int	ft_overflow_checker(const char *str, long res, int i, int minus)
 {
 	if (minus == 0)
 	{
@@ -36,7 +36,7 @@ static	int	ft_checker_helper(const char *str, long res, int i, int minus)
 	return (SUCCESS);
 }
 
-int	ft_error_check(const char	*str)
+static int	ft_error_check(const char	*str)
 {
 	int		i;
 	long	res;
@@ -59,7 +59,6 @@ int	ft_error_check(const char	*str)
 
 int	exec_exit(char **com)
 {
-    //FAILURE check必要
     if (com[2] != NULL)
         exit(1);
     if (ft_error_check(com[1]) == FAILURE)
