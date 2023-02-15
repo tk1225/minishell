@@ -4,7 +4,7 @@ RM			=	rm -rf
 AR			=	ar rcs
 NAME		=	minishell
 
-INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I $(GNL_DIR)inc/
+INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/
 RDLFLAGS	=	-lreadline
 
 SRC_DIR		=	src/
@@ -13,7 +13,6 @@ OBJ_DIR		=	objs/
 UTILS_DIR	=	utils/
 LIBFT_DIR	=	$(PRINTF_DIR)libft/
 PRINTF_DIR	=	$(UTILS_DIR)ft_printf/
-GNL_DIR		=	$(UTILS_DIR)get_next_line/
 
 SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c expansion.c\
 				syntax.c redirection.c pipe.c

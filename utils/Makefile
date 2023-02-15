@@ -6,7 +6,7 @@
 #    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 21:16:46 by atito             #+#    #+#              #
-#    Updated: 2023/02/04 22:21:09 by atito            ###   ########.fr        #
+#    Updated: 2023/02/14 20:11:33 by atito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,11 @@ AR			=	ar rcs
 NAME		=	utils.a
 
 PRINTF_DIR	=	ft_printf/
-GNL_DIR		=	get_next_line/
-OBJ_DIR		=	objs/
 
 all:
 	make -C $(PRINTF_DIR)
-	make -C $(GNL_DIR)
-	@mkdir -p $(OBJ_DIR)
-	@cd $(OBJ_DIR);ar -x ../$(PRINTF_DIR)libftprintf.a
-	@cd $(OBJ_DIR);ar -x ../$(GNL_DIR)gnl.a
-	$(AR) $(NAME) $(OBJ_DIR)*.o
+	cp $(PRINTF_DIR)libftprintf.a .
+	mv libftprintf.a $(NAME)
 
 clean:
 	$(RM) $(OBJ_DIR)
