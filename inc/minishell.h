@@ -1,15 +1,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define IN_QUOTE 1
-# define OUT_QUOTE -1
+# define IN_QUOTE -1
+# define OUT_QUOTE 1
 
-# define FAILURE 0
 # define SUCCESS 1
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
+# define FAILURE 0
 
 # define WRITE 1
 # define READ 0
@@ -19,7 +15,6 @@
 
 # include "libft.h"
 # include "ft_printf.h"
-# include "get_next_line.h"
 # include "exec.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -29,7 +24,7 @@
 # include <unistd.h>
 # include <err.h>
 # include <fcntl.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 typedef struct s_tree
 {
@@ -54,9 +49,7 @@ void	free_lst(char **lst);
 t_tree	**parser(char **res);
 
 //expansion
-void	ft_expansion_dquote(char **com);
-void	ft_expansion_squote(char **com);
-void	ft_expansion_env(char **com);
+void	expansion(char **com);
 
 //fork
 int		executer(char **com, char **envp);

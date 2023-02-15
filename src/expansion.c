@@ -1,122 +1,110 @@
 #include "minishell.h"
 
-void	ft_expansion_dquote(char **com)
+static size_t	expansion_char(char **str, char *com, size_t cnt)
 {
-	char	*str;
-	size_t	len;
-	size_t	c_cnt;
+	char	*tmp;
 	size_t	s_cnt;
+	size_t	len;
 
-	while (*com)
+	len = ft_strlen(*str);
+	tmp = (char *)alloc_exit(sizeof(char), len + 2);
+	s_cnt = 0;
+	while (s_cnt < len)
 	{
-		if (ft_strchr(*com ,'\"'))
-		{
-			len = 0;
-			c_cnt = 0;
-			while ((*com)[c_cnt])
-			{
-				if ((*com)[c_cnt] == '\"')
-					len += 1;
-				c_cnt += 1;
-			}
-			str = (char *)alloc_exit(sizeof(char), c_cnt - len + 1);
-			s_cnt = 0;
-			c_cnt = 0;
-			while ((*com)[c_cnt])
-			{
-				while ((*com)[c_cnt] == '\"')
-					c_cnt += 1;
-				str[s_cnt++] = (*com)[c_cnt++];
-			}
-			str[c_cnt] = '\0';
-			free(*com);
-			*com = str;
-		}
-		com += 1;
+		tmp[s_cnt] = (*str)[s_cnt];
+		s_cnt += 1;
 	}
+	tmp[s_cnt++] = com[cnt++];
+	tmp[s_cnt] = '\0';
+	free(*str);
+	*str = tmp;
+	return (cnt);
 }
 
-void	ft_expansion_squote(char **com)
+static size_t	expansion_env(char **str, char *com, size_t cnt)
 {
-	char	*str;
 	size_t	len;
-	size_t	c_cnt;
-	size_t	s_cnt;
+	char	*prm;
+	char	*tmp;
 
-	while (*com)
+	len = 0;
+	while (com[cnt] != '$' && com[cnt] != '\"' && com[cnt] && !ft_strchr(" \t\n\v\f\r", com[cnt]))
 	{
-		if (ft_strchr(*com ,'\''))
-		{
-			len = 0;
-			c_cnt = 0;
-			while ((*com)[c_cnt])
-			{
-				if ((*com)[c_cnt] == '\'')
-					len += 1;
-				c_cnt += 1;
-			}
-			str = (char *)alloc_exit(sizeof(char), c_cnt - len + 1);
-			s_cnt = 0;
-			c_cnt = 0;
-			while ((*com)[c_cnt])
-			{
-				while ((*com)[c_cnt] == '\'')
-					c_cnt += 1;
-				str[s_cnt++] = (*com)[c_cnt++];
-			}
-			str[c_cnt] = '\0';
-			free(*com);
-			*com = str;
-		}
-		com += 1;
+		cnt += 1;
+		len += 1;
 	}
+	prm = ft_substr(com, cnt - len, len);
+	if (prm[0] == '\0')
+		tmp = ft_strjoin(*str, "$");
+	else if (prm[0] == '?')
+		tmp = str_join_three(*str, "0", ft_substr(prm, 1, ft_strlen(prm) - 1));
+	else if (prm[0] == '0')
+		tmp = str_join_three(*str, "minishell", ft_substr(prm, 1, ft_strlen(prm) - 1));
+	else
+		tmp = ft_strjoin(*str, getenv(prm));
+	free(prm);
+	free(*str);
+	*str = tmp;
+	return (cnt);
 }
 
-void	ft_expansion_env(char **com)
+static size_t	expansion_dquote(char **str, char *com, size_t cnt)
+{
+	char	*inq;
+	char	*tmp;
+
+	inq = NULL;
+	while (com[cnt] != '\"')
+	{
+		if (com[cnt] == '$')
+			cnt = expansion_env(&inq, com, cnt + 1);
+		else
+			cnt = expansion_char(&inq, com, cnt);
+	}
+	tmp = ft_strjoin(*str, inq);
+	free(*str);
+	free(inq);
+	*str = tmp;
+	return (cnt + 1);
+}
+
+static size_t	expansion_squote(char **str, char *com, size_t cnt)
+{
+	char	*inq;
+	char	*tmp;
+
+	inq = NULL;
+	while (com[cnt] != '\'')
+		cnt = expansion_char(&inq, com, cnt);
+	tmp = ft_strjoin(*str, inq);
+	free(*str);
+	free(inq);
+	*str = tmp;
+	return (cnt + 1);
+}
+
+void	expansion(char **com)
 {
 	char	*str;
-	char	*tmp1;
-	char	*tmp2;
-	size_t	cnt;
-	size_t	len;
+	size_t	c_cnt;
 
 	while (*com)
 	{
-		cnt = 0;
-		while((*com)[cnt])
+		c_cnt = 0;
+		str = NULL;
+		while ((*com)[c_cnt])
 		{
-			if ((*com)[cnt++] == '$' && !(ft_strchr(*com, '\'')))
-			{
-				len = 0;
-				while ((*com)[cnt] != '$' && (*com)[cnt] && !ft_strchr(" \t\n\v\f\r", (*com)[cnt]))
-				{
-					cnt += 1;
-					len += 1;
-				}
-				tmp1 = ft_substr(*com, cnt - len, len);
-				if (tmp1[0] == '\0')
-				{
-					str = alloc_exit(sizeof(char), 2);
-					str[0] = '$';
-					str[1] = '\0';
-				}
-				else if (tmp1[0] == '?')
-				{
-					str = ft_strdup(tmp1);
-					str[0] = '0';
-				}
-				else
-					str = getenv(tmp1);
-				free(tmp1);
-				tmp1 = ft_substr(*com, 0, cnt - len - 1);
-				tmp2 = ft_substr(*com, cnt, ft_strlen(*com) - cnt);
-				free(*com);
-				*com = str_join_three(tmp1, str, tmp2);
-				free(tmp1);
-				free(tmp2);
-				cnt += ft_strlen(str) - len - 1;
-			}
+			if ((*com)[c_cnt] == '$')
+				c_cnt = expansion_env(&str, *com, c_cnt + 1);
+			else if ((*com)[c_cnt] == '\"')
+				c_cnt = expansion_dquote(&str, *com, c_cnt + 1);
+			else if ((*com)[c_cnt] == '\'')
+				c_cnt = expansion_squote(&str, *com, c_cnt + 1);
+			else
+				c_cnt = expansion_char(&str, *com, c_cnt);
 		}
+		free(*com);
+		*com = str;
 		com += 1;
 	}
 }

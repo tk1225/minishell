@@ -34,9 +34,7 @@ int	exe_com(char **com, char **envp)
 int	executer(char **com, char **envp)
 {
 	recognize_redirect(com);
-	ft_expansion_dquote(com);
-	ft_expansion_env(com);
-	ft_expansion_squote(com);
+	expansion(com);
 	if (exec_set(com) == FAILURE)
 		exe_com(com, envp);
 	else
