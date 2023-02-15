@@ -6,6 +6,11 @@ int	exec_export(char **com)
 	char		**env;
 	size_t		cnt;
 
+	if (com[1] == NULL)
+	{
+		exec_env();
+		return (SUCCESS);
+	}
 	env = environ;
 	cnt = 0;
 	while (env[cnt])
