@@ -1,0 +1,233 @@
+
+
+ minishell
+****************************TEST***************************
+grep hi <./test_files/infile  
+****************************TEST***************************
+grep hi "<infile" <         ./test_files/infile
+****************************TEST***************************
+echo hi < ./test_files/infile bye bye
+****************************TEST***************************
+grep hi <./test_files/infile_big <./test_files/infile
+****************************TEST***************************
+grep hi <./test_files/infile2 <./test_files/infile
+****************************TEST***************************
+echo <"./test_files/infile" "bonjour       42"
+  diff KO
+
+ 本家**bonjour       42
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+cat <"./test_files/file name with spaces"
+  diff KO
+
+ 本家**😈 😈 😈
+This will break your minishell
+😈 😈 😈
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+cat <./test_files/infile_big ./test_files/infile
+****************************TEST***************************
+cat <"1""2""3""4""5"          
+****************************TEST***************************
+echo <"./test_files/infile" <missing <"./test_files/infile"
+****************************TEST***************************
+echo <missing <"./test_files/infile" <missing
+****************************TEST***************************
+cat <"./test_files/infile"    
+  diff KO
+
+ 本家**hi
+hello
+world
+42
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+echo <"./test_files/infile_big" | cat <"./test_files/infile"
+  diff KO
+
+ 本家**hi
+hello
+world
+42
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+echo <"./test_files/infile_big" | cat "./test_files/infile"
+****************************TEST***************************
+echo <"./test_files/infile_big" | echo <"./test_files/infile"
+  diff KO
+
+ 本家**
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+echo hi | cat <"./test_files/infile"
+  diff KO
+
+ 本家**hi
+hello
+world
+42
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+echo hi | cat "./test_files/infile"
+****************************TEST***************************
+cat <"./test_files/infile" | echo hi
+****************************TEST***************************
+cat <"./test_files/infile" | grep hello
+  diff KO
+
+ 本家**hello
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+cat <"./test_files/infile_big" | echo hi
+****************************TEST***************************
+cat <missing                  
+****************************TEST***************************
+cat <missing | cat            
+****************************TEST***************************
+cat <missing | echo oi        
+****************************TEST***************************
+cat <missing | cat <"./test_files/infile"
+  diff KO
+
+ 本家**hi
+hello
+world
+42
+
+ **本家
+
+ minishell**
+ **minishell
+****************************TEST***************************
+echo <123 <456 hi | echo 42   
+****************************TEST***************************
+ls >./outfiles/outfile01      
+****************************TEST***************************
+ls >         ./outfiles/outfile01
+****************************TEST***************************
+echo hi >         ./outfiles/outfile01 bye
+****************************TEST***************************
+ls >./outfiles/outfile01 >./outfiles/outfile02
+****************************TEST***************************
+ls >./outfiles/outfile01 >./test_files/invalid_permission
+****************************TEST***************************
+ls >"./outfiles/outfile with spaces"
+****************************TEST***************************
+ls >"./outfiles/outfile""1""2""3""4""5"
+****************************TEST***************************
+ls >"./outfiles/outfile01" >./test_files/invalid_permission >"./outfiles/outfile02"
+****************************TEST***************************
+ls >./test_files/invalid_permission >"./outfiles/outfile01" >./test_files/invalid_permission
+****************************TEST***************************
+cat <"./test_files/infile" >"./outfiles/outfile01"
+****************************TEST***************************
+echo hi >./outfiles/outfile01 | echo bye
+****************************TEST***************************
+echo hi >./outfiles/outfile01 >./outfiles/outfile02 | echo bye
+****************************TEST***************************
+echo hi | echo >./outfiles/outfile01 bye
+****************************TEST***************************
+echo hi | echo bye >./outfiles/outfile01 >./outfiles/outfile02
+****************************TEST***************************
+echo hi >./outfiles/outfile01 | echo bye >./outfiles/outfile02
+****************************TEST***************************
+echo hi >./outfiles/outfile01 >./test_files/invalid_permission | echo bye
+****************************TEST***************************
+echo hi >./test_files/invalid_permission | echo bye
+****************************TEST***************************
+echo hi >./test_files/invalid_permission >./outfiles/outfile01 | echo bye
+****************************TEST***************************
+echo hi | echo bye >./test_files/invalid_permission
+****************************TEST***************************
+echo hi | >./outfiles/outfile01 echo bye >./test_files/invalid_permission
+****************************TEST***************************
+echo hi | echo bye >./test_files/invalid_permission >./outfiles/outfile01
+****************************TEST***************************
+cat <"./test_files/infile" >./test_files/invalid_permission
+****************************TEST***************************
+cat >./test_files/invalid_permission <"./test_files/infile"
+****************************TEST***************************
+cat <missing >./outfiles/outfile01
+****************************TEST***************************
+cat >./outfiles/outfile01 <missing
+****************************TEST***************************
+cat <missing >./test_files/invalid_permission
+****************************TEST***************************
+cat >./test_files/invalid_permission <missing
+****************************TEST***************************
+cat >./outfiles/outfile01 <missing >./test_files/invalid_permission
+****************************TEST***************************
+ls >>./outfiles/outfile01     
+****************************TEST***************************
+ls >>      ./outfiles/outfile01
+****************************TEST***************************
+ls >>./outfiles/outfile01 >./outfiles/outfile01
+****************************TEST***************************
+ls >./outfiles/outfile01 >>./outfiles/outfile01
+****************************TEST***************************
+ls >./outfiles/outfile01 >>./outfiles/outfile01 >./outfiles/outfile02
+****************************TEST***************************
+ls >>./outfiles/outfile01 >>./outfiles/outfile02
+****************************TEST***************************
+ls >>./test_files/invalid_permission
+****************************TEST***************************
+ls >>./test_files/invalid_permission >>./outfiles/outfile01
+****************************TEST***************************
+ls >>./outfiles/outfile01 >>./test_files/invalid_permission
+****************************TEST***************************
+ls >./outfiles/outfile01 >>./test_files/invalid_permission >>./outfiles/outfile02
+****************************TEST***************************
+ls <missing >>./test_files/invalid_permission >>./outfiles/outfile02
+****************************TEST***************************
+ls >>./test_files/invalid_permission >>./outfiles/outfile02 <missing
+****************************TEST***************************
+echo hi >>./outfiles/outfile01 | echo bye
+****************************TEST***************************
+echo hi >>./outfiles/outfile01 >>./outfiles/outfile02 | echo bye
+****************************TEST***************************
+echo hi | echo >>./outfiles/outfile01 bye
+****************************TEST***************************
+echo hi | echo bye >>./outfiles/outfile01 >>./outfiles/outfile02
+****************************TEST***************************
+echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02
+****************************TEST***************************
+echo hi >>./test_files/invalid_permission | echo bye
+****************************TEST***************************
+echo hi >>./test_files/invalid_permission >./outfiles/outfile01 | echo bye
+****************************TEST***************************
+echo hi | echo bye >>./test_files/invalid_permission
+****************************TEST***************************
+echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission
+****************************TEST***************************
+cat <minishell.h>./outfiles/outfile
+****************************TEST***************************
+cat <minishell.h|ls           
