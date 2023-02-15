@@ -28,7 +28,7 @@ static size_t	expansion_env(char **str, char *com, size_t cnt)
 	char	*tmp;
 
 	len = 0;
-	while (com[cnt] != '$' && com[cnt] != '\"' && com[cnt] && !ft_strchr(" \t\n\v\f\r", com[cnt]))
+	while (com[cnt] != '$' && com[cnt] != '\"' && com[cnt] != '\'' && com[cnt] && !ft_strchr(" \t\n\v\f\r", com[cnt]))
 	{
 		cnt += 1;
 		len += 1;
