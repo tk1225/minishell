@@ -46,6 +46,33 @@ int	read_heredoc(const char *delimiter)
 	return (1);
 }
 
+static void	handle_signal(int signal)
+{
+	(void)signal;
+	if (signal == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0); 
+		write(1, "\n", 1);
+		rl_redisplay();
+	}
+	else if (signal == SIGQUIT)
+		write(1, "signal_quit!", 12);
+}
+
+int	set_signal()
+{
+	// ◦ ctrl-C displays a new prompt on a new line.
+	// ◦ ctrl-D exits the shell.
+	// ◦ ctrl-\ does nothing.
+	signal(SIGINT, &handle_signal);
+	// signal(SIGHUP, &handle_signal);
+	signal(SIGQUIT, &handle_signal);
+	// signal(SIGQUIT, &handle_signal);
+
+	return (1);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -59,8 +86,8 @@ int main(int argc, char **argv, char **envp)
 	{
 		// test用
 		rl_outstream = stderr;
+		rl_startup_hook = set_signal;
 		line = readline("> ");
-		// line = readline("> ");
 		if (line == NULL || ft_strlen(line) == 0)
 		{
 			free(line);
