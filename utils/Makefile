@@ -6,7 +6,7 @@
 #    By: atito <atito@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 21:16:46 by atito             #+#    #+#              #
-#    Updated: 2023/02/14 20:11:33 by atito            ###   ########.fr        #
+#    Updated: 2023/02/16 20:19:26 by atito            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,10 @@ all:
 clean:
 	$(RM) $(OBJ_DIR)
 	make clean -C $(PRINTF_DIR)
-	make clean -C $(GNL_DIR)
 
 fclean:	clean
 	$(RM) $(NAME)
 	make fclean -C $(PRINTF_DIR)
-	make fclean -C $(GNL_DIR)
 
 re:	fclean all
 

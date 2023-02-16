@@ -35,7 +35,7 @@ int	executer(char **com, char **envp)
 {
 	recognize_redirect(com);
 	expansion(com);
-	if (exec_set(com) == FAILURE)
+	if (exec_set(com, envp) == FAILURE)
 		exe_com(com, envp);
 	else
 		exit(0);

@@ -51,7 +51,7 @@ static void	handle_signal(int signal)
 	if (signal == SIGINT || signal == SIGQUIT)
 	{
 		write(1, "\n", 1);
-		rl_replace_line("\n", 0); 
+		// rl_replace_line("\n", 0);
 	}
 }
 

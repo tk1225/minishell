@@ -5,7 +5,8 @@ AR			=	ar rcs
 NAME		=	minishell
 
 INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I readline/include
-RDLFLAGS	=	-lreadline -L readline/lib
+# RDLFLAGS	=	-l readline -L readline/lib
+RDLFLAGS	=	-l readline
 
 SRC_DIR		=	src/
 BUILT_DIR	=	builtin/
