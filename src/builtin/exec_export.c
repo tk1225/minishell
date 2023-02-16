@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	exec_export(char **com)
+int	exec_export(char **com, char **envp)
 {
 	extern char	**environ;
 	char		**env;
@@ -8,7 +8,7 @@ int	exec_export(char **com)
 
 	if (com[1] == NULL)
 	{
-		exec_env();
+		exec_env(com, envp);
 		return (SUCCESS);
 	}
 	env = environ;

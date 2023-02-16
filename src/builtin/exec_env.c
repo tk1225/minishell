@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-int	exec_env(void)
+int	exec_env(char **com, char **envp)
 {
-	extern char	**environ;
-	char		**env;
+	size_t	cnt;
 
-	env = environ;
-	while (*env)
-		ft_putendl_fd(*env++, 1);
+	(void)com;
+	cnt = 0;
+	while (envp[cnt])
+		ft_putendl_fd(envp[cnt++], 1);
 	return (SUCCESS);
 }

@@ -57,13 +57,13 @@ static int	ft_error_check(const char	*str)
 	return (SUCCESS);
 }
 
-int	exec_exit(char **com)
+int	exec_exit(char **com, char **envp)
 {
-    if (com[2] != NULL)
-        exit(1);
-    if (ft_error_check(com[1]) == FAILURE)
-        exit(255);
-    exit(ft_atoi(com[1]));
- 
+	(void)envp;
+	if (com[2] != NULL)
+		exit(1);
+	if (ft_error_check(com[1]) == FAILURE)
+		exit(255);
+	exit(ft_atoi(com[1]));
 	return (SUCCESS);
 }
