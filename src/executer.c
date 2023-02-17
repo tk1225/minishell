@@ -51,15 +51,15 @@ int	exec_recursion(t_tree *tree, char **envp)
 	int status;
 	
 	if (tree->stat == COM)
+	{
+		recognize_redirect(tree->com);
+		expansion(tree->com);
 		if (exec_set(tree->com, envp) != FAILURE)
 			return (0);
+	}
 	pid = fork();
 	if (pid == 0)
-	{
-		if (tree->stat == COM)
-			executer(tree->com, envp);
 		handle_pipe(tree, envp);
-	}
 	wait(&status);
 	waitpid(pid, NULL, 0);
 	return(status);

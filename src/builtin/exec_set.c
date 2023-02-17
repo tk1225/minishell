@@ -16,8 +16,7 @@ int	exec_set(char **com, char **envp)
 	else if (ft_strncmp(com[0], "export", com_len) == 0)
 		return(exec_export(com, envp));
 	else if (ft_strncmp(com[0], "pwd", com_len) == 0)
-		return(FAILURE);
-		// return(exec_pwd(com, envp));
+		return(exec_pwd(com, envp));
 	else if (ft_strncmp(com[0], "unset", com_len) == 0)
 		return(exec_unset(com, envp));
 	return (FAILURE);
