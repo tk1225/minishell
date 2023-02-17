@@ -9,7 +9,7 @@ static void	handle_signal(int signal)
 		// rl_redisplay();
 		write(1, "\n", 1);
 		rl_redisplay();
-		rl_replace_line("\n", 0); 
+		// rl_replace_line("\n", 0); 
 	}
 }
 

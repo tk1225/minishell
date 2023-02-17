@@ -49,7 +49,10 @@ int	exec_recursion(t_tree *tree, char **envp)
 {
 	int pid;
 	int status;
-
+	
+	if (tree->stat == COM)
+		if (exec_set(tree->com, envp) != FAILURE)
+			return (0);
 	pid = fork();
 	if (pid == 0)
 	{
