@@ -25,7 +25,7 @@ int	exe_com(char **com, char **envp)
 		free(tmp);
 		if (access(exec_path, X_OK) == 0)
 			execve(exec_path, com, envp);
-		i ++;
+		i += 1;
 		free(exec_path);
 	}
 	return (0);
@@ -49,7 +49,7 @@ int	exec_recursion(t_tree *tree, char **envp)
 {
 	int pid;
 	int status;
-	
+
 	if (tree->stat == COM)
 	{
 		recognize_redirect(tree->com);

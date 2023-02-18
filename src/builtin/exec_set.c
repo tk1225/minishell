@@ -4,7 +4,7 @@ int	exec_set(char **com, char **envp)
 {
 	size_t	com_len;
 
-	com_len = ft_strlen(com[0]);
+	com_len = ft_strlen(com[0]) + 1;
 	if (ft_strncmp(com[0], "cd", com_len) == 0)
 		return(exec_cd(com, envp));
 	else if (ft_strncmp(com[0], "echo", com_len) == 0)
