@@ -75,13 +75,20 @@ int main(int argc, char **argv, char **envp)
 			size_t	cnt;
 			char *delimiter;
 			cnt = 0;
+			// int d_quote = -1;
+			// int s_quote = -1;
 			while (res[cnt])
 			{
-				if (ft_strnstr(res[cnt], "<<", ft_strlen(line)))
+				// if (ft_strnstr(res[cnt], "<<", ft_strlen(line)))
+				// printf("res%s\n",res[cnt]);
+
+				if (ft_strncmp(res[cnt], "<<", 2) == 0)
 				{
 					delimiter = res[cnt + 1];
-					// if (delimiter == NULL)
-					// 	exit(2);
+					// printf("deli%s\n",delimiter);
+					// write(1, &delimiter, 4);
+					if (delimiter == NULL)
+						exit(2);
 					read_heredoc(delimiter);
 				}
 				cnt += 1;

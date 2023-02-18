@@ -33,7 +33,7 @@ int handle_heredoc()
 		perror("open");
 		return (1);
 	}
-	// unlink(".tmp.txt");
+	unlink(".tmp.txt");
 	int new_fd = dup(fd);
 	if (new_fd == -1)
 	{

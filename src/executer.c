@@ -57,11 +57,9 @@ int	exec_recursion(t_tree *tree, char **envp)
 		expansion(tree->com);
 		if (exec_set(tree->com, envp) != FAILURE)
 		{
-			// write(1, "ab\n", 3);
 			//標準入力をもとに戻す。
 			dup2(original_stdin_fd, STDIN_FILENO);  // 元の標準入力に戻す
 			dup2(original_stdout_fd, STDOUT_FILENO);  // 元の標準入力に戻す
-			// dup2()
 			return (0);
 		}
 	}
