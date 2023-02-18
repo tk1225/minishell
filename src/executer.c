@@ -49,7 +49,7 @@ int	exec_recursion(t_tree *tree, char **envp)
 {
 	int pid;
 	int status;
-	if (exec_check(tree->com))
+	if ((tree->stat == COM)&&(exec_check(tree->com) == SUCCESS))
 	{
 		int original_stdin_fd = dup(STDIN_FILENO);  // 元の標準入力のファイル記述子を取得
 		int original_stdout_fd = dup(STDOUT_FILENO);  // 元の標準入力のファイル記述子を取得
