@@ -24,8 +24,8 @@ int handle_heredoc()
     ret = lstat(".tmp.txt", &sb);
     if (ret == -1) {
         // Error handling
-		return (1);
 		// perror("already open");
+		return (1);
     }
 	fd = open(".tmp.txt", O_RDWR);
 	if (fd == -1)
@@ -33,7 +33,7 @@ int handle_heredoc()
 		perror("open");
 		return (1);
 	}
-	unlink(".tmp.txt");
+	// unlink(".tmp.txt");
 	int new_fd = dup(fd);
 	if (new_fd == -1)
 	{
@@ -47,6 +47,7 @@ int handle_heredoc()
 		return (1);
 	}
 	close(new_fd);
+	close(fd);
 	return (0);
 }
 
@@ -58,7 +59,6 @@ int recognize_redirect(char **com)
 	i = 0;
 	while (com[i])
 	{
-		// printf("filename?%s\n", com[i + 1]);
 		if (ft_strncmp(com[i], "<<", 2) == 0)
 		{
 			handle_heredoc();

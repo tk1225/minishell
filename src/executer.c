@@ -49,17 +49,29 @@ int	exec_recursion(t_tree *tree, char **envp)
 {
 	int pid;
 	int status;
-
-	if (tree->stat == COM)
+	if (exec_check(tree->com))
 	{
+		int original_stdin_fd = dup(STDIN_FILENO);  // 元の標準入力のファイル記述子を取得
+		int original_stdout_fd = dup(STDOUT_FILENO);  // 元の標準入力のファイル記述子を取得
 		recognize_redirect(tree->com);
 		expansion(tree->com);
 		if (exec_set(tree->com, envp) != FAILURE)
+		{
+			// write(1, "ab\n", 3);
+			//標準入力をもとに戻す。
+			dup2(original_stdin_fd, STDIN_FILENO);  // 元の標準入力に戻す
+			dup2(original_stdout_fd, STDOUT_FILENO);  // 元の標準入力に戻す
+			// dup2()
 			return (0);
+		}
 	}
 	pid = fork();
 	if (pid == 0)
+	{
+		if (tree->stat == COM)
+			executer(tree->com, envp);
 		handle_pipe(tree, envp);
+	}
 	wait(&status);
 	waitpid(pid, NULL, 0);
 	return(status);
