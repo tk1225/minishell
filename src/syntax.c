@@ -13,10 +13,7 @@ static int syntax_redirect(char **com)
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if (filename == NULL)
-			{
-				// perror("syntax error");
 				return(1);
-			}
 		}
 		i++;
 	}
