@@ -110,7 +110,5 @@ char	**lexer(char const *str)
 	len = count_word(str, c, o);
 	lst = (char **)alloc_exit(sizeof(char *),  (len + 1));
 	insert_word(lst, str, c, o);
-	for (size_t i = 0; lst[i]; i++)
-		printf("%s\n", lst[i]);
 	return (lst);
 }

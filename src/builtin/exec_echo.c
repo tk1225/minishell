@@ -10,8 +10,11 @@ int	exec_echo(char **com, char **envp)
 	row = 1;
 	nl_flag = 1;
 	if (!com[row])
+	{
 		ft_putchar_fd('\n', 1);
-	while (com[row][0] == '-')
+		return (SUCCESS);
+	}
+	while (com[row][0] == '-' && ft_strlen(com[row]) > 1)
 	{
 		cnt = 1;
 		while (com[row][cnt] == 'n')

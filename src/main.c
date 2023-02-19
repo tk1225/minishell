@@ -9,7 +9,7 @@ static void	handle_signal(int signal)
 		// rl_redisplay();
 		write(1, "\n", 1);
 		rl_redisplay();
-		// rl_replace_line("\n", 0); 
+		// rl_replace_line("\n", 0);
 	}
 }
 
@@ -52,7 +52,7 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	// (void)envp;
 	int status;
 	char *line = NULL;
 	t_tree **tree;
@@ -81,7 +81,6 @@ int main(int argc, char **argv, char **envp)
 			{
 				// if (ft_strnstr(res[cnt], "<<", ft_strlen(line)))
 				// printf("res%s\n",res[cnt]);
-
 				if (ft_strncmp(res[cnt], "<<", 2) == 0)
 				{
 					delimiter = res[cnt + 1];
