@@ -104,6 +104,8 @@ void	expansion(char **com)
 				c_cnt = expansion_char(&str, *com, c_cnt);
 		}
 		free(*com);
+		if (!str)
+			str = ft_calloc(sizeof(char), 1);
 		*com = str;
 		com += 1;
 	}
