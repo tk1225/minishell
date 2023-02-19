@@ -19,16 +19,36 @@ int	exec_cd(char **com, char **envp)
 	{
 		cnt = ft_strlen(ft_strrchr(pwd, '/'));
 		path = ft_substr(pwd, 0, ft_strlen(pwd) - cnt);
-		chdir(path);
+		if (ft_strlen(com[1]) > 2 && com[1][2] == '/')
+			path = ft_strjoin(path, ft_substr(com[row], 2, ft_strlen(com[row]) - 2));
+		if (access(com[row], F_OK) == 0)
+			chdir(com[row]);
+		else
+		{
+			perror("path error");
+			return (FAILURE);
+		}
 	}
 	else if (ft_strncmp(com[row], "/" ,1) == 0)
 	{
-		chdir(com[row]);
+		if (access(com[row], F_OK) == 0)
+			chdir(com[row]);
+		else
+		{
+			perror("path error");
+			return (FAILURE);
+		}
 	}
 	else if (ft_strncmp(com[row], "./" ,2) == 0)
 	{
 		path = ft_strjoin(pwd, &com[row][1]);
-		chdir(path);
+		if (access(com[row], F_OK) == 0)
+			chdir(com[row]);
+		else
+		{
+			perror("path error");
+			return (FAILURE);
+		}
 	}
 	else if (ft_strncmp(com[row], "." ,2) == 0)
 	{
@@ -42,7 +62,13 @@ int	exec_cd(char **com, char **envp)
 	else
 	{
 		path = str_join_three(pwd, "/", com[row]);
-		chdir(path);
+		if (access(com[row], F_OK) == 0)
+			chdir(com[row]);
+		else
+		{
+			perror("path error");
+			return (FAILURE);
+		}
 	}
 	return (SUCCESS);
 }

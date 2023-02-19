@@ -2,8 +2,6 @@
 
 int	exec_export(char **com, char **envp)
 {
-	extern char	**environ;
-	char		**env;
 	size_t		cnt;
 
 	if (com[1] == NULL)
@@ -11,7 +9,6 @@ int	exec_export(char **com, char **envp)
 		exec_env(com, envp);
 		return (SUCCESS);
 	}
-	env = environ;
 	cnt = 0;
 	while (env[cnt])
 		cnt += 1;
