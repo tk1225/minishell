@@ -1,28 +1,5 @@
 #include "minishell.h"
 
-static void	handle_signal(int signal)
-{
-	if (signal == SIGINT || signal == SIGQUIT)
-	{
-		// write(1, "catch!\n", 7);
-		// rl_on_new_line();
-		// rl_redisplay();
-		write(1, "\n", 1);
-		rl_redisplay();
-		// rl_replace_line("\n", 0);
-	}
-}
-
-int	set_signal()
-{
-	// ◦ ctrl-C displays a new prompt on a new line.
-	// ◦ ctrl-D exits the shell.
-	// ◦ ctrl-\ does nothing.
-	signal(SIGINT, &handle_signal);
-	signal(SIGQUIT, &handle_signal);
-	return (1);
-}
-
 int	read_heredoc(const char *delimiter)
 {
 	char	*line;
@@ -56,18 +33,20 @@ int main(int argc, char **argv, char **envp)
 	int status;
 	char *line = NULL;
 	t_tree **tree;
-
+	
+	set_signal();
+	// rl_event_hook;
 	while (1)
 	{
 		// test用
 		rl_outstream = stderr;
-		set_signal();
-		line = readline("> ");
+		// rl_catch_signals = 0;
+		
+		// rl_event_hook = set_signal();
+		line = readline("$ ");
 		if (line == NULL)
 			break;
-		if (line == NULL || ft_strlen(line) == 0)
-			free(line);
-		else
+		if (ft_strlen(line) > 0)
 		{
 			char **res;
 			add_history(line);
@@ -75,17 +54,12 @@ int main(int argc, char **argv, char **envp)
 			size_t	cnt;
 			char *delimiter;
 			cnt = 0;
-			// int d_quote = -1;
-			// int s_quote = -1;
 			while (res[cnt])
 			{
-				// if (ft_strnstr(res[cnt], "<<", ft_strlen(line)))
 				// printf("res%s\n",res[cnt]);
 				if (ft_strncmp(res[cnt], "<<", 2) == 0)
 				{
 					delimiter = res[cnt + 1];
-					// printf("deli%s\n",delimiter);
-					// write(1, &delimiter, 4);
 					if (delimiter == NULL)
 						exit(2);
 					read_heredoc(delimiter);
@@ -103,6 +77,7 @@ int main(int argc, char **argv, char **envp)
 			{
 				status = exec_recursion(*tree, envp);
 			}
+			rl_on_new_line();
 			// print_tree(*tree);
 			// printf("子プロセスの終了ステータス: %d\n", WEXITSTATUS(status));
 			free(line);

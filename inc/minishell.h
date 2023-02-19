@@ -73,4 +73,7 @@ void	print_tree(t_tree *tree);
 //syntax
 int		syntax_check(t_tree *tree);
 
+//signal
+int		set_signal();
+
 #endif
