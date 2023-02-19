@@ -34,7 +34,7 @@ static void	insert_word(char **lst, char const *s, char *c, char *o)
 		if (!(ft_strchr(c, s[cnt]) && d_quote == OUT_QUOTE && s_quote == OUT_QUOTE))
 			len += 1;
 		// 自分がoで、隣がoじゃないかつ、quoteの中じゃない
-		if (ft_strchr(o, s[cnt]) && !ft_strchr(o, s[cnt + 1]) && d_quote == 1 && s_quote == 1)
+		if (ft_strchr(o, s[cnt]) && s[cnt] != s[cnt + 1] && d_quote == 1 && s_quote == 1)
 		{
 			*lst = ft_substr(s, cnt - len + 1, len);
 			if (!*lst++)
@@ -82,7 +82,7 @@ static size_t	count_word(char const *s, char *c, char *o)
 		if (s[cnt] == '\'')
 			s_quote *= -1;
 		// 自分がoで、隣がoじゃない
-		if (ft_strchr(o, s[cnt]) && !ft_strchr(o, s[cnt + 1]))
+		if (ft_strchr(o, s[cnt]) && s[cnt] != s[cnt + 1])
 			len += 1;
 		// 隣がquoteじゃないかつ、quoteの中じゃなかったら
 		if (d_quote == OUT_QUOTE && s_quote == OUT_QUOTE && !ft_strchr("\'\"", s[cnt + 1]))
@@ -110,5 +110,7 @@ char	**lexer(char const *str)
 	len = count_word(str, c, o);
 	lst = (char **)alloc_exit(sizeof(char *),  (len + 1));
 	insert_word(lst, str, c, o);
+	for (size_t i = 0; lst[i]; i++)
+		printf("%s\n", lst[i]);
 	return (lst);
 }
