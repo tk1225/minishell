@@ -10,6 +10,8 @@ static void	handle_signal(int signal)
 		// rl_on_new_line();
 		ft_putstr_fd("\n", 1);
 		rl_redisplay();
+		// rl_replace_line("$ ", 0);
+		// rl_redisplay();
 		// rl_on_new_line();
 		// rl_replace_line("", 0);
 		// rl_redisplay();
