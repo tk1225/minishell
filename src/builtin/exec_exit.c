@@ -57,9 +57,9 @@ static int	ft_error_check(const char	*str)
 	return (SUCCESS);
 }
 
-int	exec_exit(char **com, char **envp)
+int	exec_exit(char **com, t_env **env)
 {
-	(void)envp;
+	(void)env;
 	if (com[2] != NULL)
 		exit(1);
 	if (ft_error_check(com[1]) == FAILURE)

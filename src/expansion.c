@@ -21,7 +21,7 @@ static size_t	expansion_char(char **str, char *com, size_t cnt)
 	return (cnt);
 }
 
-static size_t	expansion_env(char **str, char *com, size_t cnt)
+static size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 {
 	size_t	len;
 	char	*prm;
@@ -41,14 +41,14 @@ static size_t	expansion_env(char **str, char *com, size_t cnt)
 	else if (prm[0] == '0')
 		tmp = str_join_three(*str, "minishell", ft_substr(prm, 1, ft_strlen(prm) - 1));
 	else
-		tmp = ft_strjoin(*str, getenv(prm));
+		tmp = ft_strjoin(*str, getenvs(prm, env));
 	free(prm);
 	free(*str);
 	*str = tmp;
 	return (cnt);
 }
 
-static size_t	expansion_dquote(char **str, char *com, size_t cnt)
+static size_t	expansion_dquote(t_env **env, char **str, char *com, size_t cnt)
 {
 	char	*inq;
 	char	*tmp;
@@ -57,7 +57,7 @@ static size_t	expansion_dquote(char **str, char *com, size_t cnt)
 	while (com[cnt] != '\"')
 	{
 		if (com[cnt] == '$')
-			cnt = expansion_env(&inq, com, cnt + 1);
+			cnt = expansion_env(env, &inq, com, cnt + 1);
 		else
 			cnt = expansion_char(&inq, com, cnt);
 	}
@@ -83,7 +83,7 @@ static size_t	expansion_squote(char **str, char *com, size_t cnt)
 	return (cnt + 1);
 }
 
-void	expansion(char **com)
+void	expansion(char **com, t_env **env)
 {
 	char	*str;
 	size_t	c_cnt;
@@ -95,9 +95,9 @@ void	expansion(char **com)
 		while ((*com)[c_cnt])
 		{
 			if ((*com)[c_cnt] == '$')
-				c_cnt = expansion_env(&str, *com, c_cnt + 1);
+				c_cnt = expansion_env(env, &str, *com, c_cnt + 1);
 			else if ((*com)[c_cnt] == '\"')
-				c_cnt = expansion_dquote(&str, *com, c_cnt + 1);
+				c_cnt = expansion_dquote(env, &str, *com, c_cnt + 1);
 			else if ((*com)[c_cnt] == '\'')
 				c_cnt = expansion_squote(&str, *com, c_cnt + 1);
 			else

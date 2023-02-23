@@ -9,7 +9,7 @@ static int syntax_redirect(char **com)
 	while (com[i])
 	{
 		if ((ft_strncmp(com[i], "<<", 2) == 0) || (ft_strncmp(com[i], ">>", 2) == 0)\
-		 || (ft_strncmp(com[i], ">", 1) == 0) || (ft_strncmp(com[i], "<", 1) == 0))
+			|| (ft_strncmp(com[i], ">", 1) == 0) || (ft_strncmp(com[i], "<", 1) == 0))
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if (filename == NULL)

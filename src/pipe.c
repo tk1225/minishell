@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int handle_pipe(t_tree *tree, char **envp)
+int handle_pipe(t_tree *tree, t_env **envp)
 {
 	int	pipefd[2];
 

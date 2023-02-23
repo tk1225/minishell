@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-int	exec_echo(char **com, char **envp)
+int	exec_echo(char **com, t_env **env)
 {
 	size_t	row;
 	size_t	cnt;
 	int		nl_flag;
 
-	(void)envp;
+	(void)env;
 	row = 1;
 	nl_flag = 1;
 	if (!com[row])

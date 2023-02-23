@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "ft_printf.h"
-# include "exec.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -41,6 +40,14 @@ typedef enum e_stat
 	PIPE
 }	t_stat;
 
+typedef struct s_env
+{
+	struct s_env	*next;
+	struct s_env	*prev;
+	char			*key;
+	char			*value;
+}	t_env;
+
 //lexer
 char	**lexer(char const *s);
 void	free_lst(char **lst);
@@ -49,11 +56,11 @@ void	free_lst(char **lst);
 t_tree	**parser(char **res);
 
 //expansion
-void	expansion(char **com);
+void	expansion(char **com, t_env **env);
 
 //fork
-int		executer(char **com, char **envp);
-void	exec_tree(t_tree *tree, char **envp);
+int		executer(char **com, t_env **envp);
+void	exec_tree(t_tree *tree, t_env **envp);
 
 //utils
 void	*alloc_exit(size_t cnt, size_t size);
@@ -61,11 +68,22 @@ void	put_exit(char *str);
 char	*str_join_three(const char *s1, const char *s2, const char *s3);
 
 //exec
-int		exec_recursion(t_tree *tree, char **envp);
-int		handle_pipe(t_tree *tree, char **envp);
+int		exec_recursion(t_tree *tree, t_env **envp);
+int		handle_pipe(t_tree *tree, t_env **envp);
 int		recognize_redirect(char **com);
 int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		exec_check(char **com);
+int		exec_set(char **com, t_env **envp);
+char	*getenvs(char *key, t_env **env);
+
+//builtin
+int		exec_cd(char **com, t_env **envp);
+int		exec_echo(char **com, t_env **envp);
+int		exec_env(char **com, t_env **envp);
+int		exec_exit(char **com, t_env **envp);
+int		exec_export(char **com, t_env **envp);
+int		exec_pwd(char **com, t_env **envp);
+int		exec_unset(char **com, t_env **envp);
 
 //delete
 void	print_tree(t_tree *tree);

@@ -1,18 +1,18 @@
 #include "minishell.h"
 
-int	exec_cd(char **com, char **envp)
+int	exec_cd(char **com, t_env **env)
 {
 	size_t	row;
 	size_t	cnt;
 	char	*path;
 	char	*pwd;
 
-	(void)envp;
+	(void)env;
 	pwd = getcwd(NULL, 512);
 	row = 1;
 	if (!com[row] || ft_strncmp(com[row], "~" ,1) == 0)
 	{
-		path = getenv("HOME");
+		path = getenvs("HOME", env);
 		chdir(path);
 	}
 	else if (ft_strncmp(com[row], ".." ,2) == 0)
@@ -56,7 +56,7 @@ int	exec_cd(char **com, char **envp)
 	}
 	else if (ft_strncmp(com[row], "-" ,1) == 0)
 	{
-		path = getenv("OLDPWD");
+		path = getenvs("OLDPWD", env);
 		chdir(path);
 	}
 	else

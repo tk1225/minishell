@@ -48,15 +48,42 @@ int	read_heredoc(const char *delimiter)
 	return (1);
 }
 
+t_env	*env_struct(char **envp)
+{
+	size_t	cnt;
+	t_env	*out;
+	t_env	*tmp;
+
+	cnt = 0;
+	tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
+	out = tmp;
+	tmp->prev = NULL;
+	tmp->key = ft_substr(envp[cnt], 0, ft_strlen(envp[cnt]) - ft_strlen(ft_strchr(envp[cnt], '=')));
+	tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+	cnt += 1;
+	while (envp[cnt])
+	{
+		tmp->next = (t_env *)alloc_exit(sizeof(t_env), 1);
+		tmp->next->prev = tmp;
+		tmp = tmp->next;
+		tmp->key = ft_substr(envp[cnt], 0, ft_strlen(envp[cnt]) - ft_strlen(ft_strchr(envp[cnt], '=')));
+		tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+		cnt += 1;
+	}
+	tmp->next = NULL;
+	return (out);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	// (void)envp;
 	int status;
 	char *line = NULL;
 	t_tree **tree;
+	t_env *env;
 
+	env = env_struct(envp);
 	while (1)
 	{
 		// test用
@@ -101,7 +128,7 @@ int main(int argc, char **argv, char **envp)
 			}
 			else
 			{
-				status = exec_recursion(*tree, envp);
+				status = exec_recursion(*tree, &env);
 			}
 			// print_tree(*tree);
 			// printf("子プロセスの終了ステータス: %d\n", WEXITSTATUS(status));
