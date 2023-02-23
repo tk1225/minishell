@@ -4,9 +4,11 @@ RM			=	rm -rf
 AR			=	ar rcs
 NAME		=	minishell
 
-INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I readline/include
+INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I $(shell brew --prefix readline)/include
+# -I readline/include
 # RDLFLAGS	=	-l readline -L readline/lib
-RDLFLAGS	=	-l readline
+RDLFLAGS	=	-L$(shell brew --prefix readline)/lib -lreadline
+# RDLFLAGS	=	-l readline
 
 SRC_DIR		=	src/
 BUILT_DIR	=	builtin/
@@ -16,7 +18,7 @@ LIBFT_DIR	=	$(PRINTF_DIR)libft/
 PRINTF_DIR	=	$(UTILS_DIR)ft_printf/
 
 SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c expansion.c\
-				syntax.c redirection.c pipe.c getenvs.c
+				syntax.c redirection.c pipe.c signal.c getenvs.c
 BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c\
 				exec_export.c exec_pwd.c exec_unset.c exec_set.c exec_check.c
 
