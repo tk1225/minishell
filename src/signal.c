@@ -1,30 +1,36 @@
 #include "minishell.h"
 
-static void	handle_signal(int signal)
+extern int status_code;
+
+void    handle_signals(int sig)
 {
-	if (signal == SIGINT)
-	{
-		// rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		// rl_on_new_line();
-		ft_putstr_fd("\n", 1);
-		rl_redisplay();
-		// rl_replace_line("$ ", 0);
-		// rl_redisplay();
-		// rl_on_new_line();
-		// rl_replace_line("", 0);
-		// rl_redisplay();
-		// EOF
-	}
+    if (sig == SIGINT)
+    {
+        status_code = 130;
+    }
 }
 
-int	set_signal()
+int    signal_check(void)
 {
-	// ◦ ctrl-C displays a new prompt on a new line.
-	// ◦ ctrl-D exits the shell.
-	// ◦ ctrl-\ does nothing.
-	signal(SIGINT, &handle_signal);
-	signal(SIGQUIT, SIG_IGN);
-	return (1);
+    if (status_code == 130)
+    {
+		// write(1, "status is 130", 13);
+        rl_replace_line("", 0); 
+        rl_done = 1;
+    }
+    return (0);
 }
+
+// int    signal_heredoc_check(void)
+// {
+//     if (status_code == 130)
+//     {
+//         rl_on_new_line();
+// 		rl_replace_line("", 0);
+// 		// rl_on_new_line();
+// 		ft_putstr_fd("\n", 1);
+// 		rl_redisplay();
+//         // rl_done = 1;
+//     }
+//     return (0);
+// }

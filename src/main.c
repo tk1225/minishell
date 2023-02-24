@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int status_code = 0;
+
 int	read_heredoc(const char *delimiter)
 {
 	char	*line;
@@ -7,11 +9,14 @@ int	read_heredoc(const char *delimiter)
 
 	while (1)
 	{
-		// set_signal();
-		line = readline("");
+		rl_event_hook = signal_check;
+		// signal(SIGINT, handle_signals);
+		if (status_code == 130)
+			break;
+		line = readline("heredoc> ");
 		if (line == NULL)
 			break ;
-		if (strcmp(line, delimiter) == 0)
+		if (strcmp(line, delimiter) == 0 || status_code == 130)
 		{
 			free(line);
 			break ;
@@ -61,16 +66,15 @@ int main(int argc, char **argv, char **envp)
 	t_env *env;
 
 	env = env_struct(envp);
-	set_signal();
-	// rl_event_hook;
 	while (1)
 	{
 		// test用
 		rl_outstream = stderr;
-		// rl_catch_signals = 0;
+		status_code = 0;
+		rl_event_hook = signal_check;
+    	signal(SIGINT, handle_signals); 
 
-		// rl_event_hook = set_signal();
-		line = readline("$ ");
+		line = readline("> ");
 		if (line == NULL)
 			break;
 		if (ft_strlen(line) > 0)
@@ -90,6 +94,8 @@ int main(int argc, char **argv, char **envp)
 					if (delimiter == NULL)
 						exit(2);
 					read_heredoc(delimiter);
+					// if (status_code == 130)
+					// 	continue;
 				}
 				cnt += 1;
 			}
@@ -104,8 +110,6 @@ int main(int argc, char **argv, char **envp)
 			{
 				status = exec_recursion(*tree, &env);
 			}
-			rl_on_new_line();
-			// print_tree(*tree);
 			// printf("子プロセスの終了ステータス: %d\n", WEXITSTATUS(status));
 			free(line);
 		}

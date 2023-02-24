@@ -92,6 +92,6 @@ void	print_tree(t_tree *tree);
 int		syntax_check(t_tree *tree);
 
 //signal
-int		set_signal();
-
+int    signal_check(void);
+void    handle_signals(int sig);
 #endif
