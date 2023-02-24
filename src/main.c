@@ -9,7 +9,6 @@ int	read_heredoc(const char *delimiter)
 
 	while (1)
 	{
-		rl_event_hook = signal_check;
 		if (g_status_code == 130)
 			break;
 		line = readline("heredoc> ");
@@ -71,15 +70,14 @@ int main(int argc, char **argv, char **envp)
 	{
 		// test用
 		rl_outstream = stderr;
-		if (g_status_code == 130)
-			write(1, "\n", 1);
-		g_status_code = 0;
+		// testの際に外す
 		rl_event_hook = signal_check;
     	signal(SIGINT, handle_signals); 
+    	signal(SIGQUIT, SIG_IGN); 
 		line = readline("> ");
 		if (line == NULL)
 			break;
-		if (ft_strlen(line) == 0)
+		if (ft_strlen(line) == 0 && g_status_code == 130)
 			g_status_code = 1;
 		if (ft_strlen(line) > 0)
 		{
@@ -98,8 +96,6 @@ int main(int argc, char **argv, char **envp)
 					if (delimiter == NULL)
 						exit(2);
 					read_heredoc(delimiter);
-					// if (status_code == 130)
-					// 	continue;
 				}
 				cnt += 1;
 			}
@@ -107,18 +103,27 @@ int main(int argc, char **argv, char **envp)
 			if (syntax_check(*tree) > 0)
 			{
 				perror("syntax error");
-				status = 2;
-				exit(2);
+				g_status_code = 2;
+				continue;
 			}
 			else
 			{
 				status = exec_recursion(*tree, &env);
 			}
-			// printf("子プロセスの終了ステータス: %d\n", WEXITSTATUS(status));
+			if (g_status_code == 130)
+			{
+				write(1, "\n", 1);
+			}
+			
+			// printf("%d", WEXITSTATUS(status));
+			// write(1,ft_itoa(WEXITSTATUS(status)), 4);
+			// write(1,ft_itoa(g_status_code), 4);
+			// if (g_status_code != 130)
+			g_status_code = WEXITSTATUS(status);
 			free(line);
 		}
 	}
-	exit(WEXITSTATUS(status));
+	exit(g_status_code);
 	return (0);
 }
 

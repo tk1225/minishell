@@ -3,8 +3,7 @@
 int	exe_com(char **com, t_env **env)
 {
 	char *path;
-
-	(void)env;
+	
 	path = getenvs("PATH", env);
 	if (path == NULL) {
 		perror("PATH environment variable not set");
@@ -62,7 +61,8 @@ int	exec_recursion(t_tree *tree, t_env **env)
 			dup2(original_stdin_fd, STDIN_FILENO);  // 元の標準入力に戻す
 			dup2(original_stdout_fd, STDOUT_FILENO);  // 元の標準入力に戻す
 			return (0);
-		}
+		}else
+			return (1);
 	}
 	pid = fork();
 	if (pid == 0)

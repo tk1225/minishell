@@ -7,16 +7,19 @@ void    handle_signals(int sig)
     if (sig == SIGINT)
     {
         g_status_code = 130;
+		rl_replace_line("", 0); 
+        rl_done = 1;
     }
 }
 
 int    signal_check(void)
 {
-    if (g_status_code == 130)
-    {
-        rl_replace_line("", 0); 
-        rl_done = 1;
-    }
+    // if (g_status_code == 130)
+    // {
+	// 	// write(1, "status is 130", 13);
+    //     rl_replace_line("", 0); 
+    //     rl_done = 1;
+    // }
     return (0);
 }
 
