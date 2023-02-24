@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+extern int g_status_code;
+
 static	void	exe_com_helper(char **com, char	**dir)
 {
 	int		i;
@@ -69,10 +71,16 @@ int	exec_recursion(t_tree *tree, t_env **env)
 		{
 			dup2(original_stdin_fd, STDIN_FILENO);
 			dup2(original_stdout_fd, STDOUT_FILENO);
+			g_status_code = 0;
 			return (0);
 		}
 		else
+		{
+			dup2(original_stdin_fd, STDIN_FILENO);
+			dup2(original_stdout_fd, STDOUT_FILENO);
+			g_status_code = 1;
 			return (1);
+		}
 	}
 	pid = fork();
 	if (pid == 0)
@@ -83,5 +91,8 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	}
 	wait(&status);
 	waitpid(pid, NULL, 0);
+	if (g_status_code == 130)
+		write(1, "\n", 1);
+	g_status_code = WEXITSTATUS(status);
 	return (status);
 }

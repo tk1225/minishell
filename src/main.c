@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	int status;
+	// int status;
 	char *line = NULL;
 	t_tree **tree;
 	t_env *env;
@@ -78,14 +78,7 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			else
-			{
-				status = exec_recursion(*tree, &env);
-			}
-			if (g_status_code == 130)
-			{
-				write(1, "\n", 1);
-			}
-			g_status_code = WEXITSTATUS(status);
+				exec_recursion(*tree, &env);
 			free(line);
 		}
 	}
