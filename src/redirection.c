@@ -16,17 +16,13 @@ static void shift_com(char **com, int i)
 
 int handle_heredoc()
 {
-	int fd;
-	struct stat sb;
+	int				fd;
+	struct	stat	sb;
+	int				ret;
 
-	int ret;
-
-    ret = lstat(".tmp.txt", &sb);
-    if (ret == -1) {
-        // Error handling
-		// perror("already open");
+	ret = lstat(".tmp.txt", &sb);
+	if (ret == -1)
 		return (1);
-    }
 	fd = open(".tmp.txt", O_RDWR);
 	if (fd == -1)
 	{

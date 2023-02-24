@@ -1,15 +1,17 @@
 #include "minishell.h"
 
-int handle_pipe(t_tree *tree, t_env **envp)
+int	handle_pipe(t_tree *tree, t_env **envp)
 {
 	int	pipefd[2];
+	int	pid;
+	int	status;
 
 	if (pipe(pipefd) == -1)
 		return (1);
-	int pid1 = fork();
-	if (pid1 < 0)
+	pid = fork();
+	if (pid < 0)
 		return (2);
-	if (pid1 == 0)
+	if (pid == 0)
 	{
 		dup2(pipefd[WRITE], STDOUT_FILENO);
 		close(pipefd[0]);
@@ -22,11 +24,7 @@ int handle_pipe(t_tree *tree, t_env **envp)
 	dup2(pipefd[READ], STDIN_FILENO);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	int status;
 	wait(&status);
 	executer(tree->right->com, envp);
-	// waitpid(pid1, NULL, 0);
-
-	// read
 	return (0);
 }

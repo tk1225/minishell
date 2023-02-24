@@ -92,6 +92,9 @@ void	print_tree(t_tree *tree);
 int		syntax_check(t_tree *tree);
 
 //signal
-int    signal_check(void);
+int    	signal_check(void);
 void    handle_signals(int sig);
+
+int	read_heredoc(const char *delimiter);
+
 #endif

@@ -1,34 +1,6 @@
 #include "minishell.h"
 
-int g_status_code = 0;
-
-int	read_heredoc(const char *delimiter)
-{
-	char	*line;
-	int fd = open(".tmp.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
-
-	while (1)
-	{
-		if (g_status_code == 130)
-			break;
-		line = readline("heredoc> ");
-		if (line == NULL)
-			break ;
-		if (strcmp(line, delimiter) == 0 || g_status_code == 130)
-		{
-			if (g_status_code == 130)
-				g_status_code = 1;
-			free(line);
-			break ;
-		}
-		//次の行からがHEREDOCの内容
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-	}
-	close(fd);
-	return (1);
-}
+int	g_status_code = 0;
 
 t_env	*env_struct(char **envp)
 {
@@ -56,7 +28,7 @@ t_env	*env_struct(char **envp)
 	return (out);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
@@ -81,7 +53,7 @@ int main(int argc, char **argv, char **envp)
 			g_status_code = 1;
 		if (ft_strlen(line) > 0)
 		{
-			char **res;
+			char	**res;
 			add_history(line);
 			res = lexer(line);
 			size_t	cnt;
@@ -89,7 +61,6 @@ int main(int argc, char **argv, char **envp)
 			cnt = 0;
 			while (res[cnt])
 			{
-				// printf("res%s\n",res[cnt]);
 				if (ft_strncmp(res[cnt], "<<", 2) == 0)
 				{
 					delimiter = res[cnt + 1];
@@ -104,7 +75,7 @@ int main(int argc, char **argv, char **envp)
 			{
 				perror("syntax error");
 				g_status_code = 2;
-				continue;
+				continue ;
 			}
 			else
 			{
@@ -114,11 +85,6 @@ int main(int argc, char **argv, char **envp)
 			{
 				write(1, "\n", 1);
 			}
-			
-			// printf("%d", WEXITSTATUS(status));
-			// write(1,ft_itoa(WEXITSTATUS(status)), 4);
-			// write(1,ft_itoa(g_status_code), 4);
-			// if (g_status_code != 130)
 			g_status_code = WEXITSTATUS(status);
 			free(line);
 		}

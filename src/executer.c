@@ -1,24 +1,14 @@
 #include "minishell.h"
 
-int	exe_com(char **com, t_env **env)
+static	void	exe_com_helper(char **com, char	**dir)
 {
-	char *path;
-	
-	path = getenvs("PATH", env);
-	if (path == NULL) {
-		perror("PATH environment variable not set");
-		return (1);
-	}
-	size_t path_len = ft_strlen(path);
-	char *path_copy = malloc(path_len + 1);
-	ft_strlcpy(path_copy, path, ft_strlen(path));
-	char **dir = ft_split(path_copy, ':');
-	int i = 0;
+	int		i;
+	char	*exec_path;
+	char	*tmp;
+
+	i = 0;
 	while (dir[i] != NULL)
 	{
-		char *exec_path;
-		char *tmp;
-
 		exec_path = ft_strjoin(dir[i], "/");
 		tmp = exec_path;
 		exec_path = ft_strjoin(exec_path, com[0]);
@@ -28,6 +18,24 @@ int	exe_com(char **com, t_env **env)
 		i += 1;
 		free(exec_path);
 	}
+}
+
+int	exe_com(char **com, t_env **env)
+{
+	char	*path;
+	char	*path_copy;
+	char	**dir;
+
+	path = getenvs("PATH", env);
+	if (path == NULL)
+	{
+		perror("PATH environment variable not set");
+		return (1);
+	}
+	path_copy = malloc(ft_strlen(path) + 1);
+	ft_strlcpy(path_copy, path, ft_strlen(path));
+	dir = ft_split(path_copy, ':');
+	exe_com_helper(com, dir);
 	return (0);
 }
 
@@ -42,26 +50,28 @@ int	executer(char **com, t_env **env)
 	perror("command not found");
 	exit(127);
 	return (1);
-
 }
 
 int	exec_recursion(t_tree *tree, t_env **env)
 {
-	int pid;
-	int status;
-	if ((tree->stat == COM)&&(exec_check(tree->com) == SUCCESS))
+	int	pid;
+	int	status;
+	int	original_stdin_fd;
+	int	original_stdout_fd;
+
+	if ((tree->stat == COM) && (exec_check(tree->com) == SUCCESS))
 	{
-		int original_stdin_fd = dup(STDIN_FILENO);  // 元の標準入力のファイル記述子を取得
-		int original_stdout_fd = dup(STDOUT_FILENO);  // 元の標準入力のファイル記述子を取得
+		original_stdin_fd = dup(STDIN_FILENO);
+		original_stdout_fd = dup(STDOUT_FILENO);
 		recognize_redirect(tree->com);
 		expansion(tree->com, env);
 		if (exec_set(tree->com, env) != FAILURE)
 		{
-			//標準入力をもとに戻す。
-			dup2(original_stdin_fd, STDIN_FILENO);  // 元の標準入力に戻す
-			dup2(original_stdout_fd, STDOUT_FILENO);  // 元の標準入力に戻す
+			dup2(original_stdin_fd, STDIN_FILENO);
+			dup2(original_stdout_fd, STDOUT_FILENO);
 			return (0);
-		}else
+		}
+		else
 			return (1);
 	}
 	pid = fork();
@@ -73,5 +83,5 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	}
 	wait(&status);
 	waitpid(pid, NULL, 0);
-	return(status);
+	return (status);
 }
