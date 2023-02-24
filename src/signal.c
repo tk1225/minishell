@@ -1,18 +1,18 @@
 #include "minishell.h"
 
-extern int status_code;
+extern int g_status_code;
 
 void    handle_signals(int sig)
 {
     if (sig == SIGINT)
     {
-        status_code = 130;
+        g_status_code = 130;
     }
 }
 
 int    signal_check(void)
 {
-    if (status_code == 130)
+    if (g_status_code == 130)
     {
 		// write(1, "status is 130", 13);
         rl_replace_line("", 0); 

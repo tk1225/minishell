@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int status_code = 0;
+int g_status_code = 0;
 
 int	read_heredoc(const char *delimiter)
 {
@@ -11,12 +11,12 @@ int	read_heredoc(const char *delimiter)
 	{
 		rl_event_hook = signal_check;
 		// signal(SIGINT, handle_signals);
-		if (status_code == 130)
+		if (g_status_code == 130)
 			break;
 		line = readline("heredoc> ");
 		if (line == NULL)
 			break ;
-		if (strcmp(line, delimiter) == 0 || status_code == 130)
+		if (strcmp(line, delimiter) == 0 || g_status_code == 130)
 		{
 			free(line);
 			break ;
@@ -70,7 +70,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		// test用
 		rl_outstream = stderr;
-		status_code = 0;
+		g_status_code = 0;
 		rl_event_hook = signal_check;
     	signal(SIGINT, handle_signals); 
 
