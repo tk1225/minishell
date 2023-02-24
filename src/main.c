@@ -10,7 +10,6 @@ int	read_heredoc(const char *delimiter)
 	while (1)
 	{
 		rl_event_hook = signal_check;
-		// signal(SIGINT, handle_signals);
 		if (g_status_code == 130)
 			break;
 		line = readline("heredoc> ");
@@ -70,13 +69,16 @@ int main(int argc, char **argv, char **envp)
 	{
 		// test用
 		rl_outstream = stderr;
+		if (g_status_code == 130)
+			write(1, "\n", 1);
 		g_status_code = 0;
 		rl_event_hook = signal_check;
     	signal(SIGINT, handle_signals); 
-
 		line = readline("> ");
 		if (line == NULL)
 			break;
+		if (ft_strlen(line) == 0)
+			g_status_code = 1;
 		if (ft_strlen(line) > 0)
 		{
 			char **res;

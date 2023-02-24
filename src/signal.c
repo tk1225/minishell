@@ -14,7 +14,6 @@ int    signal_check(void)
 {
     if (g_status_code == 130)
     {
-		// write(1, "status is 130", 13);
         rl_replace_line("", 0); 
         rl_done = 1;
     }
