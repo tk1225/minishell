@@ -83,6 +83,7 @@ int	exec_recursion(t_tree *tree, t_env **env)
 		}
 	}
 	pid = fork();
+	signal(SIGQUIT, handle_signals);
 	if (pid == 0)
 	{
 		if (tree->stat == COM)
@@ -91,7 +92,7 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	}
 	wait(&status);
 	waitpid(pid, NULL, 0);
-	if (g_status_code == 130)
+	if (g_status_code == 130 || g_status_code == 131)
 		write(1, "\n", 1);
 	g_status_code = WEXITSTATUS(status);
 	return (status);
