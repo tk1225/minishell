@@ -17,6 +17,8 @@ int	read_heredoc(const char *delimiter)
 			break ;
 		if (strcmp(line, delimiter) == 0 || g_status_code == 130)
 		{
+			if (g_status_code == 130)
+				g_status_code = 1;
 			free(line);
 			break ;
 		}
