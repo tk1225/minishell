@@ -2,14 +2,46 @@
 
 extern int g_status_code;
 
-static	void	exe_com_helper(char **com, char	**dir)
+static char	**convert_envs(t_env **env)
+{
+	t_env	*tmp;
+	char	**envp;
+	size_t	env_len;
+	char	*node;
+	size_t	i;
+
+	env_len = 0;
+	tmp = *env;
+	while (tmp)
+	{
+		env_len ++;
+		tmp = tmp->next;
+	}
+	tmp = *env;
+	envp = (char **)malloc(sizeof(char **) * (env_len + 1));
+	i = 0;
+	while (tmp)
+	{
+		node = str_join_three(tmp->key, "=", tmp->value);
+		envp[i] = node;
+		tmp = tmp->next;
+		i++;
+	}
+	envp[i] = NULL;
+	return (envp);
+}
+
+static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 {
 	int		i;
 	char	*exec_path;
 	char	*tmp;
+	char	**envp;
 
+	envp = convert_envs(env);
+	(void)env;
 	if (access(com[0], X_OK) == 0)
-		execve(com[0], com, NULL);
+		execve(com[0], com, envp);
 	i = 0;
 	while (dir[i] != NULL)
 	{
@@ -18,7 +50,7 @@ static	void	exe_com_helper(char **com, char	**dir)
 		exec_path = ft_strjoin(exec_path, com[0]);
 		free(tmp);
 		if (access(exec_path, X_OK) == 0)
-			execve(exec_path, com, NULL);
+			execve(exec_path, com, envp);
 		i += 1;
 		free(exec_path);
 	}
@@ -39,7 +71,7 @@ int	exe_com(char **com, t_env **env)
 	path_copy = malloc(ft_strlen(path) + 1);
 	ft_strlcpy(path_copy, path, ft_strlen(path));
 	dir = ft_split(path_copy, ':');
-	exe_com_helper(com, dir);
+	exe_com_helper(com, dir, env);
 	return (0);
 }
 
