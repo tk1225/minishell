@@ -22,7 +22,7 @@ static char	**convert_envs(t_env **env)
 	i = 0;
 	while (tmp)
 	{
-		node = str_join_three(tmp->key, "=", tmp->value);
+		node = join_three(tmp->key, "=", tmp->value);
 		envp[i] = node;
 		tmp = tmp->next;
 		i++;
