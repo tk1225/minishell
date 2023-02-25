@@ -2,14 +2,12 @@
 
 int	exec_export(char **com, t_env **env)
 {
-	// size_t		cnt;
 	size_t		len;
 	t_env		*pre;
 	t_env		*tmp;
 	t_env		*top;
 	char		*key;
 
-	// cnt = 0;
 	len = 0;
 	if (com[1] == NULL)
 	{
@@ -25,7 +23,6 @@ int	exec_export(char **com, t_env **env)
 		pre->key[1] = '\0';
 		while (len--)
 		{
-			// cnt = 0;
 			tmp = (t_env *)alloc_exit(sizeof(t_env) ,1);
 			tmp->key = (char *)alloc_exit(sizeof(char) ,2);
 			tmp->key[0] = 127;

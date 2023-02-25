@@ -2,11 +2,9 @@
 
 int	exec_env(char **com, t_env **env)
 {
-	// size_t	cnt;
 	t_env	*top;
 
 	(void)com;
-	// cnt = 0;
 	top = *env;
 	while (top)
 	{

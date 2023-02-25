@@ -65,7 +65,7 @@ void	exec_tree(t_tree *tree, t_env **envp);
 //utils
 void	*alloc_exit(size_t cnt, size_t size);
 void	put_exit(char *str);
-char	*str_join_three(const char *s1, const char *s2, const char *s3);
+char	*join_three(const char *s1, const char *s2, const char *s3);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **envp);
@@ -92,9 +92,8 @@ void	print_tree(t_tree *tree);
 int		syntax_check(t_tree *tree);
 
 //signal
-int    	signal_check(void);
-void    handle_signals(int sig);
-
-int	read_heredoc(const char *delimiter);
+int		signal_check(void);
+void	handle_signals(int sig);
+int		read_heredoc(const char *delimiter);
 
 #endif

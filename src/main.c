@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	g_status_code = 0;
+int	g_status = 0;
 
 t_env	*env_struct(char **envp)
 {
@@ -30,27 +30,24 @@ t_env	*env_struct(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
-	// int status;
-	char *line = NULL;
-	t_tree **tree;
-	t_env *env;
+	char	*line;
+	t_tree	**tree;
+	t_env	*env;
 
+	(void)argv;
+	(void)argc;
 	env = env_struct(envp);
 	while (1)
 	{
-		// test用
 		rl_outstream = stderr;
-		// testの際に外す
 		// rl_event_hook = signal_check;
-    	signal(SIGINT, handle_signals); 
-    	signal(SIGQUIT, SIG_IGN); 
+		signal(SIGINT, handle_signals);
+		signal(SIGQUIT, SIG_IGN);
 		line = readline("> ");
 		if (line == NULL)
-			break ;
-		if (ft_strlen(line) == 0 && g_status_code == 130)
-			g_status_code = 1;
+			break;
+		if (ft_strlen(line) == 0 && g_status == 130)
+			g_status = 1;
 		if (ft_strlen(line) > 0)
 		{
 			char	**res;
@@ -74,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 			if (syntax_check(*tree) > 0)
 			{
 				perror("syntax error");
-				g_status_code = 2;
+				g_status = 2;
 				continue ;
 			}
 			else
@@ -82,7 +79,7 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 	}
-	exit(g_status_code);
+	exit(g_status);
 	return (0);
 }
 

@@ -22,11 +22,11 @@ void	*alloc_exit(size_t cnt, size_t size)
 	return (tmp);
 }
 
-char	*str_join_three(const char *s1, const char *s2, const char *s3)
+char	*join_three(const char *s1, const char *s2, const char *s3)
 {
 	char	*tmp;
-	size_t	t_cnt;
-	size_t	s_cnt;
+	size_t	cnt;
+	size_t	len;
 
 	if (!s1 && !s2 && !s3)
 		return (NULL);
@@ -36,17 +36,15 @@ char	*str_join_three(const char *s1, const char *s2, const char *s3)
 		return (ft_strjoin(s1, s3));
 	if (!s3)
 		return (ft_strjoin(s1, s2));
-	tmp = (char *)alloc_exit(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1);
-	s_cnt = 0;
-	t_cnt = 0;
-	while (s1[s_cnt])
-		tmp[t_cnt++] = s1[s_cnt++];
-	s_cnt = 0;
-	while (s2[s_cnt])
-		tmp[t_cnt++] = s2[s_cnt++];
-	s_cnt = 0;
-	while (s3[s_cnt])
-		tmp[t_cnt++] = s3[s_cnt++];
-	tmp[t_cnt] = '\0';
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	tmp = (char *)alloc_exit(sizeof(char), len + 1);
+	cnt = 0;
+	while (*s1)
+		tmp[cnt++] = *s1++;
+	while (*s2)
+		tmp[cnt++] = *s2++;
+	while (*s3)
+		tmp[cnt++] = *s3++;
+	tmp[cnt] = '\0';
 	return (tmp);
 }
