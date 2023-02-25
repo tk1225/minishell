@@ -23,13 +23,13 @@ static size_t	expansion_char(char **str, char *com, size_t cnt)
 
 static size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 {
-	size_t	len;
-	char	*prm;
-	char	*tmp;
-	extern int g_status_code;
+	size_t		len;
+	char		*prm;
+	char		*tmp;
+	extern int	g_status;
 
 	len = 0;
-	while (com[cnt] != '$' && com[cnt] != '\"' && com[cnt] != '\'' && com[cnt] && !ft_strchr(" \t\n\v\f\r", com[cnt]))
+	while (com[cnt] && !ft_strchr("$\'\" \t\n\v\f\r", com[cnt]))
 	{
 		cnt += 1;
 		len += 1;
@@ -38,13 +38,9 @@ static size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 	if (prm[0] == '\0')
 		tmp = ft_strjoin(*str, "$");
 	else if (prm[0] == '?')
-	{
-		// ft_itoa(g_status_code);
-		// tmp = str_join_three(*str, "0", ft_substr(prm, 1, ft_strlen(prm) - 1));
-		tmp = str_join_three(*str, ft_itoa(g_status_code), ft_substr(prm, 1, ft_strlen(prm) - 1));
-	}
+		tmp = join_three(*str, ft_itoa(g_status), ft_substr(prm, 1, ft_strlen(prm) - 1));
 	else if (prm[0] == '0')
-		tmp = str_join_three(*str, "minishell", ft_substr(prm, 1, ft_strlen(prm) - 1));
+		tmp = join_three(*str, "minishell", ft_substr(prm, 1, ft_strlen(prm) - 1));
 	else
 		tmp = ft_strjoin(*str, getenvs(prm, env));
 	free(prm);

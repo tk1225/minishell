@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-extern int g_status_code;
+extern int	g_status;
 
 static	void	exe_com_helper(char **com, char	**dir)
 {
@@ -35,7 +35,7 @@ int	exe_com(char **com, t_env **env)
 		return (1);
 	}
 	path_copy = malloc(ft_strlen(path) + 1);
-	ft_strlcpy(path_copy, path, ft_strlen(path));
+	ft_strlcpy(path_copy + 1, path, ft_strlen(path));
 	dir = ft_split(path_copy, ':');
 	exe_com_helper(com, dir);
 	return (0);
@@ -71,14 +71,14 @@ int	exec_recursion(t_tree *tree, t_env **env)
 		{
 			dup2(original_stdin_fd, STDIN_FILENO);
 			dup2(original_stdout_fd, STDOUT_FILENO);
-			g_status_code = 0;
+			g_status = 0;
 			return (0);
 		}
 		else
 		{
 			dup2(original_stdin_fd, STDIN_FILENO);
 			dup2(original_stdout_fd, STDOUT_FILENO);
-			g_status_code = 1;
+			g_status = 1;
 			return (1);
 		}
 	}
@@ -92,8 +92,8 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	}
 	wait(&status);
 	waitpid(pid, NULL, 0);
-	if (g_status_code == 130 || g_status_code == 131)
+	if (g_status == 130 || g_status == 131)
 		write(1, "\n", 1);
-	g_status_code = WEXITSTATUS(status);
+	g_status = WEXITSTATUS(status);
 	return (status);
 }

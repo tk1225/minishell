@@ -1,24 +1,10 @@
 #include "minishell.h"
 
-//delete
-void	print_tree(t_tree *tree)
-{
-	printf("node len%zu\n", tree->len);
-	printf("node stat%d\n", tree->stat);
-	for (size_t i = 0; i < tree->len; i++)
-		printf("command %s\n", tree->com[i++]);
-	if (tree->right != NULL)
-		print_tree(tree->right);
-	if (tree->left != NULL)
-		print_tree(tree->left);
-	return ;
-}
-
-static t_tree	*new_node()
+static t_tree	*new_node(void)
 {
 	t_tree	*res;
 
-	res = (t_tree *)alloc_exit(sizeof(t_tree) ,1);
+	res = (t_tree *)alloc_exit(sizeof(t_tree), 1);
 	res->left = NULL;
 	res->right = NULL;
 	res->com = NULL;
@@ -28,7 +14,7 @@ static t_tree	*new_node()
 
 static void	split_by_pipe(t_tree *tree)
 {
-	size_t count;
+	size_t	count;
 
 	count = tree->len;
 	while (count--)
@@ -54,26 +40,16 @@ static void	split_by_pipe(t_tree *tree)
 
 t_tree	**parser(char **res)
 {
-	// char	**res;
 	t_tree	**tree;
 	size_t	cnt;
 
-	// res = lexer(line);
 	cnt = 0;
 	while (res[cnt])
-	{
-		// printf("%s\n", res[cnt]);
 		cnt += 1;
-
-	}
-		// printf("%s\n", res[cnt++]);
-
 	tree = (t_tree **)alloc_exit(sizeof(t_tree *), 1);
 	*tree = new_node();
 	(*tree)->com = res;
 	(*tree)->len = cnt;
 	split_by_pipe(*tree);
-	// if (syntax_check(*tree) > 0)
-	// 	perror("syntax error");
 	return (tree);
 }

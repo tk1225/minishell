@@ -14,5 +14,9 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	write(fd, &c, 1);
+	int	byte;
+
+	byte = write(fd, &c, 1);
+	if (byte == -1)
+		exit(EXIT_FAILURE);
 }

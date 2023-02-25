@@ -2,11 +2,9 @@
 
 int	exec_unset(char **com, t_env **env)
 {
-	// size_t	cnt;
 	t_env	*top;
 
 	(void)com;
-	// cnt = 0;
 	if (!com[1])
 		return (FAILURE);
 	top = *env;

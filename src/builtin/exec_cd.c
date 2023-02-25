@@ -61,7 +61,7 @@ int	exec_cd(char **com, t_env **env)
 	}
 	else
 	{
-		path = str_join_three(pwd, "/", com[row]);
+		path = join_three(pwd, "/", com[row]);
 		if (access(com[row], F_OK) == 0)
 			chdir(com[row]);
 		else
