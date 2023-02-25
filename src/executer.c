@@ -8,6 +8,8 @@ static	void	exe_com_helper(char **com, char	**dir)
 	char	*exec_path;
 	char	*tmp;
 
+	if (access(com[0], X_OK) == 0)
+		execve(com[0], com, NULL);
 	i = 0;
 	while (dir[i] != NULL)
 	{

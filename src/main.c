@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 		// test用
 		rl_outstream = stderr;
 		// testの際に外す
-		rl_event_hook = signal_check;
+		// rl_event_hook = signal_check;
     	signal(SIGINT, handle_signals); 
     	signal(SIGQUIT, SIG_IGN); 
 		line = readline("> ");
