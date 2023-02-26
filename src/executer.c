@@ -8,8 +8,8 @@ static	void	exe_com_helper(char **com, char	**dir)
 	char	*exec_path;
 	char	*tmp;
 
-	if (access(com[0], X_OK) == 0)
-		execve(com[0], com, NULL);
+	// if (access(com[0], X_OK) == 0)
+	// 	execve(com[0], com, NULL);
 	i = 0;
 	while (dir[i] != NULL)
 	{
@@ -37,7 +37,7 @@ int	exe_com(char **com, t_env **env)
 		return (1);
 	}
 	path_copy = malloc(ft_strlen(path) + 1);
-	ft_strlcpy(path_copy + 1, path, ft_strlen(path));
+	ft_strlcpy(path_copy, path, ft_strlen(path));
 	dir = ft_split(path_copy, ':');
 	exe_com_helper(com, dir);
 	return (0);

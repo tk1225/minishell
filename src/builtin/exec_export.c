@@ -1,12 +1,39 @@
 #include "minishell.h"
 
+int	add_env(char *com, t_env **env)
+{
+	t_env		*tmp;
+	t_env		*top;
+	char		*key;
+
+	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')));
+	top = *env;
+	while (top)
+	{
+		if (ft_strncmp(top->key, key, ft_strlen(key)) == 0)
+			break ;
+		top = top->next;
+	}
+	if (top)
+		top->value = ft_substr(com, ft_strlen(key) + 1, ft_strlen(com) - ft_strlen(key) - 1);
+	else
+	{
+		tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
+		tmp->key = key;
+		tmp->value = ft_substr(com, ft_strlen(key) + 1, ft_strlen(com) - ft_strlen(tmp->key) - 1);
+		tmp->prev = top;
+		tmp->next = NULL;
+		top->next = tmp;
+	}
+	return (SUCCESS);
+}
+
 int	exec_export(char **com, t_env **env)
 {
 	size_t		len;
 	t_env		*pre;
 	t_env		*tmp;
 	t_env		*top;
-	char		*key;
 
 	len = 0;
 	if (com[1] == NULL)
@@ -43,26 +70,6 @@ int	exec_export(char **com, t_env **env)
 		}
 	}
 	else
-	{
-		key = ft_substr(com[1], 0, ft_strlen(com[1]) - ft_strlen(ft_strchr(com[1], '=')));
-		top = *env;
-		while (top)
-		{
-			if (ft_strncmp(top->key, key, ft_strlen(key)) == 0)
-				break ;
-			top = top->next;
-		}
-		if (top)
-			top->value = ft_substr(com[1], ft_strlen(key) + 1, ft_strlen(com[1]) - ft_strlen(key) - 1);
-		else
-		{
-			tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
-			tmp->key = key;
-			tmp->value = ft_substr(com[1], ft_strlen(key) + 1, ft_strlen(com[1]) - ft_strlen(tmp->key) - 1);
-			tmp->prev = top;
-			tmp->next = NULL;
-			top->next = tmp;
-		}
-	}
+		add_env(com[1], env);
 	return (SUCCESS);
 }

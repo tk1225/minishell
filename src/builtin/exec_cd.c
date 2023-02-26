@@ -1,74 +1,41 @@
 #include "minishell.h"
 
-int	exec_cd(char **com, t_env **env)
+int access_cd(char *com)
 {
-	size_t	row;
-	size_t	cnt;
-	char	*path;
-	char	*pwd;
-
-	(void)env;
-	pwd = getcwd(NULL, 512);
-	row = 1;
-	if (!com[row] || ft_strncmp(com[row], "~" ,1) == 0)
+	if (access(com, F_OK) == 0)
 	{
-		path = getenvs("HOME", env);
-		chdir(path);
-	}
-	else if (ft_strncmp(com[row], ".." ,2) == 0)
-	{
-		cnt = ft_strlen(ft_strrchr(pwd, '/'));
-		path = ft_substr(pwd, 0, ft_strlen(pwd) - cnt);
-		if (ft_strlen(com[1]) > 2 && com[1][2] == '/')
-			path = ft_strjoin(path, ft_substr(com[row], 2, ft_strlen(com[row]) - 2));
-		if (access(com[row], F_OK) == 0)
-			chdir(com[row]);
-		else
-		{
-			perror("path error");
-			return (FAILURE);
-		}
-	}
-	else if (ft_strncmp(com[row], "/" ,1) == 0)
-	{
-		if (access(com[row], F_OK) == 0)
-			chdir(com[row]);
-		else
-		{
-			perror("path error");
-			return (FAILURE);
-		}
-	}
-	else if (ft_strncmp(com[row], "./" ,2) == 0)
-	{
-		path = ft_strjoin(pwd, &com[row][1]);
-		if (access(com[row], F_OK) == 0)
-			chdir(com[row]);
-		else
-		{
-			perror("path error");
-			return (FAILURE);
-		}
-	}
-	else if (ft_strncmp(com[row], "." ,2) == 0)
-	{
-		chdir(path);
-	}
-	else if (ft_strncmp(com[row], "-" ,1) == 0)
-	{
-		path = getenvs("OLDPWD", env);
-		chdir(path);
+		chdir(com);
+		free(com);
+		return (SUCCESS);
 	}
 	else
 	{
-		path = join_three(pwd, "/", com[row]);
-		if (access(com[row], F_OK) == 0)
-			chdir(com[row]);
-		else
-		{
-			perror("path error");
-			return (FAILURE);
-		}
+		free(com);
+		perror("path error");
+		return (FAILURE);
 	}
-	return (SUCCESS);
+}
+
+// int	update_oldpwd(t_env **env)
+// {
+// 	char	pwd[PATH_MAX];
+// 	char	*old_pwd;
+
+// 	if (!getcwd(pwd, PATH_MAX))
+// 		return (FAILURE);
+// 	if ()
+// }
+
+int	exec_cd(char **com, t_env **env)
+{
+	char	*path;
+
+	(void)env;
+	if (!com[1] || ft_strncmp(com[1], "~", 1) == 0 || ft_strncmp(com[1], "--", 2) == 0)
+		path = getenvs("HOME", env);
+	else if (ft_strncmp(com[1], "-", 1) == 0)
+		path = getenvs("OLDPWD", env);
+	else
+		path = strdup(com[1]);
+	return (access_cd(path));
 }

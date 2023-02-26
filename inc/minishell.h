@@ -13,6 +13,8 @@
 # define NEW 0
 # define APPEND 1
 
+# define PATH_SIZE 512
+
 # include "libft.h"
 # include "ft_printf.h"
 # include <stdio.h>
