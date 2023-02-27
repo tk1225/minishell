@@ -88,34 +88,34 @@ int	executer(char **com, t_env **env)
 	return (1);
 }
 
+int	wait_pipeline(pid_t last_pid)
+{
+	pid_t	wait_result;
+	int		status;
+	int		wstatus;
+
+	while (1)
+	{
+		wait_result = wait(&wstatus);
+		wait_result = waitpid(0, &wstatus, 0);
+		if (wait_result == last_pid)
+			status = WEXITSTATUS(wstatus);
+		else if (wait_result < 0)
+		{
+			if (errno == ECHILD)
+				break ;
+		}
+	}
+	return (status);
+}
+
 int	exec_recursion(t_tree *tree, t_env **env)
 {
 	int	pid;
 	int	status;
-	int	original_stdin_fd;
-	int	original_stdout_fd;
 
 	if ((tree->stat == COM) && (exec_check(tree->com) == SUCCESS))
-	{
-		original_stdin_fd = dup(STDIN_FILENO);
-		original_stdout_fd = dup(STDOUT_FILENO);
-		recognize_redirect(tree->com);
-		expansion(tree->com, env);
-		if (exec_set(tree->com, env) != FAILURE)
-		{
-			dup2(original_stdin_fd, STDIN_FILENO);
-			dup2(original_stdout_fd, STDOUT_FILENO);
-			g_status = 0;
-			return (0);
-		}
-		else
-		{
-			dup2(original_stdin_fd, STDIN_FILENO);
-			dup2(original_stdout_fd, STDOUT_FILENO);
-			g_status = 1;
-			return (1);
-		}
-	}
+		return (exec_builtin(tree, env));
 	pid = fork();
 	signal(SIGQUIT, handle_signals);
 	if (pid == 0)
@@ -124,8 +124,9 @@ int	exec_recursion(t_tree *tree, t_env **env)
 			executer(tree->com, env);
 		handle_pipe(tree, env);
 	}
-	wait(&status);
-	waitpid(pid, NULL, 0);
+	wait_pipeline(pid);
+	// wait(&status);
+	// waitpid(pid, NULL, 0);
 	if (g_status == 130 || g_status == 131)
 		write(1, "\n", 1);
 	g_status = WEXITSTATUS(status);

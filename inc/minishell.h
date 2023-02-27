@@ -26,6 +26,7 @@
 # include <err.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+#include <errno.h>
 
 typedef struct s_tree
 {
@@ -75,6 +76,7 @@ int		handle_pipe(t_tree *tree, t_env **envp);
 int		recognize_redirect(char **com);
 int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		exec_check(char **com);
+int		exec_builtin(t_tree *tree, t_env **env);
 int		exec_set(char **com, t_env **envp);
 char	*getenvs(char *key, t_env **env);
 
