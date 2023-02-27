@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 14:32:51 by atito             #+#    #+#             */
-/*   Updated: 2023/02/25 14:32:52 by atito            ###   ########.fr       */
+/*   Updated: 2023/02/27 22:34:44 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_status;
 
 int	exec_check(char **com)
 {
@@ -32,4 +34,29 @@ int	exec_check(char **com)
 	else if (ft_strncmp(com[0], "unset", com_len) == 0)
 		return (SUCCESS);
 	return (FAILURE);
+}
+
+int	exec_builtin(t_tree *tree, t_env **env)
+{
+	int	original_stdin_fd;
+	int	original_stdout_fd;
+
+	original_stdin_fd = dup(STDIN_FILENO);
+	original_stdout_fd = dup(STDOUT_FILENO);
+	recognize_redirect(tree->com);
+	expansion(tree->com, env);
+	if (exec_set(tree->com, env) != FAILURE)
+	{
+		dup2(original_stdin_fd, STDIN_FILENO);
+		dup2(original_stdout_fd, STDOUT_FILENO);
+		g_status = 0;
+		return (0);
+	}
+	else
+	{
+		dup2(original_stdin_fd, STDIN_FILENO);
+		dup2(original_stdout_fd, STDOUT_FILENO);
+		g_status = 1;
+		return (1);
+	}
 }

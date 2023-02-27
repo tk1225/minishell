@@ -24,7 +24,9 @@ int	handle_pipe(t_tree *tree, t_env **envp)
 	dup2(pipefd[READ], STDIN_FILENO);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	wait(&status);
+	// wait(&status);
+	// waitpid();
+	waitpid(0, &status, WUNTRACED);
 	executer(tree->right->com, envp);
 	return (0);
 }
