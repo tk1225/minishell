@@ -16,7 +16,6 @@
 # define PATH_SIZE 512
 
 # include "libft.h"
-# include "ft_printf.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>

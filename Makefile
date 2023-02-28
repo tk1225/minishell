@@ -4,8 +4,8 @@ RM			=	rm -rf
 AR			=	ar rcs
 NAME		=	minishell
 
-INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I $(shell brew --prefix readline)/include
-RDLFLAGS	=	-L $(shell brew --prefix readline)/lib -l readline
+INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(shell brew --prefix readline)/include
+RDLFLAGS	=	-L $(shell brew --prefix readline)/lib -lreadline
 
 SRC_DIR		=	src/
 OBJ_DIR		=	objs/
@@ -14,8 +14,7 @@ EXEC_DIR	=	exec/
 MAIN_DIR	=	main/
 PARSE_DIR	=	parse/
 UTILS_DIR	=	utils/
-LIBFT_DIR	=	$(PRINTF_DIR)libft/
-PRINTF_DIR	=	$(UTILS_DIR)ft_printf/
+LIBFT_DIR	=	libft/
 
 BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
 EXEC_NAME	=	builtin_check.c builtin_set.c executer.c heredoc.c pipe.c redirection.c
@@ -33,8 +32,8 @@ OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(UTILS_DIR) --silent
-	@$(CC) -o $@ $^ $(UTILS_DIR)utils.a $(RDLFLAGS)
+	@make -C $(LIBFT_DIR) --silent
+	@$(CC) $(RDLFLAGS) -o $@ $^ $(LIBFT_DIR)libft.a
 	@echo "##### minishell compiling finished! #####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -45,15 +44,15 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)$(PARSE_DIR)
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 	@echo "##### Creating" [ $@ ] " #####"
-	@$(CC) $(CFLAGS) -o $@ -c $^ $(INC)
+	@$(CC) $(CFLAGS) $(INC) -o $@ -c $^
 
 clean:
-	@make clean -C $(UTILS_DIR) --silent
+	@make clean -C $(LIBFT_DIR) --silent
 	@$(RM) $(OBJ_DIR)
 	@echo "##### Removed object files #####"
 
 fclean: clean
-	@make fclean -C $(UTILS_DIR) --silent
+	@make fclean -C $(LIBFT_DIR) --silent
 	@$(RM) $(NAME)
 	@echo "##### Removed binary files #####"
 
