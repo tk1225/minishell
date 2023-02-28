@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	exec_set(char **com, t_env **env)
+int	builtin_set(char **com, t_env **env)
 {
 	size_t	com_len;
 
@@ -19,5 +19,5 @@ int	exec_set(char **com, t_env **env)
 		return (exec_pwd(com, env));
 	else if (ft_strncmp(com[0], "unset", com_len) == 0)
 		return (exec_unset(com, env));
-	return (FAILURE);
+	return (NONE);
 }

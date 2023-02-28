@@ -12,11 +12,9 @@
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
-	int	byte;
-
-	byte = write(fd, &c, 1);
-	if (byte == -1)
-		perror("write error");
+	if (write(fd, &c, 1) == -1)
+		return (-1);
+	return (0);
 }

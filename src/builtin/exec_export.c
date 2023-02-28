@@ -1,35 +1,35 @@
 #include "minishell.h"
 
-void	put_env(t_env *env)
+int	put_arr(char **arr, t_env **env)
 {
-	ft_putstr_fd("declare -x ", 1);
-	ft_putstr_fd(env->key, 1);
-	if (ft_strlen(env->value) != 0)
+	size_t	cnt;
+	t_env	*top;
+
+	cnt = 0;
+	while (arr[cnt])
 	{
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(env->value, 1);
-		ft_putstr_fd("\"", 1);
+		top = *env;
+		while (top)
+		{
+			if (ft_strncmp(arr[cnt], top->key, ft_strlen(arr[cnt])) == 0)
+			{
+				if (put_env(top) == -1)
+					return (-1);
+			}
+			top = top->next;
+		}
+		cnt += 1;
 	}
-	ft_putstr_fd("\n", 1);
-}
-
-t_env	*make_env(char c)
-{
-	t_env		*tmp;
-
-	tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
-	tmp->key = (char *)alloc_exit(sizeof(char), 2);
-	tmp->key[0] = c;
-	tmp->key[1] = '\0';
-	return (tmp);
+	// free_lst(arr);
+	return (0);
 }
 
 int	sort_env(t_env **env)
 {
 	size_t	len;
-	t_env	*pre;
-	t_env	*tmp;
+	size_t	cnt;
 	t_env	*top;
+	char	**sort_arr;
 
 	len = 0;
 	top = *env;
@@ -38,48 +38,45 @@ int	sort_env(t_env **env)
 		len += 1;
 		top = top->next;
 	}
-	pre = make_env(1);
-	while (len--)
+	sort_arr = (char **)alloc_exit(sizeof(char *), len + 1);
+	top = *env;
+	cnt = 0;
+	while (cnt < len)
 	{
-		tmp = make_env(127);
-		top = *env;
-		while (top)
-		{
-			if (ft_strncmp(pre->key, top->key, ft_strlen(top->key) + 1) < 0 && ft_strncmp(tmp->key, top->key, ft_strlen(top->key) + 1) >= 0)
-				tmp = top;
-			top = top->next;
-		}
-		pre = tmp;
-		put_env(pre);
+		sort_arr[cnt++] = top->key;
+		top = top->next;
 	}
+	sort_arr[cnt] = NULL;
+	bubble_sort(sort_arr);
+	if (put_arr(sort_arr, env) == -1)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
 int	add_env(char *com, t_env **env)
 {
-	t_env		*tmp;
 	t_env		*top;
 	char		*key;
+	char		*value;
 
 	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')));
+	value = ft_substr(com, ft_strlen(key) + 1, \
+		ft_strlen(com) - ft_strlen(key) - 1);
 	top = *env;
 	while (top)
 	{
 		if (ft_strncmp(top->key, key, ft_strlen(key) + 1) == 0)
 		{
-			top->value = ft_substr(com, ft_strlen(key) + 1, ft_strlen(com) - ft_strlen(key) - 1);
+			free(key);
+			free(top->value);
+			top->value = value;
 			return (SUCCESS);
 		}
 		if (!top->next)
 			break ;
 		top = top->next;
 	}
-	tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
-	tmp->key = key;
-	tmp->value = ft_substr(com, ft_strlen(key) + 1, ft_strlen(com) - ft_strlen(tmp->key) - 1);
-	tmp->prev = top;
-	tmp->next = NULL;
-	top->next = tmp;
+	add_back_env(top, key, value);
 	return (SUCCESS);
 }
 

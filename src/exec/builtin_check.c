@@ -2,7 +2,7 @@
 
 extern int	g_status;
 
-int	exec_check(char **com)
+int	builtin_check(char **com)
 {
 	size_t	com_len;
 
@@ -21,7 +21,7 @@ int	exec_check(char **com)
 		return (SUCCESS);
 	else if (ft_strncmp(com[0], "unset", com_len) == 0)
 		return (SUCCESS);
-	return (FAILURE);
+	return (NONE);
 }
 
 int	exec_builtin(t_tree *tree, t_env **env)
@@ -33,7 +33,7 @@ int	exec_builtin(t_tree *tree, t_env **env)
 	original_stdout_fd = dup(STDOUT_FILENO);
 	recognize_redirect(tree->com);
 	expansion(tree->com, env);
-	if (exec_set(tree->com, env) != FAILURE)
+	if (builtin_set(tree->com, env) != NONE)
 	{
 		dup2(original_stdin_fd, STDIN_FILENO);
 		dup2(original_stdout_fd, STDOUT_FILENO);

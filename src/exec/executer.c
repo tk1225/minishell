@@ -79,7 +79,7 @@ int	executer(char **com, t_env **env)
 {
 	recognize_redirect(com);
 	expansion(com, env);
-	if (exec_set(com, env) == FAILURE)
+	if (builtin_set(com, env) == NONE)
 		exe_com(com, env);
 	else
 		exit(0);
@@ -114,7 +114,7 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	int	pid;
 	int	status;
 
-	if ((tree->stat == COM) && (exec_check(tree->com) == SUCCESS))
+	if ((tree->stat == COM) && (builtin_check(tree->com) == SUCCESS))
 		return (exec_builtin(tree, env));
 	pid = fork();
 	signal(SIGQUIT, handle_signals);

@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-void	free_lst(char **lst)
-{
-	while (*lst)
-		free (*lst++);
-	free (lst);
-}
-
 static void	insert_word(char **lst, char const *s, char *c, char *o)
 {
 	size_t	cnt;
