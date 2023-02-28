@@ -124,9 +124,7 @@ int	exec_recursion(t_tree *tree, t_env **env)
 			executer(tree->com, env);
 		handle_pipe(tree, env);
 	}
-	wait_pipeline(pid);
-	// wait(&status);
-	// waitpid(pid, NULL, 0);
+	status = wait_pipeline(pid);
 	if (g_status == 130 || g_status == 131)
 		write(1, "\n", 1);
 	g_status = WEXITSTATUS(status);

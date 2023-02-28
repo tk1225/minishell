@@ -13,6 +13,10 @@
 # define NEW 0
 # define APPEND 1
 
+# define WRITE_APPEND 0
+# define WRITE_NEW 1
+# define READ_NEW 2
+
 # define PATH_SIZE 512
 
 # include "libft.h"
@@ -26,7 +30,7 @@
 # include <err.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-#include <errno.h>
+# include <errno.h>
 
 typedef struct s_tree
 {
