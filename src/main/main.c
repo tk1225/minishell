@@ -77,6 +77,7 @@ int	main(int argc, char **argv, char **envp)
 			else
 				exec_recursion(*tree, &env);
 			free(line);
+			free_tree(*tree);
 		}
 	}
 	exit(g_status);

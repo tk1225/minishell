@@ -62,6 +62,7 @@ void	exec_tree(t_tree *tree, t_env **env);
 
 //utils
 void	free_lst(char **lst);
+void	free_tree(t_tree *tree);
 void	*alloc_exit(size_t cnt, size_t size);
 char	*join_three(const char *s1, const char *s2, const char *s3);
 char	*getenvs(char *key, t_env **env);
@@ -86,7 +87,7 @@ int		exec_unset(char **com, t_env **env);
 
 //builtin utils
 int		add_env(char *com, t_env **env);
-int	put_env(t_env *env);
+int		put_env(t_env *env);
 t_env	*make_env(char c);
 void	add_back_env(t_env *env, char *key, char *value);
 void	bubble_sort(char **arr);
