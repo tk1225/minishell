@@ -14,10 +14,10 @@ static void shift_com(char **com, int i)
 	com[i + 1] = NULL;
 }
 
-int handle_heredoc()
+int	handle_heredoc(void)
 {
 	int				fd;
-	struct	stat	sb;
+	struct stat		sb;
 	int				ret;
 
 	ret = lstat(".tmp.txt", &sb);
@@ -30,66 +30,49 @@ int handle_heredoc()
 		return (1);
 	}
 	unlink(".tmp.txt");
-	int new_fd = dup(fd);
-	if (new_fd == -1)
-	{
-		perror("dup");
-		return (1);
-	}
 	close(READ);
-	if (dup2(new_fd, READ) == -1)
+	if (dup2(fd, READ) == -1)
 	{
 		perror("dup2");
 		return (1);
 	}
-	close(new_fd);
 	close(fd);
 	return (0);
 }
 
-int recognize_redirect(char **com)
+int	recognize_redirect(char **com)
 {
-	int i;
-	char *filename;
+	int		i;
+	int		res;
+	char	*filename;
 
 	i = 0;
+	res = 2;
 	while (com[i])
 	{
-		if (ft_strncmp(com[i], "<<", 3) == 0)
-		{
-			handle_heredoc();
+		filename = ft_strtrim(com[i + 1], "\"");
+		if (ft_strncmp(com[i], "<<", 2) == 0)
+			res = handle_heredoc();
+		else if (ft_strncmp(com[i], ">>", 2) == 0)
+			res = handle_redirect(filename, WRITE, APPEND);
+		else if (ft_strncmp(com[i], ">", 1) == 0)
+			res = handle_redirect(filename, WRITE, NEW);
+		else if (ft_strncmp(com[i], "<", 1) == 0)
+			res = handle_redirect(filename, READ, NEW);
+		if (res == 1)
+			exit(1);
+		else if (res == 2)
+			i ++;
+		else if (res == 0)
 			shift_com(com, i);
-		}
-		else if (ft_strncmp(com[i], ">>", 3) == 0)
-		{
-			filename = ft_strtrim(com[i + 1], "\"");
-			if(handle_redirect(filename, WRITE, APPEND) == 1)
-				exit(1);
-			shift_com(com, i);
-		}
-		else if (ft_strncmp(com[i], ">", 2) == 0)
-		{
-			filename = ft_strtrim(com[i + 1], "\"");
-			if(handle_redirect(filename, WRITE, NEW) == 1)
-				exit(1);
-			shift_com(com, i);
-		}
-		else if (ft_strncmp(com[i], "<", 2) == 0)
-		{
-			filename = ft_strtrim(com[i + 1], "\"");
-			if(handle_redirect(filename, READ, NEW) == 1)
-				exit(1);
-			shift_com(com, i);
-		}
-		else
-			i++;
+		res = 2;
 	}
 	return (0);
 }
 
-int handle_redirect(char *target_filename, int stdfd, int append_flag)
+int	handle_redirect(char *target_filename, int stdfd, int append_flag)
 {
-	int fd;
+	int	fd;
 
 	if (stdfd == WRITE)
 	{
@@ -105,19 +88,12 @@ int handle_redirect(char *target_filename, int stdfd, int append_flag)
 		perror("open");
 		return (1);
 	}
-	int new_fd = dup(fd);
-	if (new_fd == -1)
-	{
-		perror("dup");
-		return (1);
-	}
 	close(stdfd);
-	if (dup2(new_fd, stdfd) == -1)
+	if (dup2(fd, stdfd) == -1)
 	{
 		perror("dup2");
 		return (1);
 	}
-	close(new_fd);
 	close(fd);
 	return (0);
 }
