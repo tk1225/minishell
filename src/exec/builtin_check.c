@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_check.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 14:32:51 by atito             #+#    #+#             */
-/*   Updated: 2023/02/27 22:34:44 by takumasaoka      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 extern int	g_status;
@@ -18,7 +6,7 @@ int	exec_check(char **com)
 {
 	size_t	com_len;
 
-	com_len = ft_strlen(com[0]);
+	com_len = ft_strlen(com[0]) + 1;
 	if (ft_strncmp(com[0], "cd", com_len) == 0)
 		return (SUCCESS);
 	else if (ft_strncmp(com[0], "echo", com_len) == 0)

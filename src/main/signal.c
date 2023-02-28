@@ -14,8 +14,8 @@ int	signal_check(void)
 {
 	if (g_status == 130 || g_status == 131)
 	{
-		rl_replace_line("", 0);
-		rl_done = 1;
+		// rl_replace_line("", 0);
+		// rl_done = 1;
 	}
 	return (0);
 }

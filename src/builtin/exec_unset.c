@@ -10,7 +10,7 @@ int	exec_unset(char **com, t_env **env)
 	top = *env;
 	while (top)
 	{
-		if (ft_strncmp(top->key, com[1], ft_strlen(com[1])) == 0)
+		if (ft_strncmp(top->key, com[1], ft_strlen(com[1]) + 1) == 0)
 		{
 			top = top->prev;
 			break ;

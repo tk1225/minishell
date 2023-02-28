@@ -62,8 +62,8 @@ t_tree	**parser(char **res);
 void	expansion(char **com, t_env **env);
 
 //fork
-int		executer(char **com, t_env **envp);
-void	exec_tree(t_tree *tree, t_env **envp);
+int		executer(char **com, t_env **env);
+void	exec_tree(t_tree *tree, t_env **env);
 
 //utils
 void	*alloc_exit(size_t cnt, size_t size);
@@ -71,23 +71,26 @@ void	put_exit(char *str);
 char	*join_three(const char *s1, const char *s2, const char *s3);
 
 //exec
-int		exec_recursion(t_tree *tree, t_env **envp);
-int		handle_pipe(t_tree *tree, t_env **envp);
+int		exec_recursion(t_tree *tree, t_env **env);
+int		handle_pipe(t_tree *tree, t_env **env);
 int		recognize_redirect(char **com);
 int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		exec_check(char **com);
 int		exec_builtin(t_tree *tree, t_env **env);
-int		exec_set(char **com, t_env **envp);
+int		exec_set(char **com, t_env **env);
 char	*getenvs(char *key, t_env **env);
 
 //builtin
-int		exec_cd(char **com, t_env **envp);
-int		exec_echo(char **com, t_env **envp);
-int		exec_env(char **com, t_env **envp);
-int		exec_exit(char **com, t_env **envp);
-int		exec_export(char **com, t_env **envp);
-int		exec_pwd(char **com, t_env **envp);
-int		exec_unset(char **com, t_env **envp);
+int		exec_cd(char **com, t_env **env);
+int		exec_echo(char **com, t_env **env);
+int		exec_env(char **com, t_env **env);
+int		exec_exit(char **com, t_env **env);
+int		exec_export(char **com, t_env **env);
+int		exec_pwd(char **com, t_env **env);
+int		exec_unset(char **com, t_env **env);
+
+//builtin utils
+int		add_env(char *com, t_env **env);
 
 //delete
 void	print_tree(t_tree *tree);

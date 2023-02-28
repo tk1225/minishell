@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		rl_outstream = stderr;
-		rl_event_hook = signal_check;
+		// rl_event_hook = signal_check;
 		signal(SIGINT, handle_signals);
 		signal(SIGQUIT, SIG_IGN);
 		line = readline("> ");
@@ -58,7 +58,7 @@ int	main(int argc, char **argv, char **envp)
 			cnt = 0;
 			while (res[cnt])
 			{
-				if (ft_strncmp(res[cnt], "<<", 2) == 0)
+				if (ft_strncmp(res[cnt], "<<", 3) == 0)
 				{
 					delimiter = res[cnt + 1];
 					if (delimiter == NULL)

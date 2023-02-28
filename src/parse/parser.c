@@ -19,7 +19,7 @@ static void	split_by_pipe(t_tree *tree)
 	count = tree->len;
 	while (count--)
 	{
-		if (ft_strncmp(tree->com[count], "|", 1) == 0)
+		if (ft_strncmp(tree->com[count], "|", 2) == 0)
 		{
 			tree->left = new_node();
 			tree->left->len = count;

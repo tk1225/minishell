@@ -8,10 +8,10 @@ static	int	syntax_redirect(char **com)
 	i = 0;
 	while (com[i])
 	{
-		if ((ft_strncmp(com[i], "<<", 2) == 0) || \
-		(ft_strncmp(com[i], ">>", 2) == 0) \
-			|| (ft_strncmp(com[i], ">", 1) == 0) \
-			|| (ft_strncmp(com[i], "<", 1) == 0))
+		if ((ft_strncmp(com[i], "<<", 3) == 0) || \
+		(ft_strncmp(com[i], ">>", 3) == 0) \
+			|| (ft_strncmp(com[i], ">", 2) == 0) \
+			|| (ft_strncmp(com[i], "<", 2) == 0))
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if (filename == NULL)

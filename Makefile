@@ -5,22 +5,29 @@ AR			=	ar rcs
 NAME		=	minishell
 
 INC			=	-I inc/ -I $(LIBFT_DIR)inc/ -I $(PRINTF_DIR)inc/ -I $(shell brew --prefix readline)/include
-RDLFLAGS	=	-L$(shell brew --prefix readline)/lib -lreadline
+RDLFLAGS	=	-L $(shell brew --prefix readline)/lib -l readline
 
 SRC_DIR		=	src/
-BUILT_DIR	=	builtin/
 OBJ_DIR		=	objs/
+BUILT_DIR	=	builtin/
+EXEC_DIR	=	exec/
+MAIN_DIR	=	main/
+PARSE_DIR	=	parse/
 UTILS_DIR	=	utils/
 LIBFT_DIR	=	$(PRINTF_DIR)libft/
 PRINTF_DIR	=	$(UTILS_DIR)ft_printf/
 
-SRC_NAME	=	main.c parser.c executer.c lexer.c utils.c expansion.c\
-				syntax.c redirection.c pipe.c signal.c getenvs.c heredoc.c
-BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c\
-				exec_export.c exec_pwd.c exec_unset.c exec_set.c exec_check.c
+BUILT_NAME	=	exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
+EXEC_NAME	=	builtin_check.c builtin_set.c executer.c heredoc.c pipe.c redirection.c
+MAIN_NAME	=	main.c signal.c
+PARSE_NAME	=	expansion.c lexer.c parser.c syntax.c
+UTILS_NAME	=	getenvs.c utils.c
 
-OBJ_NAME	=	$(SRC_NAME:.c=.o)
-OBJ_NAME	+=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))
+OBJ_NAME	=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))
+OBJ_NAME	+=	$(addprefix $(EXEC_DIR), $(EXEC_NAME:.c=.o))
+OBJ_NAME	+=	$(addprefix $(MAIN_DIR), $(MAIN_NAME:.c=.o))
+OBJ_NAME	+=	$(addprefix $(PARSE_DIR), $(PARSE_NAME:.c=.o))
+OBJ_NAME	+=	$(addprefix $(UTILS_DIR), $(UTILS_NAME:.c=.o))
 OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_NAME))
 
 all: $(NAME)
@@ -33,6 +40,10 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)$(BUILT_DIR)
+	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
+	@mkdir -p $(OBJ_DIR)$(MAIN_DIR)
+	@mkdir -p $(OBJ_DIR)$(PARSE_DIR)
+	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 	@echo "##### Creating" [ $@ ] " #####"
 	@$(CC) $(CFLAGS) -o $@ -c $^ $(INC)
 

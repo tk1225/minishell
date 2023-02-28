@@ -6,3 +6,4 @@ objs
 .vscode
 .tester
 tester
+minishell_tester

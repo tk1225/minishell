@@ -55,26 +55,26 @@ int recognize_redirect(char **com)
 	i = 0;
 	while (com[i])
 	{
-		if (ft_strncmp(com[i], "<<", 2) == 0)
+		if (ft_strncmp(com[i], "<<", 3) == 0)
 		{
 			handle_heredoc();
 			shift_com(com, i);
 		}
-		else if (ft_strncmp(com[i], ">>", 2) == 0)
+		else if (ft_strncmp(com[i], ">>", 3) == 0)
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if(handle_redirect(filename, WRITE, APPEND) == 1)
 				exit(1);
 			shift_com(com, i);
 		}
-		else if (ft_strncmp(com[i], ">", 1) == 0)
+		else if (ft_strncmp(com[i], ">", 2) == 0)
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if(handle_redirect(filename, WRITE, NEW) == 1)
 				exit(1);
 			shift_com(com, i);
 		}
-		else if (ft_strncmp(com[i], "<", 1) == 0)
+		else if (ft_strncmp(com[i], "<", 2) == 0)
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if(handle_redirect(filename, READ, NEW) == 1)
