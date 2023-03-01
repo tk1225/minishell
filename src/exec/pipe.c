@@ -74,13 +74,13 @@ int handle_pipe(t_tree *tree, t_env **envp)
                 executer(com, envp);
                 exit(EXIT_FAILURE);
             }
-            p_tree = tree->left;
+            p_tree = p_tree->left;
             i--;
-            if (p_tree->left->stat == COM)
+            if (p_tree->stat == COM)
                 break;
         }
     }
-    com = p_tree->left->com;
+    com = p_tree->com;
     //pipeの左側がコマンドの場合(最初)
     pid3 = fork();
 
