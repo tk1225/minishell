@@ -51,11 +51,10 @@ int handle_pipe(t_tree *tree, t_env **envp)
     // int i = 0;
     char **com;
     t_tree *p_tree;
-
+    p_tree = tree->left;
     if (tree->left->stat != COM)
     {
-        p_tree = tree->left;
-        com = tree->left->right->com;
+        com = p_tree->right->com;
 
         while (1)
         {
@@ -81,6 +80,7 @@ int handle_pipe(t_tree *tree, t_env **envp)
                 break;
         }
     }
+    com = p_tree->left->com;
     //pipeの左側がコマンドの場合(最初)
     pid3 = fork();
 
