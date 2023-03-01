@@ -97,7 +97,7 @@ int	wait_pipeline(pid_t last_pid)
 	while (1)
 	{
 		wait_result = wait(&wstatus);
-		wait_result = waitpid(0, &wstatus, 0);
+		// wait_result = waitpid(-last_pid, &wstatus, 0);
 		if (wait_result == last_pid)
 			status = WEXITSTATUS(wstatus);
 		else if (wait_result < 0)
@@ -122,8 +122,9 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	{
 		if (tree->stat == COM)
 			executer(tree->com, env);
-		handle_pipe(tree, env);
+		exit(0);
 	}
+	handle_pipe(tree, env);
 	wait_pipeline(pid);
 	// wait(&status);
 	// waitpid(pid, NULL, 0);
