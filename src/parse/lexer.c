@@ -13,13 +13,15 @@ static void	insert_word(char **lst, char const *s)
 	d_quote = OUT_QUOTE;
 	while (s[cnt])
 	{
-		if (s[cnt] == '\"')
+		if (s[cnt] == '\"' && s_quote == OUT_QUOTE)
 			d_quote *= -1;
-		if (s[cnt] == '\'')
+		if (s[cnt] == '\'' && d_quote == OUT_QUOTE)
 			s_quote *= -1;
-		if (!(ft_strchr(" \t\n\v\f\r", s[cnt]) && d_quote == OUT_QUOTE && s_quote == OUT_QUOTE))
+		if (!(ft_strchr(" \t\n\v\f\r", s[cnt]) && \
+			d_quote == OUT_QUOTE && s_quote == OUT_QUOTE))
 			len += 1;
-		if (ft_strchr(";()<>|&", s[cnt]) && s[cnt] != s[cnt + 1] && d_quote == 1 && s_quote == 1)
+		if (ft_strchr(";()<>|&", s[cnt]) && s[cnt] != s[cnt + 1] && \
+			d_quote == OUT_QUOTE && s_quote == OUT_QUOTE)
 		{
 			*lst = ft_substr(s, cnt - len + 1, len);
 			if (!*lst++)
@@ -29,11 +31,14 @@ static void	insert_word(char **lst, char const *s)
 			}
 			len = 0;
 		}
-		else if (d_quote == OUT_QUOTE && s_quote == OUT_QUOTE && !ft_strchr("\'\"", s[cnt + 1]))
+		else if (d_quote == OUT_QUOTE && s_quote == OUT_QUOTE && \
+			!ft_strchr("\'\"", s[cnt + 1]))
 		{
-			if ((!ft_strchr(" \t\n\v\f\r;()<>|&", s[cnt]) && \
-				(!s[cnt + 1] || ft_strchr(" \t\n\v\f\r;()<>|&", s[cnt + 1]))) || \
-				(ft_strchr(";()<>|&", s[cnt]) && !ft_strchr(";()<>|&", s[cnt + 1])))
+			if ((!ft_strchr(" \t\n\v\f\r", s[cnt]) && \
+				!ft_strchr(";()<>|&", s[cnt]) && (!s[cnt + 1] || \
+				ft_strchr(" \t\n\v\f\r;()<>|&", s[cnt + 1]))) || \
+				(ft_strchr(";()<>|&", s[cnt]) && \
+				!ft_strchr(";()<>|&", s[cnt + 1])))
 			{
 				*lst = ft_substr(s, cnt - len + 1, len);
 				if (!*lst++)
@@ -51,18 +56,26 @@ static void	insert_word(char **lst, char const *s)
 
 void	judge_char(char *c, int *s_quote, int *d_quote, size_t *len)
 {
+	char	*space;
+	char	*split;
+
+	space = ft_strdup(" \t\n\v\f\r");
+	split = ft_strdup(";()<>|&");
 	if (*c == '\"' && *s_quote == OUT_QUOTE)
 		*d_quote *= -1;
 	if (*c == '\'' && *d_quote == OUT_QUOTE)
 		*s_quote *= -1;
-	if (ft_strchr(";()<>|&", *c) && *c != *(c + 1))
+	if (ft_strchr(split, *c) && *c != *(c + 1))
 		*len += 1;
-	if (*d_quote == OUT_QUOTE && *s_quote == OUT_QUOTE && !ft_strchr("\'\"", *(c + 1)))
+	if (*d_quote == OUT_QUOTE && *s_quote == OUT_QUOTE && \
+		!ft_strchr("\'\"", *(c + 1)))
 	{
-		if (!ft_strchr(" \t\n\v\f\r", *c) && !ft_strchr(";()<>|&", *c) && \
-			(!*(c + 1) || ft_strchr(" \t\n\v\f\r", *(c + 1)) || ft_strchr(";()<>|&", *(c + 1))))
+		if (!ft_strchr(space, *c) && !ft_strchr(split, *c) && (!*(c + 1) || \
+			ft_strchr(space, *(c + 1)) || ft_strchr(split, *(c + 1))))
 			*len += 1;
 	}
+	free(space);
+	free(split);
 }
 
 static size_t	count_word(char *s)

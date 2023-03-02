@@ -5,10 +5,10 @@ extern int	g_status;
 static char	**convert_envs(t_env **env)
 {
 	t_env	*tmp;
+	char	*node;
 	char	**envp;
 	size_t	env_len;
-	char	*node;
-	size_t	i;
+	size_t	cnt;
 
 	env_len = 0;
 	tmp = *env;
@@ -18,22 +18,22 @@ static char	**convert_envs(t_env **env)
 		tmp = tmp->next;
 	}
 	tmp = *env;
-	envp = (char **)malloc(sizeof(char **) * (env_len + 1));
-	i = 0;
+	envp = (char **)alloc_exit(sizeof(char **), env_len + 1);
+	cnt = 0;
 	while (tmp)
 	{
 		node = join_three(tmp->key, "=", tmp->value);
-		envp[i] = node;
+		envp[cnt] = node;
 		tmp = tmp->next;
-		i++;
+		cnt++;
 	}
-	envp[i] = NULL;
+	envp[cnt] = NULL;
 	return (envp);
 }
 
 static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 {
-	int		i;
+	int		cnt;
 	char	*exec_path;
 	char	*tmp;
 	char	**envp;
@@ -42,18 +42,18 @@ static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 	(void)env;
 	if (access(com[0], X_OK) == 0)
 		execve(com[0], com, envp);
-	i = 0;
-	while (dir[i] != NULL)
+	cnt = 0;
+	while (dir[cnt] != NULL)
 	{
-		exec_path = ft_strjoin(dir[i], "/");
-		tmp = exec_path;
-		exec_path = ft_strjoin(exec_path, com[0]);
+		tmp = ft_strjoin(dir[cnt], "/");
+		exec_path = ft_strjoin(tmp, com[0]);
 		free(tmp);
 		if (access(exec_path, X_OK) == 0)
 			execve(exec_path, com, envp);
-		i += 1;
+		cnt += 1;
 		free(exec_path);
 	}
+	free_lst(dir);
 }
 
 int	exe_com(char **com, t_env **env)
@@ -68,9 +68,10 @@ int	exe_com(char **com, t_env **env)
 		error_exit("PATH environment variable not set");
 		return (1);
 	}
-	path_copy = malloc(ft_strlen(path) + 1);
+	path_copy = (char *)alloc_exit(sizeof(char), ft_strlen(path) + 1);
 	ft_strlcpy(path_copy, path, ft_strlen(path));
 	dir = ft_split(path_copy, ':');
+	free(path_copy);
 	exe_com_helper(com, dir, env);
 	return (0);
 }

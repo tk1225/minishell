@@ -72,15 +72,17 @@ int	main(int argc, char **argv, char **envp)
 			{
 				error_exit("syntax error");
 				g_status = 2;
-				continue ;
+				// continue ;
 			}
 			else
 				exec_recursion(*tree, &env);
 			free_tree(*tree);
 			free(tree);
+			free(res);
 		}
 		free(line);
 	}
+	free_env(env);
 	exit(g_status);
 	return (0);
 }

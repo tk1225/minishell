@@ -52,7 +52,7 @@ typedef struct s_env
 }	t_env;
 
 //parser
-char	**lexer(char *s);
+char	**lexer(char *str);
 t_tree	**parser(char **res);
 void	expansion(char **com, t_env **env);
 char	*next_dollar(t_env **env, char **str, char *prm);
@@ -64,6 +64,7 @@ void	exec_tree(t_tree *tree, t_env **env);
 //free
 void	free_lst(char **lst);
 void	free_tree(t_tree *tree);
+void	free_env(t_env *env);
 
 //utils
 void	*alloc_exit(size_t cnt, size_t size);

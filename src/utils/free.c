@@ -12,19 +12,31 @@ void	free_lst(char **lst)
 
 void	free_tree(t_tree *tree)
 {
-	// if (!tree)
-	// 	return ;
-	// free_tree(tree->left);
-	// free_tree(tree->right);
-	// if (tree->stat == COM)
-	// 	free_lst(tree->com);
-	// free(tree);
-	// tree = NULL;
-	if (tree->com == NULL)
+	size_t	cnt;
+
+	if (!tree)
 		return ;
-	free_lst(tree->com);
-	if (tree->right)
-		free_tree(tree->right);
-	if (tree->left)
-		free_tree(tree->left);
+	free_tree(tree->left);
+	free_tree(tree->right);
+	if (tree->stat == COM)
+	{
+		cnt = 0;
+		while (tree->com[cnt])
+			free(tree->com[cnt++]);
+	}
+	free(tree);
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		tmp = env->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+		env = tmp;;
+	}
 }

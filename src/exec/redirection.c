@@ -65,6 +65,7 @@ int	recognize_redirect(char **com)
 			res = handle_redirect(filename, WRITE, NEW);
 		else if (ft_strncmp(com[i], "<", 1) == 0)
 			res = handle_redirect(filename, READ, NEW);
+		free(filename);
 		if (res == 1)
 			exit(1);
 		else if (res == 2)
