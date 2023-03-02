@@ -84,12 +84,12 @@ int	handle_redirect(char *target_filename, int stdfd, int append_flag)
 	if (stdfd == WRITE)
 	{
 		if (append_flag == 1)
-			fd = open(target_filename, O_RDWR | O_CREAT | O_APPEND);
+			fd = open(target_filename, O_RDWR | O_CREAT | O_APPEND, 0666);
 		else
-			fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC);
+			fd = open(target_filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
 	}
 	else
-		fd = open(target_filename, O_RDWR);
+		fd = open(target_filename, O_RDWR, 0666);
 	if (fd == -1)
 	{
 		error_exit("open");

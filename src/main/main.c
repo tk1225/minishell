@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		rl_outstream = stderr;
-		// rl_event_hook = signal_check;
+		rl_event_hook = signal_check;
 		signal(SIGINT, handle_signals);
 		signal(SIGQUIT, SIG_IGN);
 		line = readline("> ");
@@ -73,7 +73,6 @@ int	main(int argc, char **argv, char **envp)
 			{
 				error_exit("syntax error");
 				g_status = 2;
-				// continue ;
 			}
 			else
 				exec_recursion(*tree, &env);

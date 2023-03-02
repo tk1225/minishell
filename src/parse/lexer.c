@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 20:38:13 by atito             #+#    #+#             */
+/*   Updated: 2023/03/02 20:38:14 by atito            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	judge_insert(char const *s, int *quote, size_t *cnt)
@@ -24,6 +36,7 @@ static int	judge_insert(char const *s, int *quote, size_t *cnt)
 	}
 	free(space);
 	free(split);
+	*cnt += 1;
 	return (flag);
 }
 
@@ -47,10 +60,9 @@ static void	insert_word(char **lst, char const *s)
 			len += 1;
 		if (judge_insert(s, &quote, &cnt) == 1)
 		{
-			*lst++ = ft_substr(s, cnt - len + 1, len);
+			*lst++ = ft_substr(s, cnt - len, len);
 			len = 0;
 		}
-		cnt += 1;
 	}
 	free(space);
 	free(split);

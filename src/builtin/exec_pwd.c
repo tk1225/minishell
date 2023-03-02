@@ -2,12 +2,13 @@
 
 int	exec_pwd(char **com, t_env **env)
 {
-	char	path[512];
+	char	cwd[PATH_MAX];
 
 	(void)com;
 	(void)env;
-	getcwd(path, sizeof(path));
-	if (ft_putendl_fd(path, 1) == -1)
+	if (!getcwd(cwd, PATH_MAX))
+		return (FAILURE);
+	if (ft_putendl_fd(cwd, 1) == -1)
 		return (FAILURE);
 	return (SUCCESS);
 }
