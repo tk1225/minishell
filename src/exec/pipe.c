@@ -45,13 +45,6 @@ int handle_pipe(t_tree *tree, t_env **envp)
     }
     if (pid1 == 0) { // child process 3
         dup2(pipefd[pipe_count - 1][READ], STDIN_FILENO);
-        // if (pipe_count > 1)
-        // {
-        //     close(pipefd[pipe_count - 2][0]);
-        //     close(pipefd[pipe_count - 2][1]);
-        // }
-        // close(pipefd[pipe_count - 1][0]);
-        // close(pipefd[pipe_count - 1][1]);
         close_pipe(pipe_count, pipefd);
 
 		executer(tree->right->com, envp);
@@ -78,12 +71,7 @@ int handle_pipe(t_tree *tree, t_env **envp)
             {
                 dup2(pipefd[i - 1][READ], STDIN_FILENO);
                 dup2(pipefd[i][WRITE], STDOUT_FILENO);
-                // close(pipefd[i - 1][0]);
-                // close(pipefd[i - 1][1]);
-                // close(pipefd[i][0]);
-                // close(pipefd[i][1]);
                 close_pipe(pipe_count, pipefd);
-
                 executer(com, envp);
                 exit(EXIT_FAILURE);
             }
@@ -103,14 +91,8 @@ int handle_pipe(t_tree *tree, t_env **envp)
     }
     if (pid3 == 0) { // child process 1
         dup2(pipefd[0][WRITE], STDOUT_FILENO);
-        // close(pipefd[0][0]);
-        // close(pipefd[0][1]);
-        // close(pipefd[1][0]);
-        // close(pipefd[1][1]);
         close_pipe(pipe_count, pipefd);
-
 		executer(com, envp);
-		// executer(tree->left->left->com, envp);
         exit(EXIT_FAILURE);
     }
     close_pipe(pipe_count, pipefd);
