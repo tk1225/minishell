@@ -13,11 +13,9 @@ int handle_pipe(t_tree *tree, t_env **envp)
     int pipefd[4096][2];
     pid_t pid1, pid3;
     int pipe_count;
-
     pipe_count = count_pipe(tree);
     if (pipe_count == 0)
         return (1);
-
     int j;
     j = 0;
     while (j < pipe_count)
@@ -26,10 +24,6 @@ int handle_pipe(t_tree *tree, t_env **envp)
         //pipeerror
         j ++;
     }
-    // if (pipe(pipefd[0]) == -1 || pipe(pipefd[1]) == -1) {
-    //     perror("pipe");
-    //     exit(EXIT_FAILURE);
-    // }
     //最初のみ最後のコマンド
     pid1 = fork();
     if (pid1 == -1) {
@@ -38,26 +32,27 @@ int handle_pipe(t_tree *tree, t_env **envp)
     }
     if (pid1 == 0) { // child process 3
         dup2(pipefd[pipe_count - 1][READ], STDIN_FILENO);
-        // close(pipefd[0][0]);
-        // close(pipefd[0][1]);
+        if (pipe_count > 1)
+        {
+            close(pipefd[pipe_count - 2][0]);
+            close(pipefd[pipe_count - 2][1]);
+        }
         close(pipefd[pipe_count - 1][0]);
         close(pipefd[pipe_count - 1][1]);
 		executer(tree->right->com, envp);
         exit(EXIT_FAILURE);
     }
-
     //pipeの右側(最後以外の中間)
     int i = pipe_count - 1;
     // int i = 0;
     char **com;
     t_tree *p_tree;
     p_tree = tree->left;
-    if (tree->left->stat != COM)
+    if (p_tree->stat != COM)
     {
-        com = p_tree->right->com;
-
         while (1)
         {
+            com = p_tree->right->com;
             pid_t pid = fork();
             if (pid == -1) {
                 perror("fork");
@@ -83,12 +78,10 @@ int handle_pipe(t_tree *tree, t_env **envp)
     com = p_tree->com;
     //pipeの左側がコマンドの場合(最初)
     pid3 = fork();
-
     if (pid3 == -1) {
         perror("fork");
         exit(EXIT_FAILURE);
     }
-
     if (pid3 == 0) { // child process 1
         dup2(pipefd[0][WRITE], STDOUT_FILENO);
         close(pipefd[0][0]);
@@ -99,7 +92,6 @@ int handle_pipe(t_tree *tree, t_env **envp)
 		// executer(tree->left->left->com, envp);
         exit(EXIT_FAILURE);
     }
-
     int tmp;
     tmp = 0;
     while (tmp < pipe_count)
@@ -108,15 +100,6 @@ int handle_pipe(t_tree *tree, t_env **envp)
         close(pipefd[tmp][1]);
         tmp ++;
     }
-    // close(pipefd[0][0]);
-    // close(pipefd[0][1]);
-    // close(pipefd[1][0]);
-    // close(pipefd[1][1]);
-    // free(pipefd);
-    // waitpid(pid1, &status, 0);
-    // waitpid(pid2, &status, 0);
-    // waitpid(pid3, &status, 0);
-
     return 0;
 }
 
