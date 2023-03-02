@@ -8,6 +8,19 @@ int count_pipe(t_tree *tree)
         return (0);
 }
 
+void close_pipe(int pipe_count, int pipefd[4096][2])
+{
+    int tmp;
+
+    tmp = 0;
+    while (tmp < pipe_count)
+    {
+        close(pipefd[tmp][0]);
+        close(pipefd[tmp][1]);
+        tmp ++;
+    }
+}
+
 int handle_pipe(t_tree *tree, t_env **envp)
 {
     int pipefd[4096][2];
@@ -32,13 +45,15 @@ int handle_pipe(t_tree *tree, t_env **envp)
     }
     if (pid1 == 0) { // child process 3
         dup2(pipefd[pipe_count - 1][READ], STDIN_FILENO);
-        if (pipe_count > 1)
-        {
-            close(pipefd[pipe_count - 2][0]);
-            close(pipefd[pipe_count - 2][1]);
-        }
-        close(pipefd[pipe_count - 1][0]);
-        close(pipefd[pipe_count - 1][1]);
+        // if (pipe_count > 1)
+        // {
+        //     close(pipefd[pipe_count - 2][0]);
+        //     close(pipefd[pipe_count - 2][1]);
+        // }
+        // close(pipefd[pipe_count - 1][0]);
+        // close(pipefd[pipe_count - 1][1]);
+        close_pipe(pipe_count, pipefd);
+
 		executer(tree->right->com, envp);
         exit(EXIT_FAILURE);
     }
@@ -53,6 +68,7 @@ int handle_pipe(t_tree *tree, t_env **envp)
         while (1)
         {
             com = p_tree->right->com;
+            // ft_putstr_fd(com[0], 1);
             pid_t pid = fork();
             if (pid == -1) {
                 perror("fork");
@@ -62,15 +78,18 @@ int handle_pipe(t_tree *tree, t_env **envp)
             {
                 dup2(pipefd[i - 1][READ], STDIN_FILENO);
                 dup2(pipefd[i][WRITE], STDOUT_FILENO);
-                close(pipefd[i - 1][0]);
-                close(pipefd[i - 1][1]);
-                close(pipefd[i][0]);
-                close(pipefd[i][1]);
+                // close(pipefd[i - 1][0]);
+                // close(pipefd[i - 1][1]);
+                // close(pipefd[i][0]);
+                // close(pipefd[i][1]);
+                close_pipe(pipe_count, pipefd);
+
                 executer(com, envp);
                 exit(EXIT_FAILURE);
             }
             p_tree = p_tree->left;
             i--;
+
             if (p_tree->stat == COM)
                 break;
         }
@@ -84,22 +103,17 @@ int handle_pipe(t_tree *tree, t_env **envp)
     }
     if (pid3 == 0) { // child process 1
         dup2(pipefd[0][WRITE], STDOUT_FILENO);
-        close(pipefd[0][0]);
-        close(pipefd[0][1]);
-        close(pipefd[1][0]);
-        close(pipefd[1][1]);
+        // close(pipefd[0][0]);
+        // close(pipefd[0][1]);
+        // close(pipefd[1][0]);
+        // close(pipefd[1][1]);
+        close_pipe(pipe_count, pipefd);
+
 		executer(com, envp);
 		// executer(tree->left->left->com, envp);
         exit(EXIT_FAILURE);
     }
-    int tmp;
-    tmp = 0;
-    while (tmp < pipe_count)
-    {
-        close(pipefd[tmp][0]);
-        close(pipefd[tmp][1]);
-        tmp ++;
-    }
+    close_pipe(pipe_count, pipefd);
     return 0;
 }
 
