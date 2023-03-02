@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	put_arr(char **arr, t_env **env)
+static int	put_arr(char **arr, t_env **env)
 {
 	size_t	cnt;
 	t_env	*top;
@@ -20,11 +20,12 @@ int	put_arr(char **arr, t_env **env)
 		}
 		cnt += 1;
 	}
-	// free_lst(arr);
+	free(arr);
+	arr = NULL;
 	return (0);
 }
 
-int	sort_env(t_env **env)
+static int	sort_env(t_env **env)
 {
 	size_t	len;
 	size_t	cnt;

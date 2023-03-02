@@ -7,6 +7,7 @@ int	exec_pwd(char **com, t_env **env)
 	(void)com;
 	(void)env;
 	getcwd(path, sizeof(path));
-	ft_putendl_fd(path, 1);
+	if (ft_putendl_fd(path, 1) == -1)
+		return (FAILURE);
 	return (SUCCESS);
 }

@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+void	error_exit(char *str)
+{
+	perror(str);
+	// exit(FAILURE);
+}
+
 void	*alloc_exit(size_t cnt, size_t size)
 {
 	void	*tmp;
@@ -8,11 +14,11 @@ void	*alloc_exit(size_t cnt, size_t size)
 	if (cnt == 0 || size == 0)
 		tmp = (void *)malloc(sizeof(void) * 1);
 	else if (cnt > INT_MAX / size)
-		perror("malloc error");
+		error_exit("malloc error");
 	else
 		tmp = (void *)malloc(sizeof(void) * size * cnt);
 	if (!tmp)
-		perror("malloc error");
+		error_exit("malloc error");
 	return (tmp);
 }
 

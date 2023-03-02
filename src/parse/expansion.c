@@ -35,14 +35,7 @@ static size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 		len += 1;
 	}
 	prm = ft_substr(com, cnt - len, len);
-	if (prm[0] == '\0')
-		tmp = ft_strjoin(*str, "$");
-	else if (prm[0] == '?')
-		tmp = join_three(*str, ft_itoa(g_status), ft_substr(prm, 1, ft_strlen(prm) - 1));
-	else if (prm[0] == '0')
-		tmp = join_three(*str, "minishell", ft_substr(prm, 1, ft_strlen(prm) - 1));
-	else
-		tmp = ft_strjoin(*str, getenvs(prm, env));
+	tmp = next_dollar(env, str, prm);
 	free(prm);
 	free(*str);
 	*str = tmp;

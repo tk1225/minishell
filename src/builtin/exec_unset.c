@@ -17,7 +17,9 @@ int	exec_unset(char **com, t_env **env)
 		}
 		top = top->next;
 	}
-	if (top->next)
+	if (!top)
+		return (SUCCESS);
+	else
 	{
 		free(top->next->key);
 		free(top->next->value);

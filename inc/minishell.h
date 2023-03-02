@@ -52,19 +52,25 @@ typedef struct s_env
 }	t_env;
 
 //parser
-char	**lexer(char const *s);
+char	**lexer(char *s);
 t_tree	**parser(char **res);
 void	expansion(char **com, t_env **env);
+char	*next_dollar(t_env **env, char **str, char *prm);
 
 //fork
 int		executer(char **com, t_env **env);
 void	exec_tree(t_tree *tree, t_env **env);
 
-//utils
+//free
 void	free_lst(char **lst);
+void	free_tree(t_tree *tree);
+
+//utils
 void	*alloc_exit(size_t cnt, size_t size);
 char	*join_three(const char *s1, const char *s2, const char *s3);
-char	*getenvs(char *key, t_env **env);
+void	error_exit(char *str);
+char	*get_env(char *key, t_env **env);
+int		ch_dir(char *path);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
@@ -86,13 +92,10 @@ int		exec_unset(char **com, t_env **env);
 
 //builtin utils
 int		add_env(char *com, t_env **env);
-int	put_env(t_env *env);
+int		put_env(t_env *env);
 t_env	*make_env(char c);
 void	add_back_env(t_env *env, char *key, char *value);
 void	bubble_sort(char **arr);
-
-//delete
-void	print_tree(t_tree *tree);
 
 //syntax
 int		syntax_check(t_tree *tree);

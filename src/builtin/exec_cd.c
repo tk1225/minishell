@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-static int	access_cd(char *com, t_env **env)
+static int	access_cd(char *path, t_env **env)
 {
 	char	cwd[PATH_MAX];
 	char	*pwd;
 
-	if (access(com, F_OK) == 0)
+	if (access(path, F_OK) == 0)
 	{
-		if (chdir(com) == -1)
+		if (ch_dir(path) == -1)
 			return (FAILURE);
 		if (!getcwd(cwd, PATH_MAX))
 			return (FAILURE);
@@ -21,7 +21,7 @@ static int	access_cd(char *com, t_env **env)
 	}
 	else
 	{
-		perror("path error");
+		error_exit("path not found");
 		return (FAILURE);
 	}
 }
@@ -49,9 +49,9 @@ int	exec_cd(char **com, t_env **env)
 	(void)env;
 	if (!com[1] || ft_strncmp(com[1], "~", 2) == 0 || \
 		ft_strncmp(com[1], "--", 3) == 0)
-		path = getenvs("HOME", env);
+		path = get_env("HOME", env);
 	else if (ft_strncmp(com[1], "-", 2) == 0)
-		path = getenvs("OLDPWD", env);
+		path = get_env("OLDPWD", env);
 	else
 		path = strdup(com[1]);
 	if (update_oldpwd(env) == FAILURE)

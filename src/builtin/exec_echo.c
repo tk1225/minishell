@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	option_check(char **com, size_t *row, int *nl_flag)
+static void	option_check(char **com, size_t *row, int *nl_flag)
 {
 	size_t	cnt;
 
@@ -16,7 +16,7 @@ void	option_check(char **com, size_t *row, int *nl_flag)
 	}
 }
 
-int	print_com(char **com, size_t *row)
+static int	print_com(char **com, size_t *row)
 {
 	while (com[*row])
 	{

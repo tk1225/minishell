@@ -70,20 +70,17 @@ int	main(int argc, char **argv, char **envp)
 			tree = parser(res);
 			if (syntax_check(*tree) > 0)
 			{
-				perror("syntax error");
+				error_exit("syntax error");
 				g_status = 2;
 				continue ;
 			}
 			else
 				exec_recursion(*tree, &env);
-			free(line);
+			free_tree(*tree);
+			free(tree);
 		}
+		free(line);
 	}
 	exit(g_status);
 	return (0);
 }
-
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks minishell");
-// }

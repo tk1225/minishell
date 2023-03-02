@@ -62,10 +62,10 @@ int	exe_com(char **com, t_env **env)
 	char	*path_copy;
 	char	**dir;
 
-	path = getenvs("PATH", env);
+	path = get_env("PATH", env);
 	if (path == NULL)
 	{
-		perror("PATH environment variable not set");
+		error_exit("PATH environment variable not set");
 		return (1);
 	}
 	path_copy = malloc(ft_strlen(path) + 1);
@@ -83,7 +83,7 @@ int	executer(char **com, t_env **env)
 		exe_com(com, env);
 	else
 		exit(0);
-	perror("command not found");
+	error_exit("command not found");
 	exit(127);
 	return (1);
 }
