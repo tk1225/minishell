@@ -11,7 +11,7 @@ static int	put_arr(char **arr, t_env **env)
 		top = *env;
 		while (top)
 		{
-			if (ft_strncmp(arr[cnt], top->key, ft_strlen(arr[cnt])) == 0)
+			if (ft_strncmp(arr[cnt], top->key, ft_strlen(arr[cnt]) + 1) == 0)
 			{
 				if (put_env(top) == -1)
 					return (-1);

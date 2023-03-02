@@ -1,9 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define IN_QUOTE -1
-# define OUT_QUOTE 1
-
 # define FAILURE 0
 # define SUCCESS 1
 # define NONE 2
@@ -27,6 +24,18 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 #include <errno.h>
+typedef enum e_stat
+{
+	COM,
+	PIPE
+}	t_stat;
+
+typedef enum e_quote
+{
+	IN_SQUOTE,
+	IN_DQUOTE,
+	OUT_QUOTE
+}	t_quote;
 
 typedef struct s_tree
 {
@@ -37,11 +46,6 @@ typedef struct s_tree
 	int				stat;
 }	t_tree;
 
-typedef enum e_stat
-{
-	COM,
-	PIPE
-}	t_stat;
 
 typedef struct s_env
 {
@@ -56,6 +60,10 @@ char	**lexer(char *str);
 t_tree	**parser(char **res);
 void	expansion(char **com, t_env **env);
 char	*next_dollar(t_env **env, char **str, char *prm);
+
+//parser utils
+int		judge_quote(int *quote, char c);
+void	judge_char(char *c, int *quote, size_t *len);
 
 //fork
 int		executer(char **com, t_env **env);

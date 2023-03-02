@@ -19,7 +19,7 @@ LIBFT_DIR	=	libft/
 BUILT_NAME	=	export_utils.c exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
 EXEC_NAME	=	builtin_check.c builtin_set.c executer.c heredoc.c pipe.c redirection.c
 MAIN_NAME	=	main.c signal.c
-PARSE_NAME	=	expansion_utils.c expansion.c lexer.c parser.c syntax.c
+PARSE_NAME	=	expansion_utils.c expansion.c lexer_utils.c lexer.c parser.c syntax.c
 UTILS_NAME	=	ch_dir.c free.c get_env.c utils.c
 
 OBJ_NAME	=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))
