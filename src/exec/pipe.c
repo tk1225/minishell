@@ -55,12 +55,23 @@ static void cat_pipe(int pipe_count, int pipefd[4096][2], int i)
     close_pipe(pipe_count, pipefd);
 }
 
+static char **next_com(t_tree *p_tree)
+{
+    char **com;
+
+    if (p_tree->stat == COM)
+        com = p_tree->com;
+    else
+        com = p_tree->right->com;
+    return (com);
+}
+
 
 int handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
 {
     int pipefd[4096][2];
     int i;
-    char **com;
+    // char **com;
     t_tree *p_tree;
 
     i = pipe_count;
@@ -68,19 +79,14 @@ int handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
     p_tree = tree;
     while (p_tree)
     {
-        if (p_tree->stat == COM)
-            com = p_tree->com;
-        else
-            com = p_tree->right->com;
+        // if (p_tree->stat == COM)
+        //     com = p_tree->com;
+        // else
+        //     com = p_tree->right->com;
         if (fork_process() == 0)
         {
             cat_pipe(pipe_count, pipefd, i);
-            // if (i >= 1)
-            //     dup2(pipefd[i - 1][READ], STDIN_FILENO);
-            // if (pipe_count != i)
-            //     dup2(pipefd[i][WRITE], STDOUT_FILENO);
-            // close_pipe(pipe_count, pipefd);
-            executer(com, envp);
+            executer(next_com(p_tree), envp);
         }
         p_tree = p_tree->left;
         i--;
