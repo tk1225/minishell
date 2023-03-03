@@ -76,6 +76,7 @@ int		builtin_check(char **com);
 int		exec_builtin(t_tree *tree, t_env **env);
 int		builtin_set(char **com, t_env **env);
 int		count_pipe(t_tree *tree);
+void	close_pipe(int pipe_count, int pipefd[4096][2]);
 
 //builtin
 int		exec_cd(char **com, t_env **env);

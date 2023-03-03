@@ -17,7 +17,7 @@ UTILS_DIR	=	utils/
 LIBFT_DIR	=	libft/
 
 BUILT_NAME	=	export_utils.c exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_export.c exec_pwd.c exec_unset.c
-EXEC_NAME	=	builtin_check.c builtin_set.c executer.c heredoc.c pipe.c redirection.c
+EXEC_NAME	=	builtin_check.c builtin_set.c executer.c heredoc.c pipe.c pipe_utils.c redirection.c
 MAIN_NAME	=	main.c signal.c
 PARSE_NAME	=	expansion.c lexer.c parser.c syntax.c
 UTILS_NAME	=	getenvs.c utils.c free.c
