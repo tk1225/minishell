@@ -6,49 +6,11 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:27:39 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/03 14:25:02 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/03 14:39:03 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static	void	init_pipe(int pipe_count, int pipefd[4096][2])
-{
-	int	j;
-
-	j = 0;
-	while (j < pipe_count)
-	{
-		if (pipe(pipefd[j]) == -1)
-		{
-			perror("pipe");
-			exit(EXIT_FAILURE);
-		}
-		j ++;
-	}
-}
-
-static	pid_t	fork_process(void)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	return (pid);
-}
-
-static	void	cat_pipe(int pipe_count, int pipefd[4096][2], int i)
-{
-	if (i >= 1)
-		dup2(pipefd[i - 1][READ], STDIN_FILENO);
-	if (pipe_count != i)
-		dup2(pipefd[i][WRITE], STDOUT_FILENO);
-	close_pipe(pipe_count, pipefd);
-}
 
 static	char	**next_com(t_tree *p_tree)
 {
@@ -74,7 +36,7 @@ int	handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
 	p_tree = tree;
 	while (p_tree)
 	{
-		pid = fork_process();
+		pid = fork_wrapper();
 		if (i == pipe_count)
 			last_pid = pid;
 		if (pid == 0)
@@ -87,4 +49,16 @@ int	handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
 	}
 	close_pipe(pipe_count, pipefd);
 	return (last_pid);
+}
+
+int	exec_pipe(t_tree *tree, t_env **envp)
+{
+	int		pipe_count;
+	pid_t	pid;
+	int		status;
+
+	pipe_count = count_pipe(tree);
+	pid = handle_pipe(tree, envp, pipe_count);
+	status = wait_pipeline(pid);
+	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/03 12:34:15 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/03 14:57:51 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	read_heredoc(const char *delimiter)
 		line = readline("heredoc> ");
 		if (line == NULL)
 			break ;
-		if (strcmp(line, delimiter) == 0 || g_status == 130)
+		if (ft_strncmp(line, delimiter, \
+		ft_strlen(delimiter)) == 0 || g_status == 130)
 		{
 			if (g_status == 130)
 				g_status = 1;

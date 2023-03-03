@@ -53,7 +53,7 @@ int	exec_cd(char **com, t_env **env)
 	else if (ft_strncmp(com[1], "-", 2) == 0)
 		path = get_env("OLDPWD", env);
 	else
-		path = strdup(com[1]);
+		path = ft_strdup(com[1]);
 	if (update_oldpwd(env) == FAILURE)
 		return (FAILURE);
 	return (access_cd(path, env));

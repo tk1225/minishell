@@ -46,7 +46,6 @@ typedef struct s_tree
 	int				stat;
 }	t_tree;
 
-
 typedef struct s_env
 {
 	struct s_env	*next;
@@ -80,6 +79,9 @@ char	*join_three(const char *s1, const char *s2, const char *s3);
 void	error_exit(char *str);
 char	*get_env(char *key, t_env **env);
 int		ch_dir(char *path);
+pid_t	fork_wrapper(void);
+int		dup_wrapper(int fd);
+void	dup2_wrapper(int fd, int fd2);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
@@ -89,9 +91,14 @@ int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		builtin_check(char **com);
 int		exec_builtin(t_tree *tree, t_env **env);
 int		builtin_set(char **com, t_env **env);
+
+//pipe
 int		count_pipe(t_tree *tree);
 void	close_pipe(int pipe_count, int pipefd[4096][2]);
-
+int		wait_pipeline(pid_t last_pid);
+void	init_pipe(int pipe_count, int pipefd[4096][2]);
+void	cat_pipe(int pipe_count, int pipefd[4096][2], int i);
+int		exec_pipe(t_tree *tree, t_env **envp);
 //builtin
 int		exec_cd(char **com, t_env **env);
 int		exec_echo(char **com, t_env **env);

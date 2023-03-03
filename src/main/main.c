@@ -59,7 +59,6 @@ int	main(int argc, char **argv, char **envp)
 			cnt = 0;
 			while (res[cnt])
 			{
-				// printf("%s\n", res[cnt]);
 				if (ft_strncmp(res[cnt], "<<", 3) == 0)
 				{
 					delimiter = res[cnt + 1];

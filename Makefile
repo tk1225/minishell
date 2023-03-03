@@ -20,7 +20,7 @@ BUILT_NAME	=	export_utils.c exec_cd.c exec_echo.c exec_env.c exec_exit.c exec_ex
 EXEC_NAME	=	builtin_check.c builtin_set.c executer.c heredoc.c pipe.c pipe_utils.c redirection.c
 MAIN_NAME	=	main.c signal.c
 PARSE_NAME	=	expansion_utils.c expansion.c lexer_utils.c lexer.c parser.c syntax.c
-UTILS_NAME	=	ch_dir.c free.c get_env.c utils.c
+UTILS_NAME	=	ch_dir.c free.c get_env.c utils.c wrapper.c
 
 OBJ_NAME	=	$(addprefix $(BUILT_DIR), $(BUILT_NAME:.c=.o))
 OBJ_NAME	+=	$(addprefix $(EXEC_DIR), $(EXEC_NAME:.c=.o))

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executer.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/03 14:39:28 by takumasaoka       #+#    #+#             */
+/*   Updated: 2023/03/03 14:53:42 by takumasaoka      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern int	g_status;
@@ -89,26 +101,6 @@ int	executer(char **com, t_env **env)
 	return (1);
 }
 
-int	wait_pipeline(pid_t last_pid)
-{
-	pid_t	wait_result;
-	int		status;
-	int		wstatus;
-
-	while (1)
-	{
-		wait_result = wait(&wstatus);
-		if (wait_result == last_pid)
-			status = wstatus;
-		else if (wait_result < 0)
-		{
-			if (errno == ECHILD)
-				break ;
-		}
-	}
-	return (status);
-}
-
 int	exec_recursion(t_tree *tree, t_env **env)
 {
 	int	pid;
@@ -119,18 +111,13 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	signal(SIGQUIT, handle_signals);
 	if (tree->stat == COM)
 	{
-		pid = fork();
+		pid = fork_wrapper();
 		if (pid == 0)
 			executer(tree->com, env);
 		wait(&status);
 	}
-	int pipe_count;
-    pipe_count = count_pipe(tree);
-    if (pipe_count != 0)
-	{
-		pid = handle_pipe(tree, env, pipe_count);
-		status = wait_pipeline(pid);
-	}
+	else
+		status = exec_pipe(tree, env);
 	if (g_status == 130 || g_status == 131)
 		write(1, "\n", 1);
 	g_status = WEXITSTATUS(status);
