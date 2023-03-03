@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void shift_com(char **com, int i)
+static void	shift_com(char **com, int i)
 {
 	while (com[i + 2])
 	{

@@ -98,9 +98,8 @@ int	wait_pipeline(pid_t last_pid)
 	while (1)
 	{
 		wait_result = wait(&wstatus);
-		// wait_result = waitpid(-last_pid, &wstatus, 0);
 		if (wait_result == last_pid)
-			status = WEXITSTATUS(wstatus);
+			status = wstatus;
 		else if (wait_result < 0)
 		{
 			if (errno == ECHILD)
@@ -117,21 +116,21 @@ int	exec_recursion(t_tree *tree, t_env **env)
 
 	if ((tree->stat == COM) && (builtin_check(tree->com) == SUCCESS))
 		return (exec_builtin(tree, env));
-	pid = fork();
 	signal(SIGQUIT, handle_signals);
-	if (pid == 0)
+	if (tree->stat == COM)
 	{
-		if (tree->stat == COM)
+		pid = fork();
+		if (pid == 0)
 			executer(tree->com, env);
-		exit(0);
+		wait(&status);
 	}
 	int pipe_count;
     pipe_count = count_pipe(tree);
     if (pipe_count != 0)
-		handle_pipe(tree, env, pipe_count);
-	wait_pipeline(pid);
-	// wait(&status);
-	// waitpid(pid, NULL, 0);
+	{
+		pid = handle_pipe(tree, env, pipe_count);
+		status = wait_pipeline(pid);
+	}
 	if (g_status == 130 || g_status == 131)
 		write(1, "\n", 1);
 	g_status = WEXITSTATUS(status);

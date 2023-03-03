@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:24:08 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/02 20:38:26 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/03 12:49:21 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static	int	syntax_redirect(char **com)
 	i = 0;
 	while (com[i])
 	{
-		if ((ft_strncmp(com[i], "<<", 3) == 0) || \
-		(ft_strncmp(com[i], ">>", 3) == 0) \
-			|| (ft_strncmp(com[i], ">", 2) == 0) \
-			|| (ft_strncmp(com[i], "<", 2) == 0))
+		if ((ft_strncmp(com[i], "<<", 2) == 0) || \
+		(ft_strncmp(com[i], ">>", 2) == 0) \
+			|| (ft_strncmp(com[i], ">", 1) == 0) \
+			|| (ft_strncmp(com[i], "<", 1) == 0))
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if (filename == NULL)

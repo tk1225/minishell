@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:27:39 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/03 12:31:34 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/03 14:25:02 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static	void	init_pipe(int pipe_count, int pipefd[4096][2])
 	j = 0;
 	while (j < pipe_count)
 	{
-		pipe(pipefd[j]);
-		if (pipe == -1)
+		if (pipe(pipefd[j]) == -1)
 		{
 			perror("pipe");
 			exit(EXIT_FAILURE);
@@ -67,13 +66,18 @@ int	handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
 	int		pipefd[4096][2];
 	int		i;
 	t_tree	*p_tree;
+	pid_t	last_pid;
+	pid_t	pid;
 
 	i = pipe_count;
 	init_pipe(pipe_count, pipefd);
 	p_tree = tree;
 	while (p_tree)
 	{
-		if (fork_process() == 0)
+		pid = fork_process();
+		if (i == pipe_count)
+			last_pid = pid;
+		if (pid == 0)
 		{
 			cat_pipe(pipe_count, pipefd, i);
 			executer(next_com(p_tree), envp);
@@ -82,5 +86,5 @@ int	handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
 		i--;
 	}
 	close_pipe(pipe_count, pipefd);
-	return (0);
+	return (last_pid);
 }
