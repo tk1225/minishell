@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		line = readline("> ");
 		if (line == NULL)
-			break;
+			break ;
 		if (ft_strlen(line) == 0 && g_status == 130)
 			g_status = 1;
 		if (ft_strlen(line) > 0)

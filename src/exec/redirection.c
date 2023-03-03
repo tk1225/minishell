@@ -30,12 +30,6 @@ int	handle_heredoc(void)
 		return (1);
 	}
 	unlink(".tmp.txt");
-	int new_fd = dup_wrapper(fd);
-	if (new_fd == -1)
-	{
-		error_exit("dup");
-		return (1);
-	}
 	close(READ);
 	dup2_wrapper(fd, READ);
 	close(fd);
@@ -89,12 +83,6 @@ int	handle_redirect(char *target_filename, int stdfd, int append_flag)
 	if (fd == -1)
 	{
 		error_exit("open");
-		return (1);
-	}
-	int new_fd = dup_wrapper(fd);
-	if (new_fd == -1)
-	{
-		error_exit("dup");
 		return (1);
 	}
 	close(stdfd);
