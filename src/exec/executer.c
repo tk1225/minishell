@@ -124,7 +124,10 @@ int	exec_recursion(t_tree *tree, t_env **env)
 			executer(tree->com, env);
 		exit(0);
 	}
-	handle_pipe(tree, env);
+	int pipe_count;
+    pipe_count = count_pipe(tree);
+    if (pipe_count != 0)
+		handle_pipe(tree, env, pipe_count);
 	wait_pipeline(pid);
 	// wait(&status);
 	// waitpid(pid, NULL, 0);

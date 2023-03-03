@@ -21,15 +21,10 @@ void close_pipe(int pipe_count, int pipefd[4096][2])
     }
 }
 
-int handle_pipe(t_tree *tree, t_env **envp)
+void init_pipe(int pipe_count, int pipefd[4096][2])
 {
-    int pipefd[4096][2];
-    // pid_t pid3;
-    int pipe_count;
-    pipe_count = count_pipe(tree);
-    if (pipe_count == 0)
-        return (1);
     int j;
+
     j = 0;
     while (j < pipe_count)
     {
@@ -37,9 +32,30 @@ int handle_pipe(t_tree *tree, t_env **envp)
         //pipeerror
         j ++;
     }
-    int i = pipe_count;
+}
+
+static pid_t fork_process()
+{
+    pid_t pid;
+
+    pid = fork();
+    if (pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+    return (pid);
+}
+
+int handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
+{
+    int pipefd[4096][2];
+    int i;
     char **com;
     t_tree *p_tree;
+    // pid_t pid;
+
+    i = pipe_count;
+    init_pipe(pipe_count, pipefd);
     p_tree = tree;
     while (p_tree)
     {
@@ -47,12 +63,12 @@ int handle_pipe(t_tree *tree, t_env **envp)
             com = p_tree->com;
         else
             com = p_tree->right->com;
-        pid_t pid = fork();
-        if (pid == -1) {
-            perror("fork");
-            exit(EXIT_FAILURE);
-        }
-        if (pid == 0)
+        // pid = fork();
+        // if (pid == -1) {
+        //     perror("fork");
+        //     exit(EXIT_FAILURE);
+        // }
+        if (fork_process() == 0)
         {
             if (i >= 1)
                 dup2(pipefd[i - 1][READ], STDIN_FILENO);
@@ -60,7 +76,6 @@ int handle_pipe(t_tree *tree, t_env **envp)
                 dup2(pipefd[i][WRITE], STDOUT_FILENO);
             close_pipe(pipe_count, pipefd);
             executer(com, envp);
-            exit(EXIT_FAILURE);
         }
         p_tree = p_tree->left;
         i--;

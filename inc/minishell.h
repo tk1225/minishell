@@ -69,12 +69,13 @@ char	*getenvs(char *key, t_env **env);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
-int		handle_pipe(t_tree *tree, t_env **env);
+int		handle_pipe(t_tree *tree, t_env **env, int pipe_count);
 int		recognize_redirect(char **com);
 int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		builtin_check(char **com);
 int		exec_builtin(t_tree *tree, t_env **env);
 int		builtin_set(char **com, t_env **env);
+int		count_pipe(t_tree *tree);
 
 //builtin
 int		exec_cd(char **com, t_env **env);
