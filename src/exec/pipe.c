@@ -46,13 +46,22 @@ static pid_t fork_process()
     return (pid);
 }
 
+static void cat_pipe(int pipe_count, int pipefd[4096][2], int i)
+{
+    if (i >= 1)
+        dup2(pipefd[i - 1][READ], STDIN_FILENO);
+    if (pipe_count != i)
+        dup2(pipefd[i][WRITE], STDOUT_FILENO);
+    close_pipe(pipe_count, pipefd);
+}
+
+
 int handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
 {
     int pipefd[4096][2];
     int i;
     char **com;
     t_tree *p_tree;
-    // pid_t pid;
 
     i = pipe_count;
     init_pipe(pipe_count, pipefd);
@@ -63,18 +72,14 @@ int handle_pipe(t_tree *tree, t_env **envp, int pipe_count)
             com = p_tree->com;
         else
             com = p_tree->right->com;
-        // pid = fork();
-        // if (pid == -1) {
-        //     perror("fork");
-        //     exit(EXIT_FAILURE);
-        // }
         if (fork_process() == 0)
         {
-            if (i >= 1)
-                dup2(pipefd[i - 1][READ], STDIN_FILENO);
-            if (pipe_count != i)
-                dup2(pipefd[i][WRITE], STDOUT_FILENO);
-            close_pipe(pipe_count, pipefd);
+            cat_pipe(pipe_count, pipefd, i);
+            // if (i >= 1)
+            //     dup2(pipefd[i - 1][READ], STDIN_FILENO);
+            // if (pipe_count != i)
+            //     dup2(pipefd[i][WRITE], STDOUT_FILENO);
+            // close_pipe(pipe_count, pipefd);
             executer(com, envp);
         }
         p_tree = p_tree->left;
