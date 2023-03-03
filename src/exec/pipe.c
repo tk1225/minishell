@@ -24,7 +24,7 @@ void close_pipe(int pipe_count, int pipefd[4096][2])
 int handle_pipe(t_tree *tree, t_env **envp)
 {
     int pipefd[4096][2];
-    pid_t pid1, pid3;
+    pid_t pid3;
     int pipe_count;
     pipe_count = count_pipe(tree);
     if (pipe_count == 0)
@@ -37,25 +37,10 @@ int handle_pipe(t_tree *tree, t_env **envp)
         //pipeerror
         j ++;
     }
-    //最初のみ最後のコマンド
-    pid1 = fork();
-    if (pid1 == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    if (pid1 == 0) { // child process 3
-        dup2(pipefd[pipe_count - 1][READ], STDIN_FILENO);
-        close_pipe(pipe_count, pipefd);
-
-		executer(tree->right->com, envp);
-        exit(EXIT_FAILURE);
-    }
-    //pipeの右側(最後以外の中間)
-    int i = pipe_count - 1;
-    // int i = 0;
+    int i = pipe_count;
     char **com;
     t_tree *p_tree;
-    p_tree = tree->left;
+    p_tree = tree;
     while (p_tree->stat != COM)
     {
         com = p_tree->right->com;
@@ -67,7 +52,8 @@ int handle_pipe(t_tree *tree, t_env **envp)
         if (pid == 0)
         {
             dup2(pipefd[i - 1][READ], STDIN_FILENO);
-            dup2(pipefd[i][WRITE], STDOUT_FILENO);
+            if (pipe_count != i)
+                dup2(pipefd[i][WRITE], STDOUT_FILENO);
             close_pipe(pipe_count, pipefd);
             executer(com, envp);
             exit(EXIT_FAILURE);
