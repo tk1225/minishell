@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:20:57 by atito             #+#    #+#             */
-/*   Updated: 2023/03/04 15:21:28 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/04 23:29:40 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int is_redirect(char *com)
+static	int	is_redirect(char *com)
 {
 	if ((ft_strncmp(com, "<<", 3) == 0) || (ft_strncmp(com, ">>", 3) == 0)\
 		|| (ft_strncmp(com, ">", 2) == 0) || (ft_strncmp(com, "<", 2) == 0))
@@ -20,10 +20,10 @@ static int is_redirect(char *com)
 	return (0);
 }
 
-static int syntax_redirect(char **com)
+static	int	syntax_redirect(char **com)
 {
-	int i;
-	char *filename;
+	int		i;
+	char	*filename;
 
 	i = 0;
 	while (com[i])
@@ -32,34 +32,16 @@ static int syntax_redirect(char **com)
 		{
 			filename = ft_strtrim(com[i + 1], "\"");
 			if (filename == NULL || is_redirect(filename))
-				return(1);
+			{
+				free(filename);
+				return (1);
+			}
+			free(filename);
 		}
 		i++;
 	}
 	return (0);
 }
-
-// static	int	syntax_redirect(char **com)
-// {
-// 	int		i;
-// 	char	*filename;
-
-// 	i = 0;
-// 	while (com[i])
-// 	{
-// 		if ((ft_strncmp(com[i], "<<", 2) == 0) || \
-// 		(ft_strncmp(com[i], ">>", 2) == 0) \
-// 			|| (ft_strncmp(com[i], ">", 1) == 0) \
-// 			|| (ft_strncmp(com[i], "<", 1) == 0))
-// 		{
-// 			filename = ft_strtrim(com[i + 1], "\"");
-// 			if (filename == NULL)
-// 				return (1);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int	syntax_check(t_tree *tree)
 {
