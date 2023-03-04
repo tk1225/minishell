@@ -86,7 +86,7 @@ void	dup2_wrapper(int fd, int fd2);
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
 int		handle_pipe(t_tree *tree, t_env **env, int pipe_count);
-int		recognize_redirect(char **com, char *pwd);
+int		recognize_redirect(char **com);
 int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		builtin_check(char **com);
 int		exec_builtin(t_tree *tree, t_env **env);

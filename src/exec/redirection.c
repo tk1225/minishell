@@ -36,22 +36,34 @@ int	handle_heredoc(void)
 	return (0);
 }
 
-static char *conc_filename(char *pwd, char *com)
-{
-	char	*filename;
-	char	*tmp1;
-	char	*tmp2;
+char* get_absolute_path(const char* path) {
+    char* abs_path;
+    char* tmp;
+    char cwd[PATH_MAX];
 
-	tmp1 = ft_strtrim(com, "\"");
-	tmp2 = ft_strtrim(tmp1, "/");
-	free(tmp1);
-	filename = join_three(pwd, "/", tmp2);
-	free(tmp2);
+    if (path == NULL) {  // 引数がNULLの場合
+        return NULL;
+    }
 
-	return (filename);
+    if (path[0] == '/') {  // 引数が絶対パスである場合
+        abs_path = ft_strdup(path);
+    } else {  // 引数が相対パスである場合
+        if (getcwd(cwd, sizeof(cwd)) == NULL) {
+            perror("getcwd() error");
+            exit(EXIT_FAILURE);
+        }
+        abs_path = (char*)malloc(PATH_MAX);
+        if (abs_path == NULL) {  // メモリ割り当てエラーの場合
+            return NULL;
+        }
+		tmp = ft_strjoin(cwd, "/");
+        abs_path = ft_strjoin(tmp, path);
+		free(tmp);
+    }
+    return abs_path;
 }
 
-int	recognize_redirect(char **com, char *pwd)
+int	recognize_redirect(char **com)
 {
 	int		i;
 	int		res;
@@ -61,7 +73,7 @@ int	recognize_redirect(char **com, char *pwd)
 	res = 2;
 	while (com[i])
 	{
-		filename = conc_filename(pwd, com[i + 1]);
+		filename = get_absolute_path(com[i + 1]);
 		if (ft_strncmp(com[i], "<<", 3) == 0)
 			res = handle_heredoc();
 		else if (ft_strncmp(com[i], ">>", 3) == 0)
@@ -72,7 +84,7 @@ int	recognize_redirect(char **com, char *pwd)
 			res = handle_redirect(filename, READ, NEW);
 		free(filename);
 		if (res == 1)
-			continue;
+			return (1);
 		else if (res == 2)
 			i ++;
 		else if (res == 0)
