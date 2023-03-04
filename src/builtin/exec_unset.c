@@ -5,8 +5,6 @@ int	exec_unset(char **com, t_env **env)
 	t_env	*top;
 
 	(void)com;
-	if (!com[1])
-		return (FAILURE);
 	top = *env;
 	while (top)
 	{

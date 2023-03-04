@@ -26,13 +26,15 @@ int	handle_heredoc(void)
 	fd = open(".tmp.txt", O_RDWR);
 	if (fd == -1)
 	{
-		error_exit("open");
+		perror("open");
 		return (1);
 	}
 	unlink(".tmp.txt");
-	close(READ);
+	if (close(READ) == -1)
+		exit(EXIT_FAILURE);
 	dup2_wrapper(fd, READ);
-	close(fd);
+	if (close(fd) == -1)
+		exit(EXIT_FAILURE);
 	return (0);
 }
 
@@ -57,7 +59,7 @@ int	recognize_redirect(char **com)
 			res = handle_redirect(filename, READ, NEW);
 		free(filename);
 		if (res == 1)
-			exit(1);
+			exit(EXIT_FAILURE);
 		else if (res == 2)
 			i ++;
 		else if (res == 0)
@@ -82,11 +84,13 @@ int	handle_redirect(char *target_filename, int stdfd, int append_flag)
 		fd = open(target_filename, O_RDWR, 0666);
 	if (fd == -1)
 	{
-		error_exit("open");
+		perror("open");
 		return (1);
 	}
-	close(stdfd);
+	if (close(stdfd) == -1)
+		exit(EXIT_FAILURE);
 	dup2_wrapper(fd, stdfd);
-	close(fd);
+	if (close(fd) == -1)
+		exit(EXIT_FAILURE);
 	return (0);
 }

@@ -61,7 +61,7 @@ int	exec_exit(char **com, t_env **env)
 {
 	(void)env;
 	if (com[2] != NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 	if (ft_error_check(com[1]) == FAILURE)
 		exit(255);
 	exit(ft_atoi(com[1]));

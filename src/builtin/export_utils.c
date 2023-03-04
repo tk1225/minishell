@@ -31,16 +31,19 @@ t_env	*make_env(char c)
 	return (tmp);
 }
 
-void	add_back_env(t_env *env, char *key, char *value)
+int	add_back_env(t_env *env, char *key, char *value)
 {
 	t_env		*tmp;
 
 	tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
+	if (!tmp)
+		return (FAILURE);
 	tmp->key = key;
 	tmp->value = value;
 	tmp->prev = env;
 	tmp->next = NULL;
 	env->next = tmp;
+	return (SUCCESS);
 }
 
 void	bubble_sort(char **arr)

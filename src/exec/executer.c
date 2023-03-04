@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 14:39:28 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/03 14:53:42 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/04 15:17:19 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 	envp = convert_envs(env);
 	(void)env;
 	if (access(com[0], X_OK) == 0)
-		execve(com[0], com, envp);
+		if (execve(com[0], com, envp) == -1)
+			exit(EXIT_FAILURE);
 	cnt = 0;
 	while (dir[cnt] != NULL)
 	{
@@ -61,14 +62,15 @@ static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 		exec_path = ft_strjoin(tmp, com[0]);
 		free(tmp);
 		if (access(exec_path, X_OK) == 0)
-			execve(exec_path, com, envp);
+			if (execve(exec_path, com, envp) == -1)
+				exit(EXIT_FAILURE);
 		cnt += 1;
 		free(exec_path);
 	}
 	free_lst(dir);
 }
 
-int	exe_com(char **com, t_env **env)
+void	exe_com(char **com, t_env **env)
 {
 	char	*path;
 	char	*path_copy;
@@ -77,27 +79,31 @@ int	exe_com(char **com, t_env **env)
 	path = get_env("PATH", env);
 	if (path == NULL)
 	{
-		error_exit("PATH environment variable not set");
-		return (1);
+		perror("PATH environment variable not set");
+		exit(EXIT_FAILURE);
 	}
 	path_copy = (char *)alloc_exit(sizeof(char), ft_strlen(path) + 1);
 	ft_strlcpy(path_copy, path, ft_strlen(path));
 	dir = ft_split(path_copy, ':');
 	free(path_copy);
 	exe_com_helper(com, dir, env);
-	return (0);
+	perror("command not found");
+	exit(127);
 }
 
 int	executer(char **com, t_env **env)
 {
+	int	flag;
+
 	recognize_redirect(com);
 	expansion(com, env);
-	if (builtin_set(com, env) == NONE)
+	flag = builtin_set(com, env);
+	if (flag == NONE)
 		exe_com(com, env);
+	else if (flag == EXIT_FAILURE)
+		g_status = 1;
 	else
 		exit(0);
-	error_exit("command not found");
-	exit(127);
 	return (1);
 }
 

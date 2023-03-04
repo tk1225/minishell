@@ -56,29 +56,49 @@ static int	sort_env(t_env **env)
 
 int	add_env(char *com, t_env **env)
 {
-	t_env		*top;
-	char		*key;
-	char		*value;
+	t_env	*top;
+	char	*key;
+	char	*value;
+	char	*tmp;
+	size_t	flag;
 
-	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')));
-	value = ft_substr(com, ft_strlen(key) + 1, \
-		ft_strlen(com) - ft_strlen(key) - 1);
+	flag = 0;
+	if (com[ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - 1] == '+')
+		flag = 1;
+	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - flag);
+	if (ft_atoi(key) != 0 || ft_strlen(key) == 0 || key[ft_strlen(key) - 1] == '-' || key[ft_strlen(key) - 1] == '+')
+	{
+		perror("invalid args");
+		free(key);
+		return (FAILURE);
+	}
+	value = ft_substr(com, ft_strlen(key) + 1 + flag, ft_strlen(com) - ft_strlen(key) - 1 - flag);
 	top = *env;
 	while (top)
 	{
 		if (ft_strncmp(top->key, key, ft_strlen(key) + 1) == 0)
 		{
+			if (flag == 1)
+			{
+				tmp = value;
+				value = ft_strjoin(top->value, tmp);
+				free(tmp);
+			}
 			free(key);
-			free(top->value);
-			top->value = value;
+			if (ft_strlen(value) != 0)
+			{
+				free(top->value);
+				top->value = value;
+			}
+			else
+				free(value);
 			return (SUCCESS);
 		}
 		if (!top->next)
 			break ;
 		top = top->next;
 	}
-	add_back_env(top, key, value);
-	return (SUCCESS);
+	return (add_back_env(top, key, value));
 }
 
 int	exec_export(char **com, t_env **env)

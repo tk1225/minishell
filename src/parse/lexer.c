@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:38:13 by atito             #+#    #+#             */
-/*   Updated: 2023/03/02 20:38:14 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/04 14:47:43 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static size_t	count_word(char *s)
 		cnt += 1;
 	}
 	if (quote == IN_SQUOTE || quote == IN_DQUOTE)
-		error_exit("quote error");
+		perror("quote error");
 	return (len);
 }
 

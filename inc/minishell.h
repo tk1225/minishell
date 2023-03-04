@@ -112,7 +112,7 @@ int		exec_unset(char **com, t_env **env);
 int		add_env(char *com, t_env **env);
 int		put_env(t_env *env);
 t_env	*make_env(char c);
-void	add_back_env(t_env *env, char *key, char *value);
+int		add_back_env(t_env *env, char *key, char *value);
 void	bubble_sort(char **arr);
 
 //syntax

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:27:17 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/03 14:50:03 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/04 15:17:42 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ void	close_pipe(int pipe_count, int pipefd[4096][2])
 	tmp = 0;
 	while (tmp < pipe_count)
 	{
-		close(pipefd[tmp][0]);
-		close(pipefd[tmp][1]);
-		tmp ++;
+		if (close(pipefd[tmp][0]) == -1)
+			exit(EXIT_FAILURE);
+		if (close(pipefd[tmp][1]) == -1)
+			exit(EXIT_FAILURE);
+		tmp += 1;
 	}
 }
 

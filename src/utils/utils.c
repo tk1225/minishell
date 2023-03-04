@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:38:37 by atito             #+#    #+#             */
-/*   Updated: 2023/03/02 20:49:10 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/04 15:18:24 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	error_exit(char *str)
 {
 	perror(str);
+	exit(EXIT_FAILURE);
 }
 
 void	*alloc_exit(size_t cnt, size_t size)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/03 14:57:51 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/04 15:17:27 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	read_heredoc(const char *delimiter)
 		write(fd, "\n", 1);
 		free(line);
 	}
-	close(fd);
+	if (close(fd) == -1)
+		exit(EXIT_FAILURE);
 	return (1);
 }

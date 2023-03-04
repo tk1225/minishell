@@ -33,7 +33,7 @@ int	exec_builtin(t_tree *tree, t_env **env)
 	original_stdout_fd = dup_wrapper(STDOUT_FILENO);
 	recognize_redirect(tree->com);
 	expansion(tree->com, env);
-	if (builtin_set(tree->com, env) != NONE)
+	if (builtin_set(tree->com, env) != FAILURE)
 	{
 		dup2_wrapper(original_stdin_fd, STDIN_FILENO);
 		dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
