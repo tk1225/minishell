@@ -33,7 +33,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT_DIR) --silent
-	@$(CC) $(RDLFLAGS) -o $@ $^ $(LIBFT_DIR)libft.a
+	@$(CC) -o $@ $^ $(LIBFT_DIR)libft.a $(RDLFLAGS)
 	@echo "##### minishell compiling finished! #####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

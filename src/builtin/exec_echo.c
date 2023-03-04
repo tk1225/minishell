@@ -20,14 +20,10 @@ static int	print_com(char **com, size_t *row)
 {
 	while (com[*row])
 	{
-		if (ft_putstr_fd(com[*row], 1) == -1)
-			return (FAILURE);
+		ft_putstr_fd(com[*row], STDOUT_FILENO);
 		*row += 1;
 		if (com[*row])
-		{
-			if (ft_putchar_fd(' ', 1) == -1)
-				return (FAILURE);
-		}
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	return (SUCCESS);
 }
@@ -41,18 +37,11 @@ int	exec_echo(char **com, t_env **env)
 	row = 1;
 	nl_flag = 1;
 	if (!com[row])
-	{
-		if (ft_putchar_fd('\n', 1) == -1)
-			return (FAILURE);
-		return (SUCCESS);
-	}
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	option_check(com, &row, &nl_flag);
 	if (print_com(com, &row) == FAILURE)
 		return (FAILURE);
 	if (nl_flag)
-	{
-		if (ft_putchar_fd('\n', 1) == -1)
-			return (FAILURE);
-	}
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (SUCCESS);
 }

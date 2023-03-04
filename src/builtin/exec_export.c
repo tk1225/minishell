@@ -54,51 +54,62 @@ static int	sort_env(t_env **env)
 	return (SUCCESS);
 }
 
-int	add_env(char *com, t_env **env)
+int	search_env(t_env **top, char *key, char *value, int flag)
 {
-	t_env	*top;
-	char	*key;
-	char	*value;
 	char	*tmp;
-	size_t	flag;
 
-	flag = 0;
-	if (com[ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - 1] == '+')
-		flag = 1;
-	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - flag);
-	if (ft_atoi(key) != 0 || ft_strlen(key) == 0 || key[ft_strlen(key) - 1] == '-' || key[ft_strlen(key) - 1] == '+')
+	while (*top)
 	{
-		perror("invalid args");
-		free(key);
-		return (FAILURE);
-	}
-	value = ft_substr(com, ft_strlen(key) + 1 + flag, ft_strlen(com) - ft_strlen(key) - 1 - flag);
-	top = *env;
-	while (top)
-	{
-		if (ft_strncmp(top->key, key, ft_strlen(key) + 1) == 0)
+		if (ft_strncmp((*top)->key, key, ft_strlen(key) + 1) == 0)
 		{
 			if (flag == 1)
 			{
 				tmp = value;
-				value = ft_strjoin(top->value, tmp);
+				value = ft_strjoin((*top)->value, tmp);
 				free(tmp);
 			}
 			free(key);
 			if (ft_strlen(value) != 0)
 			{
-				free(top->value);
-				top->value = value;
+				free((*top)->value);
+				(*top)->value = value;
 			}
 			else
 				free(value);
-			return (SUCCESS);
+			return (1);
 		}
-		if (!top->next)
+		if (!(*top)->next)
 			break ;
-		top = top->next;
+		*top = (*top)->next;
 	}
-	return (add_back_env(top, key, value));
+	return (0);
+}
+
+int	add_env(char *com, t_env **env)
+{
+	char	*key;
+	char	*value;
+	size_t	flag;
+	t_env	*top;
+
+	flag = 0;
+	if (com[ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - 1] == '+')
+		flag = 1;
+	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - flag);
+	if (ft_atoi(key) != 0 || ft_strlen(key) == 0 || \
+		key[ft_strlen(key) - 1] == '-' || key[ft_strlen(key) - 1] == '+')
+		return (invalid_identifier(key));
+	value = ft_substr(com, ft_strlen(key) + 1 + flag, \
+		ft_strlen(com) - ft_strlen(key) - 1 - flag);
+	top = *env;
+	if (search_env(env, key, value, flag) == 1)
+	{
+		*env = top;
+		return (SUCCESS);
+	}
+	flag = add_back_env(env, key, value);
+	*env = top;
+	return (flag);
 }
 
 int	exec_export(char **com, t_env **env)
@@ -111,10 +122,8 @@ int	exec_export(char **com, t_env **env)
 	{
 		cnt = 1;
 		while (com[cnt])
-		{
 			if (add_env(com[cnt++], env) == FAILURE)
 				return (FAILURE);
-		}
 		return (SUCCESS);
 	}
 	return (FAILURE);

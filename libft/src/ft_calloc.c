@@ -18,7 +18,7 @@ void	*ft_calloc(size_t cnt, size_t size)
 
 	if (cnt == 0 || size == 0)
 		tmp = (void *)malloc(sizeof(void) * 1);
-	else if (cnt > SIZE_T_MAX / size)
+	else if (cnt > SSIZE_MAX / size)
 		return (NULL);
 	else
 		tmp = (void *)malloc(sizeof(void) * size * cnt);

@@ -8,7 +8,6 @@ int	exec_pwd(char **com, t_env **env)
 	(void)env;
 	if (!getcwd(cwd, PATH_MAX))
 		return (FAILURE);
-	if (ft_putendl_fd(cwd, 1) == -1)
-		return (FAILURE);
+	ft_putendl_fd(cwd, STDOUT_FILENO);
 	return (SUCCESS);
 }

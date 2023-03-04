@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/02 20:38:08 by atito             #+#    #+#             */
-/*   Updated: 2023/03/02 20:38:09 by atito            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static size_t	expansion_char(char **str, char *com, size_t cnt)
@@ -38,7 +26,6 @@ static size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 	size_t		len;
 	char		*prm;
 	char		*tmp;
-	extern int	g_status;
 
 	len = 0;
 	while (com[cnt] && !ft_strchr("$\'\" \t\n\v\f\r", com[cnt]))

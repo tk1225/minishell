@@ -2,21 +2,15 @@
 
 int	put_env(t_env *env)
 {
-	if (ft_putstr_fd("declare -x ", 1) == -1)
-		return (-1);
-	if (ft_putstr_fd(env->key, 1) == -1)
-		return (-1);
+	ft_putstr_fd("declare -x ", STDOUT_FILENO);
+	ft_putstr_fd(env->key, STDOUT_FILENO);
 	if (ft_strlen(env->value) != 0)
 	{
-		if (ft_putstr_fd("=\"", 1) == -1)
-			return (-1);
-		if (ft_putstr_fd(env->value, 1) == -1)
-			return (-1);
-		if (ft_putstr_fd("\"", 1) == -1)
-			return (-1);
+		ft_putstr_fd("=\"", STDOUT_FILENO) ;
+		ft_putstr_fd(env->value, STDOUT_FILENO) ;
+		ft_putstr_fd("\"", STDOUT_FILENO) ;
 	}
-	if (ft_putstr_fd("\n", 1) == -1)
-		return (-1);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }
 
@@ -31,7 +25,7 @@ t_env	*make_env(char c)
 	return (tmp);
 }
 
-int	add_back_env(t_env *env, char *key, char *value)
+int	add_back_env(t_env **env, char *key, char *value)
 {
 	t_env		*tmp;
 
@@ -40,9 +34,9 @@ int	add_back_env(t_env *env, char *key, char *value)
 		return (FAILURE);
 	tmp->key = key;
 	tmp->value = value;
-	tmp->prev = env;
+	tmp->prev = *env;
 	tmp->next = NULL;
-	env->next = tmp;
+	(*env)->next = tmp;
 	return (SUCCESS);
 }
 
@@ -68,4 +62,12 @@ void	bubble_sort(char **arr)
 		}
 		cnt1 += 1;
 	}
+}
+
+int	invalid_identifier(char *key)
+{
+	ft_putstr_fd(key, STDERR_FILENO);
+	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
+	free(key);
+	return (FAILURE);
 }

@@ -23,7 +23,9 @@
 # include <err.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-#include <errno.h>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 typedef enum e_stat
 {
 	COM,
@@ -99,6 +101,7 @@ int		wait_pipeline(pid_t last_pid);
 void	init_pipe(int pipe_count, int pipefd[4096][2]);
 void	cat_pipe(int pipe_count, int pipefd[4096][2], int i);
 int		exec_pipe(t_tree *tree, t_env **envp);
+
 //builtin
 int		exec_cd(char **com, t_env **env);
 int		exec_echo(char **com, t_env **env);
@@ -112,8 +115,9 @@ int		exec_unset(char **com, t_env **env);
 int		add_env(char *com, t_env **env);
 int		put_env(t_env *env);
 t_env	*make_env(char c);
-int		add_back_env(t_env *env, char *key, char *value);
+int		add_back_env(t_env **env, char *key, char *value);
 void	bubble_sort(char **arr);
+int		invalid_identifier(char *key);
 
 //syntax
 int		syntax_check(t_tree *tree);
@@ -123,4 +127,5 @@ int		signal_check(void);
 int		read_heredoc(const char *delimiter);
 void	set_signal_read(void);
 void	set_signal_run(void);
+
 #endif
