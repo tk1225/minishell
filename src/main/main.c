@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		rl_outstream = stderr;
-		rl_event_hook = signal_check;
+		// rl_event_hook = signal_check;
 		signal(SIGINT, handle_signals);
 		signal(SIGQUIT, SIG_IGN);
 		line = readline("> ");
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 				cnt += 1;
 			}
 			tree = parser(res);
-			if (syntax_check(*tree) > 0)
+			if (syntax_check(*tree) > 0 && !((*tree)->com && !(*tree)->com[0]))
 			{
 				perror("syntax error");
 				g_status = 2;
