@@ -6,4 +6,5 @@ objs
 .vscode
 .tester
 tester
+tester2
 minishell_tester
