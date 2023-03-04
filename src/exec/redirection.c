@@ -47,13 +47,13 @@ int	recognize_redirect(char **com)
 	while (com[i])
 	{
 		filename = ft_strtrim(com[i + 1], "\"");
-		if (ft_strncmp(com[i], "<<", 2) == 0)
+		if (ft_strncmp(com[i], "<<", 3) == 0)
 			res = handle_heredoc();
-		else if (ft_strncmp(com[i], ">>", 2) == 0)
+		else if (ft_strncmp(com[i], ">>", 3) == 0)
 			res = handle_redirect(filename, WRITE, APPEND);
-		else if (ft_strncmp(com[i], ">", 1) == 0)
+		else if (ft_strncmp(com[i], ">", 2) == 0)
 			res = handle_redirect(filename, WRITE, NEW);
-		else if (ft_strncmp(com[i], "<", 1) == 0)
+		else if (ft_strncmp(com[i], "<", 2) == 0)
 			res = handle_redirect(filename, READ, NEW);
 		free(filename);
 		if (res == 1)
