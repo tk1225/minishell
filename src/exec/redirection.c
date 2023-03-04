@@ -2,8 +2,6 @@
 
 static void	shift_com(char **com, int i)
 {
-	// printf("%s\n", com[i]);
-	// printf("%s\n", com[i + 1]);
 	free(com[i]);
 	free(com[i + 1]);
 	while (com[i + 2])
@@ -39,18 +37,20 @@ int	handle_heredoc(void)
 	return (0);
 }
 
-char*	get_absolute_path(const char* path) {
-	char*	abs_path;
-	char* tmp;
-	char cwd[PATH_MAX];
+char	*get_absolute_path(const char *path)
+{
+	char	*abs_path;
+	char	*tmp;
+	char	cwd[PATH_MAX];
 
-	if (path == NULL) {  // 引数がNULLの場合
-		return NULL;
-	}
-	if (path[0] == '/') {  // 引数が絶対パスである場合
+	if (path == NULL)
+		return (NULL);
+	if (path[0] == '/')
 		abs_path = ft_strdup(path);
-	} else {  // 引数が相対パスである場合
-		if (getcwd(cwd, sizeof(cwd)) == NULL) {
+	else
+	{
+		if (getcwd(cwd, sizeof(cwd)) == NULL)
+		{
 			perror("getcwd() error");
 			exit(EXIT_FAILURE);
 		}
@@ -58,7 +58,7 @@ char*	get_absolute_path(const char* path) {
 		abs_path = ft_strjoin(tmp, path);
 		free(tmp);
 	}
-	return abs_path;
+	return (abs_path);
 }
 
 int	recognize_redirect(char **com)
@@ -66,12 +66,15 @@ int	recognize_redirect(char **com)
 	int		i;
 	int		res;
 	char	*filename;
+	char	*path;
 
 	i = 0;
 	res = 2;
 	while (com[i])
 	{
-		filename = get_absolute_path(com[i + 1]);
+		path = ft_strtrim(com[i + 1], "\"");
+		filename = get_absolute_path(path);
+		free(path);
 		if (ft_strncmp(com[i], "<<", 3) == 0)
 			res = handle_heredoc();
 		else if (ft_strncmp(com[i], ">>", 3) == 0)
