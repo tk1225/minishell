@@ -31,7 +31,7 @@ int	exec_builtin(t_tree *tree, t_env **env)
 
 	original_stdin_fd = dup_wrapper(STDIN_FILENO);
 	original_stdout_fd = dup_wrapper(STDOUT_FILENO);
-	recognize_redirect(tree->com);
+	recognize_redirect(tree->com, get_env("PWD", env));
 	expansion(tree->com, env);
 	if (builtin_set(tree->com, env) != NONE)
 	{

@@ -36,7 +36,22 @@ int	handle_heredoc(void)
 	return (0);
 }
 
-int	recognize_redirect(char **com)
+static char *conc_filename(char *pwd, char *com)
+{
+	char	*filename;
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = ft_strtrim(com, "\"");
+	tmp2 = ft_strtrim(tmp1, "/");
+	free(tmp1);
+	filename = join_three(pwd, "/", tmp2);
+	free(tmp2);
+
+	return (filename);
+}
+
+int	recognize_redirect(char **com, char *pwd)
 {
 	int		i;
 	int		res;
@@ -46,7 +61,7 @@ int	recognize_redirect(char **com)
 	res = 2;
 	while (com[i])
 	{
-		filename = ft_strtrim(com[i + 1], "\"");
+		filename = conc_filename(pwd, com[i + 1]);
 		if (ft_strncmp(com[i], "<<", 3) == 0)
 			res = handle_heredoc();
 		else if (ft_strncmp(com[i], ">>", 3) == 0)
@@ -57,7 +72,7 @@ int	recognize_redirect(char **com)
 			res = handle_redirect(filename, READ, NEW);
 		free(filename);
 		if (res == 1)
-			exit(1);
+			continue;
 		else if (res == 2)
 			i ++;
 		else if (res == 0)
