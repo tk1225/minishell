@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 14:39:28 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/04 15:17:19 by atito            ###   ########.fr       */
+/*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
+/*   Updated: 2023/03/04 15:19:56 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	executer(char **com, t_env **env)
 {
 	int	flag;
 
-	recognize_redirect(com);
+	if (recognize_redirect(com) == 1)
+		exit (1);
 	expansion(com, env);
 	flag = builtin_set(com, env);
 	if (flag == NONE)
@@ -126,6 +127,5 @@ int	exec_recursion(t_tree *tree, t_env **env)
 		status = exec_pipe(tree, env);
 	if (g_status == 130 || g_status == 131)
 		write(1, "\n", 1);
-	g_status = WEXITSTATUS(status);
-	return (status);
+	return (WEXITSTATUS(status));
 }
