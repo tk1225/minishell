@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
-/*   Updated: 2023/03/04 16:56:16 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/04 21:06:11 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	exec_recursion(t_tree *tree, t_env **env)
 
 	if ((tree->stat == COM) && (builtin_check(tree->com) == SUCCESS))
 		return (exec_builtin(tree, env));
-	signal(SIGQUIT, handle_signals);
+	set_signal_run();
 	if (tree->stat == COM)
 	{
 		pid = fork_wrapper();

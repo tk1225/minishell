@@ -1,21 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/04 21:06:51 by takumasaoka       #+#    #+#             */
+/*   Updated: 2023/03/04 21:06:52 by takumasaoka      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern int	g_status;
 
-void	handle_signals(int sig)
+static void	handle_signals(int sig)
 {
-	if (sig == SIGINT)
-		g_status = 130;
-	if (sig == SIGQUIT)
-		g_status = 131;
+	g_status = 128 + sig;
 }
 
-int	signal_check(void)
+static void	reset_prompt(int sig)
 {
-	if (g_status == 130 || g_status == 131)
-	{
-		rl_replace_line("", 0);
-		rl_done = 1;
-	}
-	return (0);
+	g_status = 128 + sig;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	set_signal_run(void)
+{
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, handle_signals);
+}
+
+void	set_signal_read(void)
+{
+	signal(SIGINT, reset_prompt);
+	signal(SIGQUIT, SIG_IGN);
 }
