@@ -40,10 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	// unset OLDPWD
 	while (1)
 	{
-		rl_outstream = stderr;
-		// rl_event_hook = signal_check;
-		signal(SIGINT, handle_signals);
-		signal(SIGQUIT, SIG_IGN);
+		set_signal_read();
 		line = readline("> ");
 		if (line == NULL)
 			break ;

@@ -120,7 +120,7 @@ int		syntax_check(t_tree *tree);
 
 //signal
 int		signal_check(void);
-void	handle_signals(int sig);
 int		read_heredoc(const char *delimiter);
-
+void	set_signal_read(void);
+void	set_signal_run(void);
 #endif
