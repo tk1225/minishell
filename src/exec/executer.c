@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
-/*   Updated: 2023/03/04 15:19:56 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/04 15:45:04 by takuokam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	exe_com(char **com, t_env **env)
 	dir = ft_split(path_copy, ':');
 	free(path_copy);
 	exe_com_helper(com, dir, env);
-	perror("command not found");
-	exit(127);
 }
 
 int	executer(char **com, t_env **env)
@@ -101,10 +99,12 @@ int	executer(char **com, t_env **env)
 	flag = builtin_set(com, env);
 	if (flag == NONE)
 		exe_com(com, env);
-	else if (flag == EXIT_FAILURE)
+	else if (flag == FAILURE)
 		g_status = 1;
 	else
 		exit(0);
+	perror("command not found");
+	exit(127);
 	return (1);
 }
 

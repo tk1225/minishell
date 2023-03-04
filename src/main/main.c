@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 			tree = parser(res);
 			if (syntax_check(*tree) > 0)
 			{
-				error_exit("syntax error");
+				perror("syntax error");
 				g_status = 2;
 			}
 			else
