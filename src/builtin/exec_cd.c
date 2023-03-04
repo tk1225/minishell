@@ -21,6 +21,7 @@ static int	access_cd(char *path, t_env **env)
 	}
 	else
 	{
+		free(path);
 		perror("path not found");
 		return (FAILURE);
 	}

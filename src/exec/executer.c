@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
-/*   Updated: 2023/03/04 15:45:04 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:56:16 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 
 	envp = convert_envs(env);
 	(void)env;
-	if (access(com[0], X_OK) == 0)
-		if (execve(com[0], com, envp) == -1)
-			exit(EXIT_FAILURE);
 	cnt = 0;
 	while (dir[cnt] != NULL)
 	{
@@ -67,6 +64,9 @@ static	void	exe_com_helper(char **com, char	**dir, t_env **env)
 		cnt += 1;
 		free(exec_path);
 	}
+	if (access(com[0], X_OK) == 0)
+		if (execve(com[0], com, envp) == -1)
+			exit(EXIT_FAILURE);
 	free_lst(dir);
 }
 
