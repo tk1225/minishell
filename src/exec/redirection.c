@@ -2,15 +2,16 @@
 
 static void	shift_com(char **com, int i)
 {
+	printf("%s\n", com[i]);
+	printf("%s\n", com[i + 1]);
+	free(com[i]);
+	free(com[i + 1]);
 	while (com[i + 2])
 	{
-		free(com[i]);
 		com[i] = com[i + 2];
 		i++;
 	}
-	// free(com[i]);
 	com[i] = NULL;
-	// free(com[i + 1]);
 	com[i + 1] = NULL;
 }
 
