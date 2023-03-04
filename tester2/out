@@ -1,0 +1,15 @@
+> cat <minishell.h|ls
+>>
+builtins
+builtins_2
+cmp
+log
+manual_tests
+out
+pipes
+redirects
+single_com
+syntax
+test.sh
+test_files
+> 
