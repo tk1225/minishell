@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
+/*   Updated: 2023/03/05 14:32:26 by takumasaoka      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	g_status = 0;
@@ -51,12 +63,36 @@ void	check_heredoc(char **res)
 	}
 }
 
+void	exec_line(char *line, t_env	*env)
+{
+	char	**res;
+	t_tree	**tree;
+
+	if (ft_strlen(line) == 0 && g_status == 130)
+		g_status = 1;
+	if (ft_strlen(line) > 0)
+	{
+		add_history(line);
+		res = lexer(line);
+		check_heredoc(res);
+		tree = parser(res);
+		if (syntax_check(*tree) > 0 && !((*tree)->com && !(*tree)->com[0]))
+		{
+			perror("syntax error");
+			g_status = 2;
+		}
+		else
+			g_status = exec_recursion(*tree, &env);
+		free_tree(*tree);
+		free(tree);
+		free(res);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
-	t_tree	**tree;
 	t_env	*env;
-	char	**res;
 
 	(void)argv;
 	(void)argc;
@@ -69,25 +105,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (ft_strlen(line) == 0 && g_status == 130)
-			g_status = 1;
-		if (ft_strlen(line) > 0)
-		{
-			add_history(line);
-			res = lexer(line);
-			check_heredoc(res);
-			tree = parser(res);
-			if (syntax_check(*tree) > 0 && !((*tree)->com && !(*tree)->com[0]))
-			{
-				perror("syntax error");
-				g_status = 2;
-			}
-			else
-				g_status = exec_recursion(*tree, &env);
-			free_tree(*tree);
-			free(tree);
-			free(res);
-		}
+		exec_line(line, env);
 		free(line);
 	}
 	free_env(env);

@@ -6,9 +6,9 @@ int	put_env(t_env *env)
 	ft_putstr_fd(env->key, STDOUT_FILENO);
 	if (ft_strlen(env->value) != 0)
 	{
-		ft_putstr_fd("=\"", STDOUT_FILENO) ;
-		ft_putstr_fd(env->value, STDOUT_FILENO) ;
-		ft_putstr_fd("\"", STDOUT_FILENO) ;
+		ft_putstr_fd("=\"", STDOUT_FILENO);
+		ft_putstr_fd(env->value, STDOUT_FILENO);
+		ft_putstr_fd("\"", STDOUT_FILENO);
 	}
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
