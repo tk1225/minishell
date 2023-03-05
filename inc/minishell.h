@@ -132,6 +132,7 @@ t_env	*make_env(char c);
 int		add_back_env(t_env **env, char *key, char *value);
 void	bubble_sort(char **arr);
 int		invalid_identifier(char *key);
+char	*append_env(t_env **top, char *value);
 
 //syntax
 int		syntax_check(t_tree *tree);

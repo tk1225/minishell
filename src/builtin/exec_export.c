@@ -68,18 +68,12 @@ static int	sort_env(t_env **env)
 
 int	search_env(t_env **top, char *key, char *value, int flag)
 {
-	char	*tmp;
-
 	while (*top)
 	{
 		if (ft_strncmp((*top)->key, key, ft_strlen(key) + 1) == 0)
 		{
 			if (flag == 1)
-			{
-				tmp = value;
-				value = ft_strjoin((*top)->value, tmp);
-				free(tmp);
-			}
+				value = append_env(top, value);
 			free(key);
 			if (ft_strlen(value) != 0)
 			{
