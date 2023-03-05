@@ -37,7 +37,10 @@ int	exec_echo(char **com, t_env **env)
 	row = 1;
 	nl_flag = 1;
 	if (!com[row])
+	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
+		return (SUCCESS);
+	}
 	option_check(com, &row, &nl_flag);
 	if (print_com(com, &row) == FAILURE)
 		return (FAILURE);
