@@ -6,18 +6,20 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 11:04:45 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/05 12:51:23 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern	int g_status;
+extern	int	g_status;
 
 int	read_heredoc(const char *delimiter)
 {
 	char	*line;
 	int		fd;
+	int		new_stdin_fd;
+
 
 	fd = open(".tmp.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
 	while (1)
@@ -26,9 +28,9 @@ int	read_heredoc(const char *delimiter)
 		line = readline("heredoc> ");
 		if (line == NULL)
 		{
-			int new_fd = open("/dev/tty", O_RDONLY);
-			dup2(new_fd, STDIN_FILENO);
-			break;
+			new_stdin_fd = open("/dev/tty", O_RDONLY);
+			dup2(new_stdin_fd, STDIN_FILENO);
+			break ;
 		}
 		if (ft_strncmp(line, delimiter, \
 		ft_strlen(delimiter)) == 0 || g_status == 130)

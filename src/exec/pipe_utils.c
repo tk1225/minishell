@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:27:17 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/04 22:55:10 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/05 12:44:47 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ void	close_pipe(int pipe_count, int pipefd[4096][2])
 	{
 		close(pipefd[tmp][0]);
 		close(pipefd[tmp][1]);
-		// if (close(pipefd[tmp][0]) == -1)
-		// 	exit(EXIT_FAILURE);
-		// if (close(pipefd[tmp][1]) == -1)
-		// 	exit(EXIT_FAILURE);
 		tmp += 1;
 	}
 }
