@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:20:57 by atito             #+#    #+#             */
-/*   Updated: 2023/03/04 23:29:40 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/05 14:22:59 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	int	is_redirect(char *com)
 {
-	if ((ft_strncmp(com, "<<", 3) == 0) || (ft_strncmp(com, ">>", 3) == 0)\
+	if ((ft_strncmp(com, "<<", 3) == 0) || (ft_strncmp(com, ">>", 3) == 0) \
 		|| (ft_strncmp(com, ">", 2) == 0) || (ft_strncmp(com, "<", 2) == 0))
 		return (1);
 	return (0);

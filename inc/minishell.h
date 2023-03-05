@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/05 14:22:16 by takumasaoka       #+#    #+#             */
+/*   Updated: 2023/03/05 14:22:28 by takumasaoka      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -26,6 +38,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
 typedef enum e_stat
 {
 	COM,
