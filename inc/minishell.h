@@ -123,4 +123,6 @@ int		signal_check(void);
 int		read_heredoc(const char *delimiter);
 void	set_signal_read(void);
 void	set_signal_run(void);
+void	set_signal_heredoc(void);
+
 #endif

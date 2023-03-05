@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/04 15:17:27 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/05 11:04:45 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ int	read_heredoc(const char *delimiter)
 	fd = open(".tmp.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
 	while (1)
 	{
-		if (g_status == 130)
-			break ;
+		set_signal_heredoc();
 		line = readline("heredoc> ");
 		if (line == NULL)
-			break ;
+		{
+			int new_fd = open("/dev/tty", O_RDONLY);
+			dup2(new_fd, STDIN_FILENO);
+			break;
+		}
 		if (ft_strncmp(line, delimiter, \
 		ft_strlen(delimiter)) == 0 || g_status == 130)
 		{

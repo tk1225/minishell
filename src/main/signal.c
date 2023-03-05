@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 21:06:51 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/04 21:06:52 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/05 11:04:17 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ static void	reset_prompt(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+static void	handle_heredoc(int sig)
+{
+	g_status = 128 + sig;
+	close(STDIN_FILENO);
+}
+
+void	set_signal_heredoc(void)
+{
+	signal(SIGINT, handle_heredoc);
+	signal(SIGQUIT, handle_heredoc);
 }
 
 void	set_signal_run(void)

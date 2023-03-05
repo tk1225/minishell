@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+extern int	g_status;
+
 static void	shift_com(char **com, int i)
 {
 	free(com[i]);
@@ -19,6 +21,11 @@ int	handle_heredoc(void)
 	struct stat		sb;
 	int				ret;
 
+	if (g_status == 130)
+	{
+		unlink(".tmp.txt");
+		return (1);
+	}
 	ret = lstat(".tmp.txt", &sb);
 	if (ret == -1)
 		return (1);
