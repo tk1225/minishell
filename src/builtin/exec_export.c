@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_export.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/05 13:19:39 by atito             #+#    #+#             */
+/*   Updated: 2023/03/05 13:19:39 by atito            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	put_arr(char **arr, t_env **env)
@@ -95,7 +107,8 @@ int	add_env(char *com, t_env **env)
 	flag = 0;
 	if (com[ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - 1] == '+')
 		flag = 1;
-	key = ft_substr(com, 0, ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - flag);
+	key = ft_substr(com, 0, ft_strlen(com) - \
+		ft_strlen(ft_strchr(com, '=')) - flag);
 	if (ft_atoi(key) != 0 || ft_strlen(key) == 0 || \
 		key[ft_strlen(key) - 1] == '-' || key[ft_strlen(key) - 1] == '+')
 		return (invalid_identifier(key));
