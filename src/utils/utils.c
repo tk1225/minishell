@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:38:37 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 12:49:49 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/05 21:53:03 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*get_absolute_path(const char *path)
 	char	*abs_path;
 	char	*tmp;
 	char	cwd[PATH_MAX];
+	char	*trimpath;
 
 	if (path == NULL)
 		return (NULL);
@@ -79,7 +80,9 @@ char	*get_absolute_path(const char *path)
 			exit(EXIT_FAILURE);
 		}
 		tmp = ft_strjoin(cwd, "/");
-		abs_path = ft_strjoin(tmp, path);
+		trimpath = ft_strtrim(path, "./");
+		abs_path = ft_strjoin(tmp, trimpath);
+		free(trimpath);
 		free(tmp);
 	}
 	return (abs_path);
