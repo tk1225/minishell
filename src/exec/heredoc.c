@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern	int	g_status;
+extern int	g_status;
 
 static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 {

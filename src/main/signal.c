@@ -33,21 +33,3 @@ static void	handle_heredoc(int sig)
 	g_status = 128 + sig;
 	close(STDIN_FILENO);
 }
-
-void	set_signal_heredoc(void)
-{
-	signal(SIGINT, handle_heredoc);
-	signal(SIGQUIT, handle_heredoc);
-}
-
-void	set_signal_run(void)
-{
-	signal(SIGINT, handle_signals);
-	signal(SIGQUIT, handle_signals);
-}
-
-void	set_signal_read(void)
-{
-	signal(SIGINT, reset_prompt);
-	signal(SIGQUIT, SIG_IGN);
-}

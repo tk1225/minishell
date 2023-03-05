@@ -14,6 +14,14 @@
 
 int	g_status = 0;
 
+void	insert_tmp(t_env *tmp, char **envp, size_t cnt)
+{
+	tmp->key = ft_substr(envp[cnt], 0, ft_strlen(envp[cnt]) - \
+	ft_strlen(ft_strchr(envp[cnt], '=')));
+	tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, \
+	ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+}
+
 t_env	*env_struct(char **envp)
 {
 	size_t	cnt;
@@ -22,22 +30,16 @@ t_env	*env_struct(char **envp)
 
 	cnt = 0;
 	tmp = (t_env *)alloc_exit(sizeof(t_env), 1);
-	out = tmp;
 	tmp->prev = NULL;
-	tmp->key = ft_substr(envp[cnt], 0, ft_strlen(envp[cnt]) - \
-	ft_strlen(ft_strchr(envp[cnt], '=')));
-	tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, \
-	ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+	insert_tmp(tmp, envp, cnt);
+	out = tmp;
 	cnt += 1;
 	while (envp[cnt])
 	{
 		tmp->next = (t_env *)alloc_exit(sizeof(t_env), 1);
 		tmp->next->prev = tmp;
 		tmp = tmp->next;
-		tmp->key = ft_substr(envp[cnt], 0, ft_strlen(envp[cnt]) - \
-		ft_strlen(ft_strchr(envp[cnt], '=')));
-		tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, \
-		ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+		insert_tmp(tmp, envp, cnt);
 		cnt += 1;
 	}
 	tmp->next = NULL;
@@ -97,7 +99,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	env = env_struct(envp);
-	// unset OLDPWD
 	while (1)
 	{
 		rl_outstream = stderr;
