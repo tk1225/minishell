@@ -84,6 +84,7 @@ int		ch_dir(char *path);
 pid_t	fork_wrapper(void);
 int		dup_wrapper(int fd);
 void	dup2_wrapper(int fd, int fd2);
+char	*get_absolute_path(const char *path);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
@@ -127,5 +128,6 @@ int		signal_check(void);
 int		read_heredoc(const char *delimiter);
 void	set_signal_read(void);
 void	set_signal_run(void);
+void	set_signal_heredoc(void);
 
 #endif

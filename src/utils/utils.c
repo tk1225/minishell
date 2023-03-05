@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:38:37 by atito             #+#    #+#             */
-/*   Updated: 2023/03/04 15:18:24 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/05 12:49:49 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,28 @@ char	*join_three(const char *s1, const char *s2, const char *s3)
 		tmp[cnt++] = *s3++;
 	tmp[cnt] = '\0';
 	return (tmp);
+}
+
+char	*get_absolute_path(const char *path)
+{
+	char	*abs_path;
+	char	*tmp;
+	char	cwd[PATH_MAX];
+
+	if (path == NULL)
+		return (NULL);
+	if (path[0] == '/')
+		abs_path = ft_strdup(path);
+	else
+	{
+		if (getcwd(cwd, sizeof(cwd)) == NULL)
+		{
+			perror("getcwd() error");
+			exit(EXIT_FAILURE);
+		}
+		tmp = ft_strjoin(cwd, "/");
+		abs_path = ft_strjoin(tmp, path);
+		free(tmp);
+	}
+	return (abs_path);
 }

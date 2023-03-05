@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/05 12:50:17 by takumasaoka       #+#    #+#             */
+/*   Updated: 2023/03/05 12:50:18 by takumasaoka      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+extern int	g_status;
 
 static void	shift_com(char **com, int i)
 {
@@ -19,6 +33,11 @@ int	handle_heredoc(void)
 	struct stat		sb;
 	int				ret;
 
+	if (g_status == 130)
+	{
+		unlink(".tmp.txt");
+		return (1);
+	}
 	ret = lstat(".tmp.txt", &sb);
 	if (ret == -1)
 		return (1);
@@ -37,28 +56,17 @@ int	handle_heredoc(void)
 	return (0);
 }
 
-char	*get_absolute_path(const char *path)
+static int	redirect_fork(char	*filename, char **com, int i, int res)
 {
-	char	*abs_path;
-	char	*tmp;
-	char	cwd[PATH_MAX];
-
-	if (path == NULL)
-		return (NULL);
-	if (path[0] == '/')
-		abs_path = ft_strdup(path);
-	else
-	{
-		if (getcwd(cwd, sizeof(cwd)) == NULL)
-		{
-			perror("getcwd() error");
-			exit(EXIT_FAILURE);
-		}
-		tmp = ft_strjoin(cwd, "/");
-		abs_path = ft_strjoin(tmp, path);
-		free(tmp);
-	}
-	return (abs_path);
+	if (ft_strncmp(com[i], "<<", 3) == 0)
+		res = handle_heredoc();
+	else if (ft_strncmp(com[i], ">>", 3) == 0)
+		res = handle_redirect(filename, WRITE, APPEND);
+	else if (ft_strncmp(com[i], ">", 2) == 0)
+		res = handle_redirect(filename, WRITE, NEW);
+	else if (ft_strncmp(com[i], "<", 2) == 0)
+		res = handle_redirect(filename, READ, NEW);
+	return (res);
 }
 
 int	recognize_redirect(char **com)
@@ -75,14 +83,7 @@ int	recognize_redirect(char **com)
 		path = ft_strtrim(com[i + 1], "\"");
 		filename = get_absolute_path(path);
 		free(path);
-		if (ft_strncmp(com[i], "<<", 3) == 0)
-			res = handle_heredoc();
-		else if (ft_strncmp(com[i], ">>", 3) == 0)
-			res = handle_redirect(filename, WRITE, APPEND);
-		else if (ft_strncmp(com[i], ">", 2) == 0)
-			res = handle_redirect(filename, WRITE, NEW);
-		else if (ft_strncmp(com[i], "<", 2) == 0)
-			res = handle_redirect(filename, READ, NEW);
+		res = redirect_fork(filename, com, i, res);
 		free(filename);
 		if (res == 1)
 			return (1);
