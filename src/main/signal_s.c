@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_s.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 21:06:51 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 12:53:44 by takumasaoka      ###   ########.fr       */
+/*   Created: 2023/03/05 19:17:59 by atito             #+#    #+#             */
+/*   Updated: 2023/03/05 19:26:08 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,8 @@ static void	handle_signals(int sig)
 	g_status = 128 + sig;
 }
 
-static void	reset_prompt(int sig)
+void	set_signal_run(void)
 {
-	g_status = 128 + sig;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-static void	handle_heredoc(int sig)
-{
-	g_status = 128 + sig;
-	close(STDIN_FILENO);
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, handle_signals);
 }
