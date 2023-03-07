@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:38:37 by atito             #+#    #+#             */
-/*   Updated: 2023/03/07 12:23:04 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/07 13:13:47 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,4 @@ char	*get_absolute_path(const char *path)
 		free(tmp);
 	}
 	return (abs_path);
-}
-
-void	to_lower(char *com)
-{
-	size_t	cnt;
-
-	cnt = 0;
-	while (com[cnt])
-	{
-		if (com[cnt] >= 'A' && com[cnt] <= 'Z')
-			com[cnt] = com[cnt] - ('A' - 'a');
-		else
-			com[cnt] = com[cnt];
-		cnt += 1;
-	}
 }

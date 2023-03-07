@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/07 10:56:50 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/07 13:06:29 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	exec_line(char *line, t_env	*env)
 		res = lexer(line);
 		check_heredoc(res);
 		tree = parser(res);
-		if (syntax_check(*tree) > 0 && !((*tree)->com && !(*tree)->com[0]))
+		if (!((*tree)->com && !(*tree)->com[0]) && syntax_check(*tree) > 0)
 		{
 			perror("syntax error");
 			g_status = 2;

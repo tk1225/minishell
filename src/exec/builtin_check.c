@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:44:31 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/07 12:17:52 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/07 13:13:57 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	builtin_check(char **com)
 {
 	size_t	com_len;
 
-	to_lower(com[0]);
 	com_len = ft_strlen(com[0]) + 1;
 	if (ft_strncmp(com[0], "cd", com_len) == 0)
 		return (SUCCESS);
