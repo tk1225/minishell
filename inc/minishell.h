@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:22:16 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 14:22:28 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/07 12:23:14 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ pid_t	fork_wrapper(void);
 int		dup_wrapper(int fd);
 void	dup2_wrapper(int fd, int fd2);
 char	*get_absolute_path(const char *path);
+void	to_lower(char *com);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
