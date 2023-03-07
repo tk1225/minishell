@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/07 13:06:29 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/07 18:19:55 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check_heredoc(char **res)
 		{
 			delimiter = res[cnt + 1];
 			if (delimiter == NULL)
-				exit(2);
+				return ;
 			read_heredoc(delimiter);
 		}
 		cnt += 1;
