@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:18 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 13:19:18 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/07 11:03:49 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	option_check(char **com, size_t *row, int *nl_flag)
 {
 	size_t	cnt;
 
-	while (com[*row][0] == '-' && ft_strlen(com[*row]) > 1)
+	while (com[*row] && com[*row][0] == '-' && ft_strlen(com[*row]) > 1)
 	{
 		cnt = 1;
 		while (com[*row][cnt] == 'n')
@@ -30,7 +30,7 @@ static void	option_check(char **com, size_t *row, int *nl_flag)
 
 static int	print_com(char **com, size_t *row)
 {
-	while (com[*row])
+	while (com && com[*row])
 	{
 		ft_putstr_fd(com[*row], STDOUT_FILENO);
 		*row += 1;
