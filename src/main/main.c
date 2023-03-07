@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 14:32:26 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/07 10:56:50 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ int	g_status = 0;
 void	insert_tmp(t_env *tmp, char **envp, size_t cnt)
 {
 	tmp->key = ft_substr(envp[cnt], 0, ft_strlen(envp[cnt]) - \
-	ft_strlen(ft_strchr(envp[cnt], '=')));
-	tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, \
-	ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+		ft_strlen(ft_strchr(envp[cnt], '=')));
+	if (ft_strncmp(tmp->key, "OLDPWD", 7) != 0)
+		tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, \
+			ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
+	else
+		tmp->value = (char *)ft_calloc(sizeof(char), 1);
 }
 
 t_env	*env_struct(char **envp)
