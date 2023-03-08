@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:22:16 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/08 21:44:00 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 00:00:19 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,8 @@ int		read_heredoc(const char *delimiter);
 void	set_signal_read(void);
 void	set_signal_run(void);
 void	set_signal_heredoc(void);
+
+//get_next_line
+char	*get_next_line(int fd);
 
 #endif

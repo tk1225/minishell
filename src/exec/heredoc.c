@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/08 21:42:58 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 00:04:58 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 		return (0);
 	}
 	write(fd, line, ft_strlen(line));
-	write(fd, "\n", 1);
 	free(line);
 	return (1);
 }
@@ -49,7 +48,8 @@ int	read_heredoc(const char *delimiter)
 	while (flag)
 	{
 		set_signal_heredoc();
-		line = readline("heredoc> ");
+		write(2, "heredoc> ", 9);
+		line = get_next_line(STDIN_FILENO);
 		flag = handle_heredoc_line(line, delimiter, fd);
 	}
 	if (close(fd) == -1)
