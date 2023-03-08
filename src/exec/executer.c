@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 12:53:22 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 00:13:23 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ int	exec_recursion(t_tree *tree, t_env **env)
 	else
 		status = exec_pipe(tree, env);
 	if (g_status == 130 || g_status == 131)
+	{
 		write(1, "\n", 1);
+		return (g_status);
+	}
 	return (WEXITSTATUS(status));
 }
