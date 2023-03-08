@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 00:04:58 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 00:09:37 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 	{
 		new_stdin_fd = open("/dev/tty", O_RDONLY);
 		dup2(new_stdin_fd, STDIN_FILENO);
+		if (g_status != 130)
+			write(1, "\n", 1);
 		return (0);
 	}
 	if (ft_strncmp(line, delimiter, \
