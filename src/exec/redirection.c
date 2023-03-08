@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:50:17 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 12:50:18 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/08 21:42:51 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,6 @@ static void	shift_com(char **com, int i)
 	}
 	com[i] = NULL;
 	com[i + 1] = NULL;
-}
-
-int	handle_heredoc(void)
-{
-	int				fd;
-	struct stat		sb;
-	int				ret;
-
-	if (g_status == 130)
-	{
-		unlink(".tmp.txt");
-		return (1);
-	}
-	ret = lstat(".tmp.txt", &sb);
-	if (ret == -1)
-		return (1);
-	fd = open(".tmp.txt", O_RDWR);
-	if (fd == -1)
-	{
-		perror("open");
-		return (1);
-	}
-	unlink(".tmp.txt");
-	if (close(READ) == -1)
-		exit(EXIT_FAILURE);
-	dup2_wrapper(fd, READ);
-	if (close(fd) == -1)
-		exit(EXIT_FAILURE);
-	return (0);
 }
 
 static int	redirect_fork(char	*filename, char **com, int i, int res)

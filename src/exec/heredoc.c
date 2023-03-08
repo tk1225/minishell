@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 14:43:12 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/08 21:42:58 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,33 @@ int	read_heredoc(const char *delimiter)
 	if (close(fd) == -1)
 		exit(EXIT_FAILURE);
 	return (1);
+}
+
+int	handle_heredoc(void)
+{
+	int				fd;
+	struct stat		sb;
+	int				ret;
+
+	if (g_status == 130)
+	{
+		unlink(".tmp.txt");
+		return (1);
+	}
+	ret = lstat(".tmp.txt", &sb);
+	if (ret == -1)
+		return (1);
+	fd = open(".tmp.txt", O_RDWR);
+	if (fd == -1)
+	{
+		perror("open");
+		return (1);
+	}
+	unlink(".tmp.txt");
+	if (close(READ) == -1)
+		exit(EXIT_FAILURE);
+	dup2_wrapper(fd, READ);
+	if (close(fd) == -1)
+		exit(EXIT_FAILURE);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:22:16 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/07 13:13:53 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/08 21:44:00 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int		handle_redirect(char *target_filename, int stdfd, int append_flag);
 int		builtin_check(char **com);
 int		exec_builtin(t_tree *tree, t_env **env);
 int		builtin_set(char **com, t_env **env);
+int		handle_heredoc(void);
 
 //pipe
 int		count_pipe(t_tree *tree);
