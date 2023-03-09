@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:49 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 13:19:49 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 12:25:30 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,30 @@
 int	exec_unset(char **com, t_env **env)
 {
 	t_env	*top;
+	size_t	cnt;
 
 	(void)com;
-	top = *env;
-	while (top)
+	cnt = 1;
+	while (com[cnt])
 	{
-		if (ft_strncmp(top->key, com[1], ft_strlen(com[1]) + 1) == 0)
+		top = *env;
+		while (top)
 		{
-			top = top->prev;
-			break ;
+			if (ft_strncmp(top->key, com[cnt], ft_strlen(com[cnt]) + 1) == 0)
+			{
+				top = top->prev;
+				break ;
+			}
+			top = top->next;
 		}
-		top = top->next;
-	}
-	if (!top)
-		return (SUCCESS);
-	else
-	{
-		free(top->next->key);
-		free(top->next->value);
-		free(top->next);
-		top->next = top->next->next;
+		if (top)
+		{
+			free(top->next->key);
+			free(top->next->value);
+			free(top->next);
+			top->next = top->next->next;
+		}
+		cnt += 1;
 	}
 	return (SUCCESS);
 }

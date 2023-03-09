@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 19:41:28 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 20:55:51 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_env	*env_struct(char **envp)
 	return (out);
 }
 
-void	check_heredoc(char **res)
+void	check_heredoc(char **res, t_env **env)
 {
 	size_t	cnt;
 	char	*delimiter;
@@ -62,7 +62,7 @@ void	check_heredoc(char **res)
 			delimiter = res[cnt + 1];
 			if (delimiter == NULL)
 				return ;
-			read_heredoc(delimiter);
+			read_heredoc(delimiter, env);
 		}
 		cnt += 1;
 	}
@@ -79,7 +79,7 @@ void	exec_line(char *line, t_env	*env)
 	{
 		add_history(line);
 		res = lexer(line);
-		check_heredoc(res);
+		check_heredoc(res, &env);
 		tree = parser(res);
 		if (!((*tree)->com && !(*tree)->com[0]) && syntax_check(*tree) > 0)
 		{

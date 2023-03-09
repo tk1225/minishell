@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:11:36 by takuokam          #+#    #+#             */
-/*   Updated: 2023/03/08 23:58:12 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 20:32:18 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "get_next_line.h"
-
-// size_t	ft_strlen(const char *target)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (target[i] != '\0')
-// 		i ++;
-// 	return (i);
-// }
 
 long long int	ft_strchr_len(const char *s, int c)
 {
