@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 21:54:59 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 22:51:40 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	read_heredoc(const char *delimiter, t_env **env)
 	char	*line;
 	int		fd;
 	int		flag;
+	size_t	i;
+	char	*tmp;
 
 	flag = 1;
 	fd = open(".tmp.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
@@ -50,17 +52,20 @@ int	read_heredoc(const char *delimiter, t_env **env)
 		set_signal_heredoc();
 		write(2, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
-		(void)env;
-		// size_t i = 0;
-		// char *tmp;
-		// tmp = NULL;
-		// while (line[i])
-		// {
-		// 	if (line[i] == '$')
-		// 		expansion_env(env, &tmp, line, i);
-		// 	i++;
-		// }
-		// line = tmp;
+		i = 0;
+		tmp = NULL;
+		while (line[i])
+		{
+			if (line[i] == '$')
+				expansion_env(env, &tmp, line, i + 1);
+			i++;
+		}
+		if (tmp != NULL)
+		{
+			free(line);
+			line = ft_strjoin(tmp, "\n");
+			free(tmp);
+		}
 		flag = handle_heredoc_line(line, delimiter, fd);
 	}
 	if (close(fd) == -1)
