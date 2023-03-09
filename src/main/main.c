@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 21:36:28 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 21:46:51 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,12 @@ void	exec_line(char *line, t_env	*env)
 		res = lexer(line);
 		check_heredoc(res, &env);
 		tree = parser(res);
-		if (!((*tree)->com && (*tree)->com)
-		{
-			perror("space only");	
-		}
 		if (!((*tree)->com && !(*tree)->com[0]) && syntax_check(*tree) > 0)
 		{
 			perror("syntax error");
 			g_status = 2;
 		}
-		else
+		else if (!((*tree)->com && !(*tree)->com[0]))
 			g_status = exec_recursion(*tree, &env);
 		free_tree(*tree);
 		free(tree);
