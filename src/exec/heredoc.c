@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 00:09:37 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 20:44:31 by takuokam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 	return (1);
 }
 
-int	read_heredoc(const char *delimiter)
+int	read_heredoc(const char *delimiter, t_env **env)
 {
 	char	*line;
 	int		fd;
@@ -52,6 +52,15 @@ int	read_heredoc(const char *delimiter)
 		set_signal_heredoc();
 		write(2, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
+		int i = 0;
+		char *tmp;
+		while (line[i])
+		{
+			if (line[i] == '$')
+				expansion_env(env, &tmp, line, i);
+			i++;
+		}
+		line = tmp;
 		flag = handle_heredoc_line(line, delimiter, fd);
 	}
 	if (close(fd) == -1)

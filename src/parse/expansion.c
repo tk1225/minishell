@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:23:57 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 13:23:57 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 20:39:30 by takuokam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	expansion_char(char **str, char *com, size_t cnt)
 	return (cnt);
 }
 
-static size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
+size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 {
 	size_t		len;
 	char		*prm;
