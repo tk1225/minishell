@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:22:16 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 00:00:19 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 20:42:10 by takuokam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_env
 char	**lexer(char *str);
 t_tree	**parser(char **res);
 void	expansion(char **com, t_env **env);
+size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt);
 char	*next_dollar(t_env **env, char **str, char *prm);
 
 //parser utils
@@ -140,7 +141,7 @@ int		syntax_check(t_tree *tree);
 
 //signal
 int		signal_check(void);
-int		read_heredoc(const char *delimiter);
+int		read_heredoc(const char *delimiter, t_env **env);
 void	set_signal_read(void);
 void	set_signal_run(void);
 void	set_signal_heredoc(void);
