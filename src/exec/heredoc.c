@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 20:58:18 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 21:54:59 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 			write(1, "\n", 1);
 		return (0);
 	}
-	if (ft_strncmp(line, delimiter, \
-		ft_strlen(delimiter)) == 0 || g_status == 130)
+	if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 	{
-		if (g_status == 130)
-			g_status = 1;
 		free(line);
 		return (0);
 	}
@@ -49,19 +46,21 @@ int	read_heredoc(const char *delimiter, t_env **env)
 	fd = open(".tmp.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
 	while (flag)
 	{
+		g_status = 0;
 		set_signal_heredoc();
 		write(2, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
-		size_t i = 0;
-		char *tmp;
-		tmp = NULL;
-		while (line[i])
-		{
-			if (line[i] == '$')
-				expansion_env(env, &tmp, line, i);
-			i++;
-		}
-		line = tmp;
+		(void)env;
+		// size_t i = 0;
+		// char *tmp;
+		// tmp = NULL;
+		// while (line[i])
+		// {
+		// 	if (line[i] == '$')
+		// 		expansion_env(env, &tmp, line, i);
+		// 	i++;
+		// }
+		// line = tmp;
 		flag = handle_heredoc_line(line, delimiter, fd);
 	}
 	if (close(fd) == -1)
