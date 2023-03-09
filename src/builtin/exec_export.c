@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:39 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 13:19:39 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 19:48:15 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	search_env(t_env **top, char *key, char *value, int flag)
 			if (flag == 1)
 				value = append_env(top, value);
 			free(key);
-			if (ft_strlen(value) != 0)
+			if (value)
 			{
 				free((*top)->value);
 				(*top)->value = value;
@@ -106,8 +106,11 @@ int	add_env(char *com, t_env **env)
 	if (ft_atoi(key) != 0 || ft_strlen(key) == 0 || \
 		key[ft_strlen(key) - 1] == '-' || key[ft_strlen(key) - 1] == '+')
 		return (invalid_identifier(key));
-	value = ft_substr(com, ft_strlen(key) + 1 + flag, \
-		ft_strlen(com) - ft_strlen(key) - 1 - flag);
+	if (ft_strchr(com, '='))
+		value = ft_substr(com, ft_strlen(key) + 1 + flag, \
+			ft_strlen(com) - ft_strlen(key) - 1 - flag);
+	else
+		value = NULL;
 	top = *env;
 	if (search_env(env, key, value, flag) == 1)
 	{
@@ -129,8 +132,7 @@ int	exec_export(char **com, t_env **env)
 	{
 		cnt = 1;
 		while (com[cnt])
-			if (add_env(com[cnt++], env) == FAILURE)
-				return (FAILURE);
+			add_env(com[cnt++], env);
 		return (SUCCESS);
 	}
 	return (FAILURE);

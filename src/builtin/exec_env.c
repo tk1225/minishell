@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:27 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 13:19:27 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 19:36:54 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_env(char **com, t_env **env)
 	top = *env;
 	while (top)
 	{
-		if (ft_strlen(top->key) && ft_strlen(top->value))
+		if (top->key && top->value)
 		{
 			ft_putstr_fd(top->key, STDOUT_FILENO);
 			ft_putchar_fd('=', STDOUT_FILENO);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   export_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:53:39 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 15:53:39 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 19:44:44 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	put_env(t_env *env)
 {
 	ft_putstr_fd("declare -x ", STDOUT_FILENO);
 	ft_putstr_fd(env->key, STDOUT_FILENO);
-	if (ft_strlen(env->value) != 0)
+	if (env->value)
 	{
 		ft_putstr_fd("=\"", STDOUT_FILENO);
 		ft_putstr_fd(env->value, STDOUT_FILENO);

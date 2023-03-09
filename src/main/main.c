@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 00:14:45 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/09 19:41:28 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	insert_tmp(t_env *tmp, char **envp, size_t cnt)
 		tmp->value = ft_substr(envp[cnt], ft_strlen(tmp->key) + 1, \
 			ft_strlen(envp[cnt]) - ft_strlen(tmp->key) - 1);
 	else
-		tmp->value = (char *)ft_calloc(sizeof(char), 1);
+		tmp->value = NULL;
 }
 
 t_env	*env_struct(char **envp)
