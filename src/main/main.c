@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 21:46:51 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/09 21:53:37 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	exec_line(char *line, t_env	*env)
 	char	**res;
 	t_tree	**tree;
 
-	// if (ft_strlen(line) == 0)
-	// 	g_status = 1;
 	if (ft_strlen(line) > 0)
 	{
 		add_history(line);
@@ -106,8 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		rl_outstream = stderr;
 		set_signal_read();
-		line = readline(ft_strjoin(ft_itoa(g_status), "> "));
-		// line = readline("> ");
+		line = readline("> ");
 		if (line == NULL)
 			break ;
 		exec_line(line, env);
