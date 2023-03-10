@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:33 by atito             #+#    #+#             */
-/*   Updated: 2023/03/10 18:27:41 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/10 20:32:12 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ int	exec_exit(char **com, t_env **env)
 	if (com[1] == NULL)
 		exit(g_status);
 	if (com[2] != NULL)
+	{
+		ft_putendl_fd("exit: too many arguments", 2);
 		exit(EXIT_FAILURE);
+	}
 	trimed_com = ft_strtrim(com[1], " ");
 	if (ft_error_check(trimed_com) == FAILURE)
 		exit(255);
