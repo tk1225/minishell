@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:33 by atito             #+#    #+#             */
-/*   Updated: 2023/03/05 13:19:33 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/10 18:13:44 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,15 @@ static int	ft_error_check(const char	*str)
 
 int	exec_exit(char **com, t_env **env)
 {
+	char	*trimed_com;
+
 	(void)env;
 	if (com[2] != NULL)
 		exit(EXIT_FAILURE);
-	if (ft_error_check(com[1]) == FAILURE)
+	trimed_com = ft_strtrim(com[1], " ");
+	if (ft_error_check(trimed_com) == FAILURE)
 		exit(255);
-	exit(ft_atoi(com[1]));
+	exit(ft_atoi(trimed_com));
+	free(trimed_com);
 	return (SUCCESS);
 }
