@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
-/*   Updated: 2023/03/09 21:54:22 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/10 18:02:01 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,12 @@ static char	**convert_envs(t_env **env)
 	return (envp);
 }
 
-static	void	exe_com_helper(char **com, char	**dir, t_env **env)
+static	void	exe_com_helper(char **com, char	**dir, char	**envp)
 {
 	int		cnt;
 	char	*exec_path;
 	char	*tmp;
-	char	**envp;
 
-	envp = convert_envs(env);
-	(void)env;
 	cnt = 0;
 	while (dir[cnt] != NULL)
 	{
@@ -75,10 +72,13 @@ void	exe_com(char **com, t_env **env)
 	char	*path;
 	char	*path_copy;
 	char	**dir;
+	char	**envp;
 
 	path = get_env("PATH", env);
+	envp = convert_envs(env);
 	if (path == NULL)
 	{
+		execve(com[0], com, envp);
 		perror("PATH environment variable not set");
 		exit(EXIT_FAILURE);
 	}
@@ -86,7 +86,7 @@ void	exe_com(char **com, t_env **env)
 	ft_strlcpy(path_copy, path, ft_strlen(path));
 	dir = ft_split(path_copy, ':');
 	free(path_copy);
-	exe_com_helper(com, dir, env);
+	exe_com_helper(com, dir, envp);
 }
 
 int	executer(char **com, t_env **env)
