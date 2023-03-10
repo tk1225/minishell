@@ -35,6 +35,7 @@ OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo "set echo-control-characters off" > ~/.inputrc
 	@make -C $(LIBFT_DIR) --silent
 	@$(CC) -o $@ $^ $(LIBFT_DIR)libft.a $(RDLFLAGS)
 	@echo "##### minishell compiling finished! #####"
