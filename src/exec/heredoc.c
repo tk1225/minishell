@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/09 22:51:40 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/10 17:56:41 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	handle_heredoc(void)
 	}
 	ret = lstat(".tmp.txt", &sb);
 	if (ret == -1)
-		return (1);
+		return (0);
 	fd = open(".tmp.txt", O_RDWR);
 	if (fd == -1)
 	{
