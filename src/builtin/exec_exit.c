@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:33 by atito             #+#    #+#             */
-/*   Updated: 2023/03/10 18:13:44 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/10 18:15:43 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ static int	ft_error_check(const char	*str)
 
 int	exec_exit(char **com, t_env **env)
 {
-	char	*trimed_com;
+	char		*trimed_com;
+	extern int	g_status;
 
 	(void)env;
 	if (com[2] != NULL)
-		exit(EXIT_FAILURE);
+		exit(g_status);
 	trimed_com = ft_strtrim(com[1], " ");
 	if (ft_error_check(trimed_com) == FAILURE)
 		exit(255);
