@@ -51,6 +51,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo "##### Creating" [ $@ ] " #####"
 	@$(CC) $(CFLAGS) $(INC) -o $@ -c $^
 
+debug: fclean dbg
+
+dbg: $(OBJ)
+	@make -C $(LIBFT_DIR) --silent
+	@$(CC) -g -o $@ $^ $(LIBFT_DIR)libft.a $(RDLFLAGS)
+	@echo "##### minishell compiling finished! #####"
+
 clean:
 	@make clean -C $(LIBFT_DIR) --silent
 	@$(RM) $(OBJ_DIR)
@@ -63,4 +70,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug
