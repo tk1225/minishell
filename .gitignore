@@ -1,6 +1,7 @@
 *.o
 *.a
 *.out
+dbg
 minishell
 objs
 .vscode
