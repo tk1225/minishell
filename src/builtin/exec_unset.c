@@ -6,19 +6,49 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:49 by atito             #+#    #+#             */
-/*   Updated: 2023/03/11 21:35:14 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/12 02:46:56 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	delete_top(t_env **env, t_env *top)
+{
+	top = top->next;
+	free(top->prev->key);
+	free(top->prev->value);
+	free(top->prev);
+	top->prev = NULL;
+	*env = top;
+}
+
+static void	delete_end(t_env *top)
+{
+	top = top->prev;
+	free(top->next->key);
+	free(top->next->value);
+	free(top->next);
+	top->next = NULL;
+}
+
+static void	delete_middle(t_env *top)
+{
+	t_env	*tmp;
+
+	tmp = top->next;
+	top = top->prev;
+	free(top->next->key);
+	free(top->next->value);
+	free(top->next);
+	top->next = tmp;
+	tmp->prev = top;
+}
+
 int	exec_unset(char **com, t_env **env)
 {
 	t_env	*top;
-	t_env	*tmp;
 	size_t	cnt;
 
-	(void)com;
 	cnt = 1;
 	while (com[cnt])
 	{
@@ -29,36 +59,12 @@ int	exec_unset(char **com, t_env **env)
 				break ;
 			top = top->next;
 		}
-		printf("test0\n");
 		if (top && !(top->prev))
-		{
-			printf("test1\n");
-			top = top->next;
-			free(top->prev->key);
-			free(top->prev->value);
-			free(top->prev);
-			top->prev = NULL;
-			*env = top;
-		}
+			delete_top(env, top);
 		else if (top && !(top->next))
-		{
-			printf("test2\n");
-			top = top->prev;
-			free(top->next->key);
-			free(top->next->value);
-			free(top->next);
-			top->next = NULL;
-		}
+			delete_end(top);
 		else if (top)
-		{
-			printf("test3\n");
-			tmp = top->next;
-			top = top->prev;
-			free(top->next->key);
-			free(top->next->value);
-			free(top->next);
-			top->next = tmp;
-		}
+			delete_middle(top);
 		cnt += 1;
 	}
 	return (SUCCESS);

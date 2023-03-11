@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/10 17:56:41 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 02:06:25 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	read_heredoc(const char *delimiter, t_env **env)
 	{
 		g_status = 0;
 		set_signal_heredoc();
-		write(2, "heredoc> ", 9);
+		write(2, "> ", 3);
 		line = get_next_line(STDIN_FILENO);
 		i = 0;
 		tmp = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:11:40 by takuokam          #+#    #+#             */
-/*   Updated: 2023/03/08 23:58:37 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 02:07:59 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ static char	*ft_read(char *buf, int fd, char *st_save[])
 char	*get_next_line(int fd)
 {
 	char		*buf;
-	static char	*st_save[OPEN_MAX + 1];
+	static char	*st_save[FOPEN_MAX + 1];
 	char		*res;
 	char		*tmp;
 
 	buf = NULL;
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (ft_strchr_len(st_save[fd], '\n') != -1)
 	{
