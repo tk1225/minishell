@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:19:53 by atito             #+#    #+#             */
-/*   Updated: 2023/03/10 18:02:01 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 15:43:37 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static	void	exe_com_helper(char **com, char	**dir, char	**envp)
 		exec_path = ft_strjoin(tmp, com[0]);
 		free(tmp);
 		if (access(exec_path, X_OK) == 0)
-			if (execve(exec_path, com, envp) == -1)
+			if (execve(exec_path, com, NULL) == -1)
 				exit(EXIT_FAILURE);
 		cnt += 1;
 		free(exec_path);

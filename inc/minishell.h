@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:50:36 by atito             #+#    #+#             */
-/*   Updated: 2023/03/09 22:20:31 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 15:58:58 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int		exec_unset(char **com, t_env **env);
 int		add_env(char *com, t_env **env);
 int		put_env(t_env *env);
 t_env	*make_env(char c);
-int		add_back_env(t_env **env, char *key, char *value);
+int		add_back_env(t_env **env, char *key, char *value, t_env *top);
 void	bubble_sort(char **arr);
 int		invalid_identifier(char *key);
 char	*append_env(t_env **top, char *value);

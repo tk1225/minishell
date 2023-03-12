@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:53:39 by atito             #+#    #+#             */
-/*   Updated: 2023/03/09 19:44:44 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/12 15:59:48 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_env	*make_env(char c)
 	return (tmp);
 }
 
-int	add_back_env(t_env **env, char *key, char *value)
+int	add_back_env(t_env **env, char *key, char *value, t_env *top)
 {
 	t_env		*tmp;
 
@@ -48,7 +48,13 @@ int	add_back_env(t_env **env, char *key, char *value)
 	tmp->value = value;
 	tmp->prev = *env;
 	tmp->next = NULL;
+	if ((*env) == NULL)
+	{
+		(*env) = tmp;
+		return (SUCCESS);
+	}
 	(*env)->next = tmp;
+	(*env) = top;
 	return (SUCCESS);
 }
 

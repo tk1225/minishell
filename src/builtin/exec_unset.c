@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:49 by atito             #+#    #+#             */
-/*   Updated: 2023/03/12 02:46:56 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/12 15:45:21 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 static void	delete_top(t_env **env, t_env *top)
 {
+	if (top->next == NULL)
+	{
+		free(top);
+		top = NULL;
+		*env = top;
+		return ;
+	}
 	top = top->next;
 	free(top->prev->key);
 	free(top->prev->value);
