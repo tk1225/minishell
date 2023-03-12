@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:44:31 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/07 13:13:57 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/12 18:59:54 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,16 @@ int	exec_builtin(t_tree *tree, t_env **env)
 	original_stdin_fd = dup_wrapper(STDIN_FILENO);
 	original_stdout_fd = dup_wrapper(STDOUT_FILENO);
 	if (recognize_redirect(tree->com) == 1)
+	{
+		dup2_wrapper(original_stdin_fd, STDIN_FILENO);
+		dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 		return (1);
+	}
 	expansion(tree->com, env);
+	dup2_wrapper(original_stdin_fd, STDIN_FILENO);
+	dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 	if (builtin_set(tree->com, env) != FAILURE)
-	{
-		dup2_wrapper(original_stdin_fd, STDIN_FILENO);
-		dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 		return (0);
-	}
 	else
-	{
-		dup2_wrapper(original_stdin_fd, STDIN_FILENO);
-		dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 		return (1);
-	}
 }
