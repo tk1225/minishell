@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/12 02:06:00 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/12 15:26:19 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	check_heredoc(char **res, t_env **env)
 	}
 }
 
-void	exec_line(char *line, t_env	*env)
+void	exec_line(char *line, t_env	**env)
 {
 	char	**res;
 	t_tree	**tree;
@@ -77,7 +77,7 @@ void	exec_line(char *line, t_env	*env)
 	{
 		add_history(line);
 		res = lexer(line);
-		check_heredoc(res, &env);
+		check_heredoc(res, env);
 		tree = parser(res);
 		if (!((*tree)->com && !(*tree)->com[0]) && syntax_check(*tree) > 0)
 		{
@@ -85,7 +85,7 @@ void	exec_line(char *line, t_env	*env)
 			g_status = 2;
 		}
 		else if (!((*tree)->com && !(*tree)->com[0]))
-			g_status = exec_recursion(*tree, &env);
+			g_status = exec_recursion(*tree, env);
 		free_tree(*tree);
 		free(tree);
 		free(res);
@@ -95,11 +95,12 @@ void	exec_line(char *line, t_env	*env)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
-	t_env	*env;
+	t_env	**env;
 
 	(void)argv;
 	(void)argc;
-	env = env_struct(envp);
+	env = (t_env **)alloc_exit(sizeof(t_env**), 1);
+	*env = env_struct(envp);
 	while (1)
 	{
 		rl_outstream = stderr;
@@ -110,7 +111,8 @@ int	main(int argc, char **argv, char **envp)
 		exec_line(line, env);
 		free(line);
 	}
-	free_env(env);
+	free_env(*env);
+	free(env);
 	exit(g_status);
 	return (g_status);
 }
