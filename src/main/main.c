@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/12 15:26:19 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 15:28:12 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	env = (t_env **)alloc_exit(sizeof(t_env**), 1);
+	env = (t_env **)alloc_exit(sizeof(t_env **), 1);
 	*env = env_struct(envp);
 	while (1)
 	{
