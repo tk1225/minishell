@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:13:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/05 14:13:15 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 18:36:17 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	dup2_wrapper(int fd, int fd2)
 {
 	if (dup2(fd, fd2) == -1)
 		error_exit("dup2");
+}
+
+void	close_wrapper(int fd)
+{
+	if (close(fd) == -1)
+		error_exit("close");
 }

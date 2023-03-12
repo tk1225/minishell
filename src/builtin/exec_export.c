@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:39 by atito             #+#    #+#             */
-/*   Updated: 2023/03/12 16:01:08 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 18:43:25 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ int	add_env(char *com, t_env **env)
 		*env = top;
 		return (SUCCESS);
 	}
-	flag = add_back_env(env, key, value, top);
-	return (flag);
+	return (add_back_env(env, key, value, top));
 }
 
 int	exec_export(char **com, t_env **env)

@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:50:36 by atito             #+#    #+#             */
-/*   Updated: 2023/03/12 15:58:58 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/12 18:36:46 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ pid_t	fork_wrapper(void);
 int		dup_wrapper(int fd);
 void	dup2_wrapper(int fd, int fd2);
 char	*get_absolute_path(const char *path);
+void	close_wrapper(int fd);
 
 //exec
 int		exec_recursion(t_tree *tree, t_env **env);
