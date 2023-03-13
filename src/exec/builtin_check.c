@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 12:44:31 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/12 18:59:54 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/13 22:51:56 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,16 @@ int	exec_builtin(t_tree *tree, t_env **env)
 		return (1);
 	}
 	expansion(tree->com, env);
-	dup2_wrapper(original_stdin_fd, STDIN_FILENO);
-	dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 	if (builtin_set(tree->com, env) != FAILURE)
+	{
+		dup2_wrapper(original_stdin_fd, STDIN_FILENO);
+		dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 		return (0);
+	}
 	else
+	{
+		dup2_wrapper(original_stdin_fd, STDIN_FILENO);
+		dup2_wrapper(original_stdout_fd, STDOUT_FILENO);
 		return (1);
+	}
 }

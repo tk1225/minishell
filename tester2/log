@@ -2,18 +2,10 @@
 
  minishell
 ****************************TEST***************************
-echo 'test\ntest' | head | wc -l | cat
-  diff KO
-
- 本家**       2
-
- **本家
-
- minishell**
- **minishell
+ls fdsdsf                     
 ****************************TEST***************************
-cat ./test_files/infile_big | grep oi
+test                          
 ****************************TEST***************************
-cat minishell.h | grep ");"$  
+cat vdkfvkd                   
 ****************************TEST***************************
-export GHOST=123 | env | grep GHOST
+echo                          
