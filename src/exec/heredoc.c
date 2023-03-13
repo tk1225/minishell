@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/12 19:09:11 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/13 21:35:20 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ extern int	g_status;
 
 static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 {
-	int	new_stdin_fd;
+	int		new_stdin_fd;
+	char	*tmp;
 
 	if (line == NULL)
 	{
@@ -24,12 +25,15 @@ static int	handle_heredoc_line(char *line, const char *delimiter, int fd)
 		dup2(new_stdin_fd, STDIN_FILENO);
 		return (0);
 	}
-	if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+	tmp = ft_strtrim(line, "\n");
+	if (ft_strncmp(tmp, delimiter, ft_strlen(delimiter) + 1) == 0)
 	{
+		free(tmp);
 		free(line);
 		return (0);
 	}
-	write(fd, line, ft_strlen(line));
+	ft_putstr_fd(line, fd);
+	free(tmp);
 	free(line);
 	return (1);
 }
