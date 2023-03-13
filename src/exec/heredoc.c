@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/13 21:35:20 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/13 21:39:45 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,14 @@ static char	*handle_env_in_heredoc(char *line, t_env **env)
 	while (line[i])
 	{
 		if (line[i] == '$')
+		{
 			expansion_env(env, &tmp, line, i + 1);
+			if (tmp == NULL)
+			{
+				free(line);
+				line = ft_strdup("\n");
+			}
+		}
 		i++;
 	}
 	if (tmp != NULL)
