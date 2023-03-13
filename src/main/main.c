@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 14:32:12 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/12 15:28:12 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/13 23:23:54 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	main(int argc, char **argv, char **envp)
 	*env = env_struct(envp);
 	while (1)
 	{
-		rl_outstream = stderr;
 		set_signal_read();
 		line = readline("minishell> ");
 		if (line == NULL)

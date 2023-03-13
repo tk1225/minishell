@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/13 23:14:00 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/13 23:22:51 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	read_heredoc(const char *delimiter, t_env **env)
 	{
 		g_status = 0;
 		set_signal_heredoc();
-		write(2, "> ", 3);
+		ft_putstr_fd("> ", 1);
 		line = get_next_line(STDIN_FILENO);
 		if (line != NULL)
 			line = handle_env_in_heredoc(line, env);
