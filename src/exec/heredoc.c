@@ -6,7 +6,7 @@
 /*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 12:34:14 by takumasaoka       #+#    #+#             */
-/*   Updated: 2023/03/13 21:39:45 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/13 23:14:00 by takumasaoka      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	read_heredoc(const char *delimiter, t_env **env)
 	int		flag;
 
 	flag = 1;
-	fd = open(".tmp.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
+	fd = open(".tmp.txt", O_RDWR | O_CREAT, 0777);
 	while (flag)
 	{
 		g_status = 0;

@@ -1,1 +1,13 @@
-hello
+Makefile
+inc
+libft
+minishell
+minishell_tester
+objs
+setup.sh
+src
+test
+test1
+test2
+tester
+tester2
