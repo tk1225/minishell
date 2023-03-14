@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:50:36 by atito             #+#    #+#             */
-/*   Updated: 2023/03/12 18:36:46 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/14 13:47:22 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		add_back_env(t_env **env, char *key, char *value, t_env *top);
 void	bubble_sort(char **arr);
 int		invalid_identifier(char *key);
 char	*append_env(t_env **top, char *value);
+int		is_valid_key(char *key);
 
 //syntax
 int		syntax_check(t_tree *tree);
