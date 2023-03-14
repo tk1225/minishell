@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takumasaokamoto <takumasaokamoto@studen    +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:19:39 by atito             #+#    #+#             */
-/*   Updated: 2023/03/12 18:43:25 by takumasaoka      ###   ########.fr       */
+/*   Updated: 2023/03/14 13:46:58 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ int	add_env(char *com, t_env **env)
 	t_env	*top;
 
 	flag = 0;
-	if (com[ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - 1] == '+')
+	if (com[ft_strlen(com) - ft_strlen(ft_strchr(com, '=')) - 1] == '+' && \
+		com[ft_strlen(com) - ft_strlen(ft_strchr(com, '='))] == '=')
 		flag = 1;
 	key = ft_substr(com, 0, ft_strlen(com) - \
 		ft_strlen(ft_strchr(com, '=')) - flag);
-	if (ft_atoi(key) != 0 || ft_strlen(key) == 0 || \
-		key[ft_strlen(key) - 1] == '-' || key[ft_strlen(key) - 1] == '+')
+	if (is_valid_key(key))
 		return (invalid_identifier(key));
 	if (ft_strchr(com, '='))
 		value = ft_substr(com, ft_strlen(key) + 1 + flag, \
