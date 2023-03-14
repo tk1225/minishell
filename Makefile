@@ -41,7 +41,6 @@ $(NAME): $(OBJ)
 	@echo "##### minishell compiling finished! #####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)$(BUILT_DIR)
 	@mkdir -p $(OBJ_DIR)$(EXEC_DIR)
 	@mkdir -p $(OBJ_DIR)$(MAIN_DIR)
