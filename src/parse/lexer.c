@@ -6,7 +6,7 @@
 /*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 20:38:13 by atito             #+#    #+#             */
-/*   Updated: 2023/03/07 10:20:06 by atito            ###   ########.fr       */
+/*   Updated: 2023/03/18 13:19:47 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	judge_insert(char const *s, int *quote, size_t *cnt)
 	int		flag;
 
 	space = ft_strdup(" \t\n\v\f\r");
-	split = ft_strdup(";()<>|&");
+	split = ft_strdup("<>|");
 	flag = 0;
 	if (*quote == OUT_QUOTE && s[*cnt] != s[*cnt + 1] && \
 		ft_strchr(split, s[*cnt]))
@@ -46,10 +46,8 @@ static void	insert_word(char **lst, char const *s)
 	size_t	len;
 	int		quote;
 	char	*space;
-	char	*split;
 
 	space = ft_strdup(" \t\n\v\f\r");
-	split = ft_strdup(";()<>|&");
 	cnt = 0;
 	len = 0;
 	quote = OUT_QUOTE;
@@ -65,7 +63,6 @@ static void	insert_word(char **lst, char const *s)
 		}
 	}
 	free(space);
-	free(split);
 	*lst = NULL;
 }
 

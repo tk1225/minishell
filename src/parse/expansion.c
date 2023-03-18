@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takuokam <takuokam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atito <atito@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 13:23:57 by atito             #+#    #+#             */
-/*   Updated: 2023/03/09 20:39:30 by takuokam         ###   ########.fr       */
+/*   Updated: 2023/03/18 13:20:28 by atito            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ size_t	expansion_env(t_env **env, char **str, char *com, size_t cnt)
 	char		*tmp;
 
 	len = 0;
-	while (com[cnt] && !ft_strchr("$\'\" \t\n\v\f\r", com[cnt]))
+	while (ft_isalnum(com[cnt]) || com[cnt] == '_')
 	{
 		cnt += 1;
 		len += 1;
+		if (ft_isdigit(com[1]))
+			break ;
 	}
 	prm = ft_substr(com, cnt - len, len);
 	tmp = next_dollar(env, str, prm);
